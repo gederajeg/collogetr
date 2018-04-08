@@ -1,0 +1,25 @@
+Package: collogetr
+Type: Package
+Title: Collocates retriever
+Version: 0.1.0
+Author: Gede Primahadi Wijaya Rajeg
+Maintainer: Gede Primahadi Wijaya Rajeg <primahadiwijaya@gmail.com>
+Description: Generates collocates from raw text corpora.
+    The current functionality deals with the sentence-based corpus from the (Indonesian) Leipzig Corpora.
+Depends: R (>= 3.3.1)
+Imports:
+  dplyr (>= 0.7.4),
+  tidyr (>= 0.8.0),
+  purrr (>= 0.2.4),
+  stringr (>= 1.2.0),
+  readr (>= 1.1.1),
+  tibble (>= 1.4.2),
+  rlang (>= 0.1.6),
+  stringi (>= 1.1.6),
+  assertthat (>= 0.2.0)
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: testthat
+URL: https://github.com/gederajeg/collogetr

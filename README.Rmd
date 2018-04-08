@@ -1,0 +1,74 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/>
+**License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+scaps <- function(concept) {
+  paste("<span style='font-variant:small-caps;'>", concept, "</span>", sep="")
+}
+```
+
+# collogetr
+
+The goal of collogetr is to perform window-span collocates retrieval from the sentence-based corpus of the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). It is powered by most of the core packages from the [tidyverse](https://www.tidyverse.org). The initial purpose of this package was to help me with my [PhD thesis](http://rpubs.com/primahadi/ca_3d_metaphor_happiness_synonyms_Indonesian) on `r scaps("happiness")` metaphors in Indonesian based on data from the Leipzig Corpora.
+
+This package is under development. There is currently one function (`colloc_leipzig()`) available.
+Future plan is to include other function for generating non-Leipzig, sentence-based corpus inputs, and functions to perform [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html).
+The development version of the package can be installed via GitHub with [devtools](https://github.com/hadley/devtools):
+
+```{r eval = FALSE}
+library(devtools)
+install_github("gederajeg/collogetr")
+```
+
+
+## Example for retrieving the collocates with `colloc_leipzig()`.
+
+The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken.
+
+```{r example}
+library(collogetr)
+out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
+                       pattern = "\\bke\\b",
+                       window = "r",
+                       span = 1,
+                       save_interim = FALSE)
+```
+
+The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below.
+
+```{r leipzig_list_input}
+lapply(demo_corpus_leipzig[2:3], sample, 3)
+```
+
+The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
+
+## Exploring the output of `colloc_leipzig()`.
+
+The output of `colloc_leipzig()` is a list of `r length(out)` elements.
+
+```{r colloc_output}
+str(out)
+```
+
+The first is `collocs_df` that is a tibble of raw collocates data, that is, not yet counted for their frequencies. The frequencies of the collocates are stored in the second element, namely `collocs_freq`. The `words_freq` element consist of frequency list of all word-tokens in the loaded corpus. This frequencly-list data (and the `all_corpus_size` data), is included for further development of this function to include functions to perform collocational strength measure for the search pattern with the collocates.
+
+```{r colloc_freq_output}
+# top-10 most frequent collocates in the sample corpus
+out$collocs_freq[1:10,]
+```
+
+
