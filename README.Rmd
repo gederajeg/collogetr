@@ -40,7 +40,7 @@ install_github("gederajeg/collogetr")
 
 ## Example for retrieving the collocates with `colloc_leipzig()`.
 
-The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken.
+The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken. The input corpus below (i.e. `demo_corpus_leipzig`) is included as data in this package whose documentation can be accessed via `?demo_corpus_leipzig`.
 
 ```{r example}
 library(collogetr)
