@@ -4,7 +4,7 @@ Title: Collocates retriever
 Version: 0.1.0
 Author: Gede Primahadi Wijaya Rajeg
 Maintainer: Gede Primahadi Wijaya Rajeg <primahadiwijaya@gmail.com>
-Description: Generates collocates from raw text corpora.
+Description: Generates window-span collocates from raw text corpora.
     The current functionality deals with the sentence-based corpus from the (Indonesian) Leipzig Corpora.
 Depends: R (>= 3.3.1)
 Imports:
