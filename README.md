@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 **Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)<br/>
 
-[![Travis-CI Build Status](https://travis-ci.com/gederajeg/collogetr.svg?branch=master)](https://travis-ci.com/gederajeg/collogetr)<br/> [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr)<br/> [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
 =========
@@ -59,14 +59,14 @@ The collocates are restricted to those occurring one-word to the right of *ke* (
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "121923 \"Saat ini penjualan daging turun sekitar 26 kg/hari dibandingkan tahun 2007 yang mencapai 50 kg per hari,\" katanya."                                                                                                        
-#> [2] "124531 Pada waktu itu, harga minyak selama 20 tahun stabil 10-20 dolar AS, sehingga patokan batas atas Fujian sebesar 25 dolar AS dinilai cukup layak."                                                                              
-#> [3] "94698 Mereka membahas rencana Pentagon membentuk komando baru untuk Afrika dan pidato Gates di Universitas Negeri Kansas yang menyerukan digunakannya \"soft power\" yang lebih besar oleh AS,\" kata Sekretaris Pers Geoff Morrell."
+#> [1] "190702 \"Jadi si penghubung ini yang akan mendaftarkan bakal calon."                                                                                                                                     
+#> [2] "61213 \"Mereka (pengusaha China) umumnya belum terlalu mengenal Indonesia secara baik dibanding dengan pengusaha dari negara-negara lain yang sudah lebih dahulu bermitra dengan Indonesia,\" kata Iwan."
+#> [3] "135451 Saat ini, kliennya masih menjabat sebagai kepada desa di Alor, NTT."                                                                                                                              
 #> 
 #> $ind_news_2009_300K
-#> [1] "37684 Fraksi yang menolak hak angket ini adalah Partai Demokrat, PKS dan PDS."                                                             
-#> [2] "223203 Selanjutnya di Malalak Selatan, dari 62 korban yang dicari, telah ditemukan 28 orang dan belum ditemukan 34 orang."                 
-#> [3] "27598 Manchester United, juara Liga Premier dan Liga Champions, membukukan peningkatan 21 persen dalam pendapatan menjadi 324,8 juta euro."
+#> [1] "185886 Menit berikutnya berulang kali Deltras menggempur Persijap, tapi karena finishing touch yang tak sempurna kedudukan gol tak berubah."                                                                                            
+#> [2] "168272 Menurut informasi, petugas Bandara SMB II Palembang, Sabtu siang, sekitar pkl."                                                                                                                                                  
+#> [3] "154778 \"Ia mengirim mereka ke teroris, di salah satu lahan pertanian tempat mereka memberi wanita-wanita bunuhdiri itu dengan bom, dan kemudian Samira membawa wanita-wanita itu ke tempat yang menjadi sasaran serangan,\" kata Atta."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
