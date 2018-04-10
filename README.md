@@ -54,19 +54,19 @@ out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
 #> DONE with "ind_news_2009_300K"!
 ```
 
-The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below. Note that the `demo_corpus_leipzig` is included as dataset in this package.
+The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below.
 
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "159057 Oleh karena itu, pihaknya atas nama pimpinan ITS mengucapkan terima kasih yang sebesar-besarnya kepada segenap masyarakat ITS yang telah ikut membantu selama proses visitasi dengan tulus."
-#> [2] "124374 \"Putusan PTUN mengacu pada putusan Mahkamah Konstitusi (MK)."                                                                                                                              
-#> [3] "224221 Billy yang membawa tas warna hitam berdiri di sebelah Iqbal."                                                                                                                               
+#> [1] "121923 \"Saat ini penjualan daging turun sekitar 26 kg/hari dibandingkan tahun 2007 yang mencapai 50 kg per hari,\" katanya."                                                                                                        
+#> [2] "124531 Pada waktu itu, harga minyak selama 20 tahun stabil 10-20 dolar AS, sehingga patokan batas atas Fujian sebesar 25 dolar AS dinilai cukup layak."                                                                              
+#> [3] "94698 Mereka membahas rencana Pentagon membentuk komando baru untuk Afrika dan pidato Gates di Universitas Negeri Kansas yang menyerukan digunakannya \"soft power\" yang lebih besar oleh AS,\" kata Sekretaris Pers Geoff Morrell."
 #> 
 #> $ind_news_2009_300K
-#> [1] "97227 Berbicara singkat dua menit sebelum acara konser yang menampilkan operet dan lagu dari grup legendaris The Beatles, Peggy memperkenalkan Indonesia sebagai negeri ribuan pulau dan penduduk 200 juta, kemudian mengajak anak-anak itu mengunjungi Indonesia."
-#> [2] "28974 Perbaikan tersebut diharuskan, mengingat dalam rapat pleno KPU diketahui bahwa masih ada masalah pada penghitungan perolehan suara di Nias Selatan."                                                                                                         
-#> [3] "82265 Rencananya lagu ini akan dibikin album bersama Nina Tamam, Rika Roeslan dan Iga Mawarni."
+#> [1] "37684 Fraksi yang menolak hak angket ini adalah Partai Demokrat, PKS dan PDS."                                                             
+#> [2] "223203 Selanjutnya di Malalak Selatan, dari 62 korban yang dicari, telah ditemukan 28 orang dan belum ditemukan 34 orang."                 
+#> [3] "27598 Manchester United, juara Liga Premier dan Liga Champions, membukukan peningkatan 21 persen dalam pendapatan menjadi 324,8 juta euro."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
