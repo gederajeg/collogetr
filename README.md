@@ -19,7 +19,7 @@ install_github("gederajeg/collogetr")
 Example for retrieving the collocates with `colloc_leipzig()`.
 --------------------------------------------------------------
 
-The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken.
+The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken. The input corpus below (i.e. `demo_corpus_leipzig`) is included as data in this package whose documentation can be accessed via `?demo_corpus_leipzig`.
 
 ``` r
 library(collogetr)
@@ -54,19 +54,19 @@ out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
 #> DONE with "ind_news_2009_300K"!
 ```
 
-The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below.
+The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below. Note that the `demo_corpus_leipzig` is included as dataset in this package.
 
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "55317 \"Boonsak adalah favorit sebagai tunggal pertama, mungkin akan sulit mengalahkan dia, tetapi dari empat partai lainnya kami punya peluang,\" paparnya."                                   
-#> [2] "239121 \"Bila suku bunga naik sebesar satu persen, maka rasio kecukupan modal perbankan hanya tergerus 0,23 persen,\" katanya."                                                                 
-#> [3] "246632 Pada 3 Maret lalu, tokoh kelahiran 26 Desember 1949 dan peraih Nobel Perdamaian tahun 1996 itu bahkan sudah memaafkan Alfredo Reinado dan meminta pemerintah mendukung keluarga Reinado."
+#> [1] "159057 Oleh karena itu, pihaknya atas nama pimpinan ITS mengucapkan terima kasih yang sebesar-besarnya kepada segenap masyarakat ITS yang telah ikut membantu selama proses visitasi dengan tulus."
+#> [2] "124374 \"Putusan PTUN mengacu pada putusan Mahkamah Konstitusi (MK)."                                                                                                                              
+#> [3] "224221 Billy yang membawa tas warna hitam berdiri di sebelah Iqbal."                                                                                                                               
 #> 
 #> $ind_news_2009_300K
-#> [1] "127192 Para pengamat melukiskan langkah mereka sebagai proteksionis."                                                                                                                                                                    
-#> [2] "51915 Telkom menawarkan tujuh paket program tagihan tetap mulai dari Rp65 ribu, Rp100 ribu, Rp150 ribu, Rp250 ribu bahkan sampai paket Rp1,5 juta per bulan, demikian Elvizar didampingi manajer komunikasi Telkom KTI Hartati Muchlisi."
-#> [3] "7011 Dengan adanya penambahan modal, semua pemegang saham harus menaikkan kontribusinya, kalau ada negara yang mungkin tidak mau menambah sehingga mengalami dilusi maka bagian itu akan diambil alih oleh negara lain."
+#> [1] "97227 Berbicara singkat dua menit sebelum acara konser yang menampilkan operet dan lagu dari grup legendaris The Beatles, Peggy memperkenalkan Indonesia sebagai negeri ribuan pulau dan penduduk 200 juta, kemudian mengajak anak-anak itu mengunjungi Indonesia."
+#> [2] "28974 Perbaikan tersebut diharuskan, mengingat dalam rapat pleno KPU diketahui bahwa masih ada masalah pada penghitungan perolehan suara di Nias Selatan."                                                                                                         
+#> [3] "82265 Rencananya lagu ini akan dibikin album bersama Nina Tamam, Rika Roeslan dan Iga Mawarni."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
