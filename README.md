@@ -1,5 +1,8 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)<br/>
+
+[![Travis-CI Build Status](https://travis-ci.com/gederajeg/collogetr.svg?branch=master)](https://travis-ci.com/gederajeg/collogetr)<br/> [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
 =========
@@ -56,14 +59,14 @@ The collocates are restricted to those occurring one-word to the right of *ke* (
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "206930 Jika lolos seleksi, Hoketsu akan menjadi atlit tertua dalam sejarah yang mewakili Jepang di Olimpiade."                                                                                                                         
-#> [2] "94553 Namun jika \"bailout\" 25 miliar AS dolar yang diminta \"big three\" gagal diperoleh, dia yakin GM Amerika lah yang akan terkena dampak besar dan prinsipal akan menyelamatkan pabriknya di belahan dunia lain terlebih di Asia."
-#> [3] "178025 Pekan lalu seorang perwira senior Cina memperingatkan bahwa kelompok separatis Islam merupakan bahaya terbesar bagi Olimpiade."                                                                                                 
+#> [1] "55317 \"Boonsak adalah favorit sebagai tunggal pertama, mungkin akan sulit mengalahkan dia, tetapi dari empat partai lainnya kami punya peluang,\" paparnya."                                   
+#> [2] "239121 \"Bila suku bunga naik sebesar satu persen, maka rasio kecukupan modal perbankan hanya tergerus 0,23 persen,\" katanya."                                                                 
+#> [3] "246632 Pada 3 Maret lalu, tokoh kelahiran 26 Desember 1949 dan peraih Nobel Perdamaian tahun 1996 itu bahkan sudah memaafkan Alfredo Reinado dan meminta pemerintah mendukung keluarga Reinado."
 #> 
 #> $ind_news_2009_300K
-#> [1] "56183 Jadi keluarnya ijin tersebut harus melalui rekomendasi tim pokja yang anggotanya meliputi dinas Perijinan, Lingkungan Hidup, Pekerjaan Umum, Bagian Hukum, Pemerintahan, hingga Satpol PP,\" katanya."
-#> [2] "177482 Guru besar UGM ini mengungkapkan bahwa Paku Buwono X sebelumnya sudah membaca perkembangan dan mendorong putra-putra dan kerabat keraton agar belajar untuk melakukan gerakan perjuangan."           
-#> [3] "280730 Bagi pebisnis terbentuknya kabinet yang sah hasil pemilu merupakan pertanda bagi kepastian bisnis,\" kata mantan pimpinan Panasonic di Indonesia itu."
+#> [1] "127192 Para pengamat melukiskan langkah mereka sebagai proteksionis."                                                                                                                                                                    
+#> [2] "51915 Telkom menawarkan tujuh paket program tagihan tetap mulai dari Rp65 ribu, Rp100 ribu, Rp150 ribu, Rp250 ribu bahkan sampai paket Rp1,5 juta per bulan, demikian Elvizar didampingi manajer komunikasi Telkom KTI Hartati Muchlisi."
+#> [3] "7011 Dengan adanya penambahan modal, semua pemegang saham harus menaikkan kontribusinya, kalau ada negara yang mungkin tidak mau menambah sehingga mengalami dilusi maka bagian itu akan diambil alih oleh negara lain."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
@@ -96,7 +99,7 @@ str(out)
 #>  $ node_regex_exact: chr "^ke$"
 ```
 
-The first is `collocs_df` that is a tibble of raw collocates data, that is, not yet counted for their frequencies. The frequencies of the collocates are stored in the second element, namely `collocs_freq`. The `words_freq` element consist of frequency list of all word-tokens in the loaded corpus. This data is included for further development of this function to include functions to perform collocational strength measure for the search pattern with the collocates.
+The first is `collocs_df` that is a tibble of raw collocates data, that is, not yet counted for their frequencies. The frequencies of the collocates are stored in the second element, namely `collocs_freq`. The `words_freq` element consist of frequency list of all word-tokens in the loaded corpus. This frequencly-list data (and the `all_corpus_size` data), is included for further development of this function to include functions to perform collocational strength measure for the search pattern with the collocates.
 
 ``` r
 # top-10 most frequent collocates in the sample corpus
