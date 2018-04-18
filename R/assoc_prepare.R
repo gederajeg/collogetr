@@ -4,6 +4,7 @@
 #' @description The function to produce frequency table required as input for association measures for collocations
 #' @param colloc_out The output list of \code{\link{colloc_leipzig}}.
 #' @param stopword_list Character vectors containing list of stopwords to be removed from the collocation measures.
+#' @param mpfr_precision Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
 #' @export
 #' @importFrom purrr is_null
 #' @importFrom dplyr filter
@@ -15,6 +16,7 @@
 #' @importFrom rlang :=
 #' @importFrom rlang .data
 #' @importFrom stringr str_detect
+#' @importFrom tidyr nest
 #'
 #' @return A tbl_df version of contigency table
 #' @examples
@@ -22,7 +24,7 @@
 #'  assoc_tb <- assoc_prepare(colloc_leipzig_output, stopword_list = NULL)
 #' }
 #'
-assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL) {
+assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precision = 120) {
 
   # check if stopwords removed from the calculation of collocation strength
   if(!purrr::is_null(stopword_list)) {
@@ -52,11 +54,33 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL) {
   b <- dplyr::quo(b)
   c <- dplyr::quo(c)
   d <- dplyr::quo(d)
+  assoc <- dplyr::quo(assoc)
 
   # get the frequency for the contigency table inputs
   assoc_tb <- dplyr::mutate(assoc_tb,
                             !!dplyr::quo_name(b) := .data$n_w_in_corp - .data$a,
                             !!dplyr::quo_name(c) := .data$n_pattern - .data$a,
                             !!dplyr::quo_name(d) := .data$corpus_size - (.data$a + .data$b + .data$c))
+
+
+  # compute the expected co-occurrence frequency
+  if (!purrr::is_null(mpfr_precision)) {
+    margin_product <- Rmpfr::asNumeric(Rmpfr::mpfr((assoc_tb$n_w_in_corp * assoc_tb$n_pattern), mpfr_precision))
+    a_exp <- Rmpfr::asNumeric(Rmpfr::mpfr((margin_product/assoc_tb$corpus_size), mpfr_precision))
+  } else {
+    margin_product <- assoc_tb$n_w_in_corp * assoc_tb$n_pattern
+    a_exp <- margin_product/assoc_tb$corpus_size
+  }
+
+  # add the expected frequency into the tibble
+  assoc_tb$a_exp <- a_exp
+
+  # add association direction
+  assoc_tb <- dplyr::mutate(assoc_tb,
+                            !!dplyr::quo_name(assoc) := "neutral",
+                            !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a > .data$a_exp, "attraction"),
+                            !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a < .data$a_exp, "repulsion"))
+
+  assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, w)) # nest the data columns required for row-wise FYE with purrr map
   return(assoc_tb)
 }

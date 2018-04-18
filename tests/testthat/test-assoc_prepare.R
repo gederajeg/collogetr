@@ -14,8 +14,8 @@ test_that("output of assoc_prepare is a tibble", {
   expect_output(str(assoc_tb), "(tbl_df|tbl|data\\.frame)", perl = TRUE)
 })
 
-test_that("output of assoc_prepare consists of eight (8) column", {
-  expect_equal(dim(assoc_tb)[2], 8L)
+test_that("output of assoc_prepare consists of eight (2) column", {
+  expect_equal(dim(assoc_tb)[2], 2L)
 })
 
 # prepare small stopwords list
