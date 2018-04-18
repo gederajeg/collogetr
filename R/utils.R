@@ -230,6 +230,42 @@ word_vect_to_df <- function(tokenised_text = NULL) {
   return(out_df)
 }
 
+#' Fisher's Exact Test
+#'
+#' @description Perform one-tailed Fisher's Exact test for the collostruction/collocation strength.
+#'     The \emph{p}-value is log-transformed to the base of ten as in the \emph{Collostructional Analysis}.
+#'     This is an internal function called via \code{\link{fye}}.
+#' @param df The output of \code{\link{assoc_prepare}}.
+#' @param mpfr_precision Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
+#' @param collstr_digit The floating digits of the collostruction strength. The default is \code{3}.
+#'
+#' @return A double vector of collostruction strength
+#'
+fye_compute <- function(df, mpfr_precision = NULL, collstr_digit = NULL) {
+
+  # get into crosstabulation format
+  crosstab <- rbind(c(df$a, df$b), c(df$c, df$d))
+
+  # FYE computation
+  if (!purrr::is_null(mpfr_precision)) { # if it requires MPFR precision floating point
+    if (df$a > df$a_exp) {
+      pval <- stats::fisher.test(crosstab, alternative = "greater")$p.value
+      pval <- Rmpfr::asNumeric(Rmpfr::mpfr(pval, mpfr_precision))
+      collstr <- round(-log10(pval), collstr_digit)
+    } else {
+      pval <- stats::fisher.test(crosstab, alternative = "less")$p.value
+      pval <- Rmpfr::asNumeric(Rmpfr::mpfr(pval, mpfr_precision))
+      collstr <- round(-log10(pval), collstr_digit)
+    }
+  } else { # if MPFR precision is not required
+    collstr <- dplyr::if_else(df$a > df$a_exp,
+                              round(-log10(stats::fisher.test(crosstab, alternative = "greater")$p.value), collstr_digit),
+                              round(log10(stats::fisher.test(crosstab, alternative = "less")$p.value), collstr_digit))
+  }
+
+  return(collstr)
+}
+
 ## Below are codes used to test-run the function
 # span = 3
 # window = "l"

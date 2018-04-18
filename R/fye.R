@@ -24,6 +24,7 @@
 #' @importFrom rlang :=
 #' @importFrom stats fisher.test
 #' @importFrom purrr is_null
+#' @importFrom purrr map_dbl
 #' @importFrom tidyr unnest
 #' @examples
 #' out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
@@ -31,63 +32,13 @@
 #'                       window = "r",
 #'                       span = 1,
 #'                       save_interim = FALSE)
-#' assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
+#' assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords, mpfr_precision = 120)
 #' am_fye <- fye(df = assoc_tb, mpfr_precision = 120, collstr_digit = 3)
-#' am_fye[order(-am_fye$collstr),]
 #'
 fye <- function(df, mpfr_precision = NULL, collstr_digit = 3) {
-
-  # generate results vector
-  results <- vector(mode = "numeric", length = length(df$a))
-
-  # generate progress bar estimates
-  p <- dplyr::progress_estimated(length(df$a))
-
-  # generate the expected co-occurrence frequencies
-  corpus_size <- df$corpus_size
-  if (!purrr::is_null(mpfr_precision)) {
-    margin_calculation <- Rmpfr::asNumeric(Rmpfr::mpfr((df$n_w_in_corp * df$n_pattern), mpfr_precision))
-    a_exp <- Rmpfr::asNumeric(Rmpfr::mpfr((margin_calculation/corpus_size), mpfr_precision))
-  } else {
-    margin_calculation <- df$n_w_in_corp * df$n_pattern
-    a_exp <- margin_calculation/corpus_size
-  }
-
-  # calucate fye
-  for (i in seq_along(df$a)) {
-
-    # print progress bar
-    p$pause(0.1)$tick()$print()
-
-    # create a 2-by-2 matrix for FYE input
-    cross_table <- rbind(c(df$a[i], df$b[i]), c(df$c[i], df$d[i]))
-
-    if (df$a[i] > a_exp[i]) {
-      if (!purrr::is_null(mpfr_precision)) {
-        output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "greater")$p.value, mpfr_precision))
-      } else {
-        output <- stats::fisher.test(cross_table, alternative = "greater")$p.value
-      }
-      output <- round(-log10(output), digits = collstr_digit)
-    } else {
-      if (!purrr::is_null(mpfr_precision)) {
-        output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "less")$p.value, mpfr_precision))
-      } else {
-        output <- stats::fisher.test(cross_table, alternative = "less")$p.value
-      }
-      output <- round(log10(output), digits = collstr_digit)
-    }
-
-    results[i] <- output
-  }
-  df$collstr <- results
-  df$a_exp <- a_exp
-  assoc <- dplyr::quo(assoc)
-  df <- dplyr::mutate(df,
-                      !!dplyr::quo_name(assoc) := "neutral",
-                      !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a > .data$a_exp, "attraction"),
-                      !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a < .data$a_exp, "repulsion"))
-  df_out <- dplyr::select(df, .data$w, .data$a, .data$a_exp, .data$assoc, .data$collstr)
-  df_out <- dplyr::arrange(df_out, dplyr::desc(.data$collstr))
+  df <- dplyr::mutate(df, collstr = purrr::map_dbl(data, fye_compute, mpfr_precision, collstr_digit)) # perform FYE with purrr-style using fye_compute
+  df_out <- dplyr::arrange(df, dplyr::desc(collstr))
+  df_out <- tidyr::unnest(df_out)
+  df_out <- dplyr::select(df_out, .data$w, .data$a, .data$a_exp, .data$assoc, .data$collstr)
   return(df_out)
 }
