@@ -22,6 +22,9 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr desc
 #' @importFrom rlang :=
+#' @importFrom stats fisher.test
+#' @importFrom purrr is_null
+#' @importFrom tidyr unnest
 #' @examples
 #' out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
 #'                       pattern = "\\bke\\b",
@@ -32,7 +35,7 @@
 #' am_fye <- fye(df = assoc_tb, mpfr_precision = 120, collstr_digit = 3)
 #' am_fye[order(-am_fye$collstr),]
 #'
-fye <- function(df, mpfr_precision = 120, collstr_digit = 3) {
+fye <- function(df, mpfr_precision = NULL, collstr_digit = 3) {
 
   # generate results vector
   results <- vector(mode = "numeric", length = length(df$a))
@@ -41,10 +44,14 @@ fye <- function(df, mpfr_precision = 120, collstr_digit = 3) {
   p <- dplyr::progress_estimated(length(df$a))
 
   # generate the expected co-occurrence frequencies
-  margin_calculation <- Rmpfr::asNumeric(Rmpfr::mpfr((df$n_w_in_corp * df$n_pattern), mpfr_precision))
   corpus_size <- df$corpus_size
-  a_exp <- Rmpfr::mpfr((margin_calculation/corpus_size), mpfr_precision)
-  a_exp <- Rmpfr::asNumeric(a_exp)
+  if (!purrr::is_null(mpfr_precision)) {
+    margin_calculation <- Rmpfr::asNumeric(Rmpfr::mpfr((df$n_w_in_corp * df$n_pattern), mpfr_precision))
+    a_exp <- Rmpfr::asNumeric(Rmpfr::mpfr((margin_calculation/corpus_size), mpfr_precision))
+  } else {
+    margin_calculation <- df$n_w_in_corp * df$n_pattern
+    a_exp <- margin_calculation/corpus_size
+  }
 
   # calucate fye
   for (i in seq_along(df$a)) {
@@ -56,11 +63,19 @@ fye <- function(df, mpfr_precision = 120, collstr_digit = 3) {
     cross_table <- rbind(c(df$a[i], df$b[i]), c(df$c[i], df$d[i]))
 
     if (df$a[i] > a_exp[i]) {
-      output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "greater")$p.value, mpfr_precision))
+      if (!purrr::is_null(mpfr_precision)) {
+        output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "greater")$p.value, mpfr_precision))
+      } else {
+        output <- stats::fisher.test(cross_table, alternative = "greater")$p.value
+      }
       output <- round(-log10(output), digits = collstr_digit)
     } else {
-      output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "less")$p.value, mpfr_precision))
-      output <- round(-log10(output), digits = collstr_digit)
+      if (!purrr::is_null(mpfr_precision)) {
+        output <- Rmpfr::asNumeric(Rmpfr::mpfr(stats::fisher.test(cross_table, alternative = "less")$p.value, mpfr_precision))
+      } else {
+        output <- stats::fisher.test(cross_table, alternative = "less")$p.value
+      }
+      output <- round(log10(output), digits = collstr_digit)
     }
 
     results[i] <- output
