@@ -240,11 +240,15 @@ word_vect_to_df <- function(tokenised_text = NULL) {
 #' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_fye}} and the default is \code{3}.
 #'
 #' @return A double vector of collostruction strength
+#' @importFrom Rmpfr mpfr
+#' @importFrom Rmpfr asNumeric
+#' @importFrom base rbind
+#'
 #'
 fye_compute <- function(df, mpfr_precision = NULL, collstr_digit = NULL) {
 
   # get into crosstabulation format
-  crosstab <- rbind(c(df$a, df$b), c(df$c, df$d))
+  crosstab <- base::rbind(c(df$a, df$b), c(df$c, df$d))
 
   # FYE computation
   if (!purrr::is_null(mpfr_precision)) { # if it requires MPFR precision floating point
