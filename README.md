@@ -9,7 +9,7 @@ collogetr
 
 The goal of collogetr is to perform window-span collocates retrieval from the sentence-based corpus of the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). It is powered by most of the core packages from the [tidyverse](https://www.tidyverse.org). The initial purpose of this package was to help me with my [PhD thesis](http://rpubs.com/primahadi/ca_3d_metaphor_happiness_synonyms_Indonesian) on <span style="font-variant:small-caps;">happiness</span> metaphors in Indonesian based on data from the Leipzig Corpora.
 
-This package is under development. Currently, there is one function available for retrieving the collocates (i.e., `colloc_leipzig()`) and two other functions to prepare data (i.e., `assoc_prepare()`) and then perform association measure of collocates with the node-word as in the [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (i.e., `collex_fye()`). Future plan is to include other function for generating non-Leipzig, sentence-based corpus inputs. The development version of the package can be installed via GitHub with [devtools](https://github.com/hadley/devtools):
+This package is under development. Currently, there is one function available for retrieving the collocates (i.e., `colloc_leipzig()`). Two other functions are designed for the association measure computation. The first one is to prepare input-data (i.e., `assoc_prepare()`) for the measure based on the output of `colloc_leipzig()`. The second one is to perform association measure of collocates with the node-word as in the [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (i.e., `collex_fye()`). Future plan is to include other function for generating non-Leipzig, sentence-based corpus inputs. The development version of the package can be installed via GitHub with [devtools](https://github.com/hadley/devtools):
 
 ``` r
 library(devtools)
@@ -19,7 +19,7 @@ install_github("gederajeg/collogetr")
 Example for retrieving the collocates with `colloc_leipzig()`.
 --------------------------------------------------------------
 
-The following code shows how to use `colloc_leipzig()` to search for the collocates for the future marker *ke* 'to' in Indonesian. The function will print out progress messages for steps taken. The input corpus below (i.e. `demo_corpus_leipzig`) is included as data in this package whose documentation can be accessed via `?demo_corpus_leipzig`.
+The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken. The input corpus below (i.e. `demo_corpus_leipzig`) is included as data in this package whose documentation can be accessed via `?demo_corpus_leipzig`.
 
 ``` r
 library(collogetr)
@@ -59,14 +59,14 @@ The collocates are restricted to those occurring one-word to the right of *ke* (
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "165710 Data BAZ Samarinda tercatat, zakat yang terhimpun dari masyarakat mamuun lembaga dan instansi di Samarinda pada 2007 lalu Rp189,791 juta."
-#> [2] "83768 \"Ricky mengambilalih ketika kami berada di bawah dan dia berhasil membangkitkan klub ini,\" kata direktur Sunderland, Niall Quinn."       
-#> [3] "72340 \" Bush mengakui bahwa dirinya seorang peminum kelas berat pada masa mudanya, namun kini sudah banyak berkurang."                          
+#> [1] "191419 \"Pada prinsipnya Telkom melayani permintaan interkoneksi operator lain di kota yang diinginkan."       
+#> [2] "206629 Sosok itu juga menyatakan tidak ada homoseksualitas padahal menggantung pemuda gay di derek di jalanan."
+#> [3] "19582 \"Kami akan mengecek kembali hasil verifikasi Tim Pilkada Kaltim."                                       
 #> 
 #> $ind_news_2009_300K
-#> [1] "184598 Sebelum 8 Juli 2009, KPU menyatakan suara pengganti yang rusak sudah diterima oleh KPU kabupaten dan kota di Sumsel."               
-#> [2] "79390 Tetapi itu semua tidak berlaku untuk urusan politik praktis,\" tuturnya."                                                            
-#> [3] "27598 Manchester United, juara Liga Premier dan Liga Champions, membukukan peningkatan 21 persen dalam pendapatan menjadi 324,8 juta euro."
+#> [1] "284374 \"Kita juga harus mendorong sektor riil, infrastruktur, sehingga pengangguran dapat berkurang,\" ujarnya."                           
+#> [2] "80918 Musik itu dimainkan oleh piano Mozart sendiri di sebuah rumah dimana dia tinggal antara 1773-1780 dan sekarang menjadi sebuah museum."
+#> [3] "127192 Para pengamat melukiskan langkah mereka sebagai proteksionis."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
@@ -207,4 +207,4 @@ dplyr::filter(am_fye, assoc == "repulsion")
 #> 8 tahun          1  2.33 repuls…  -0.493         -0.00300         -0.00600
 ```
 
-Future development is to include a function to perform *Distinctive Collocates/Collexemes* analysis (cf. Gries and Stefanowitsch, [2004](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf)), and other association measures using different statistics (e.g., *X*<sup>2</sup>, or log-likelihood ratio).
+Future development is to include a function to perform *Distinctive Collocates/Collexemes* analysis (cf. Gries and Stefanowitsch, [2004](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf)), other association measures using different statistics (e.g., *X*<sup>2</sup>, or log-likelihood ratio), and way to handle large floating-point precisions.
