@@ -59,14 +59,14 @@ The collocates are restricted to those occurring one-word to the right of *ke* (
 ``` r
 lapply(demo_corpus_leipzig[2:3], sample, 3)
 #> $ind_news_2008_300K
-#> [1] "251233 Dia menyatakan, Slank akan terus berkarya melalui musik yang memberikan pesan moral."                                                                               
-#> [2] "96096 \"Kami ingin mengatasi kemiskinan pada sumbernya, kami harus membantu wanita menghindari kehamilan yang tak diinginkan, kata sekretaris yayasan."                    
-#> [3] "72273 Setiap tim yang dapat menang 2-1 di Roma merupakan lawan berbaya dalam setiap kompetisi,\" kata Scolari dua minggu lalu setelah ia mendengar hasil pertandingan itu."
+#> [1] "261328 Milan jadi favorit bagi scudetto."                                                    
+#> [2] "148483 Ia mengatakan saat ini merasa bersyukur tidak terkena imbas soal krisis pangan dunia."
+#> [3] "159639 Sedang kelistrikan kan baru dibicarakan sekarang-sekarang ini saja,\" katanya."       
 #> 
 #> $ind_news_2009_300K
-#> [1] "184393 Ia mengatakan dirinya mengalami luka pada kaki dan kepalanya karena tertimpa reruntuhan atap rumah."                                                             
-#> [2] "188663 \"Mereka dimintai keterangan sebagai saksi,\" kata Juru Bicara KPK Johan Budi di Jakarta, Kamis."                                                                
-#> [3] "112108 Bentuk kerjasama ini, kata Subekti, juga sangat penting sebagai upaya Indonesia untuk mengurangi ketergantungan negara-negara barat di bidang teknologi militer."
+#> [1] "263029 \"Sesuai intruksi presiden agar pilres nanti, roda pemerintahan tetap berjalan sebagaimana biasanya karena itu kepala daerah dilarang menjadi ketua tim pemenangan,\" ujarnya."
+#> [2] "107960 Hillary mengatakan bahwa pemerintah AS dan Kolombia berharap penandatangan kesepakatan itu dalam waktu dekat."                                                                 
+#> [3] "246931 Dari seluruh korban yang meninggal itu, 2.948 orang meninggal di Amerika, kemudian 362 di wilayah Pasifik Barat, sebagaimanadikutip dariXinhua-OANA."
 ```
 
 The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
@@ -122,9 +122,9 @@ out$collocs_freq[1:10,]
 Performing association measure (i.e., *Collexeme Analysis*) with `collex_fye()`.
 --------------------------------------------------------------------------------
 
-There are two available functions for the purpose of *Collexeme Analysis* with this package. The first one is `assoc_prepare()`. This function prepares the data (i.e., the output of `colloc_leipzig()`) into a tidy format required to perform the association measure (with `collex_fye()`). As in the Collostructional Analysis (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), the measure uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>fisher</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word/construction (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*, one in which the extent to which the presence of the node-word/construction cues the collocates/collexemes, and *vice versa*.
+There are two available functions for the purpose of *Collexeme Analysis* with this package. The first one is `assoc_prepare()`. This function prepares the data (i.e., the output of `colloc_leipzig()`) into a tidy format required to perform the association measure (with `collex_fye()`), including calculating the expected co-occurrence frequencies between the collocates/collexemes and the node-word/construction. As in the Collostructional Analysis (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), the measure uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>fisher</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word/construction (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*, one in which the extent to which the presence of the node-word/construction cues the collocates/collexemes, and *vice versa*. When needed, `collex_fye()` and `assoc_prepare()` have the `mpfr_precision` argument that can be specified for creating multiple (typically *high*) precision numbers for the computations, using the `mpfr()` function from the [`Rmpfr`](https://cran.r-project.org/web/packages/Rmpfr/index.html) package.
 
-These two functions are designed following the tidy principle so that the association measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function.
+The `assoc_prepare()` and `collex_fye()` functions are designed following the tidy principle so that the association measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function.
 
 The following chunk illustrates the retrieval of right-side collocates of future marker *akan* 'will/be going to' in Indonesian and the use of `assoc_prepare()` to generate the input-data for the association measure of the collocates with *akan*.
 

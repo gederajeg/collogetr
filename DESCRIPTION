@@ -21,6 +21,7 @@ Imports:
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+SystemRequirements:	gmp (>= 4.2.3)
 RoxygenNote: 6.0.1
 Suggests: testthat,
     covr
