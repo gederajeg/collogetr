@@ -4,9 +4,6 @@
 #' @description The function to produce frequency table required as input for association measures for collocations
 #' @param colloc_out The output list of \code{\link{colloc_leipzig}}.
 #' @param stopword_list Character vectors containing list of stopwords to be removed from the collocation measures.
-#' @param mpfr_precision Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
-#'     It is included to handle error produced when many floating points cannot be handled by the CPU.
-#'     The default is \code{NULL}.
 #' @export
 #' @importFrom purrr is_null
 #' @importFrom dplyr filter
@@ -26,7 +23,7 @@
 #'  assoc_tb <- assoc_prepare(colloc_leipzig_output, stopword_list = NULL)
 #' }
 #'
-assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precision = NULL) {
+assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL) {
 
   # check if stopwords removed from the calculation of collocation strength
   if(!purrr::is_null(stopword_list)) {
@@ -67,13 +64,8 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precisio
 
 
   # compute the expected co-occurrence frequency
-  if (!purrr::is_null(mpfr_precision)) {
-    margin_product <- Rmpfr::asNumeric(Rmpfr::mpfr((assoc_tb$n_w_in_corp * assoc_tb$n_pattern), mpfr_precision))
-    a_exp <- Rmpfr::asNumeric(Rmpfr::mpfr((margin_product/assoc_tb$corpus_size), mpfr_precision))
-  } else {
     margin_product <- assoc_tb$n_w_in_corp * assoc_tb$n_pattern
     a_exp <- margin_product/assoc_tb$corpus_size
-  }
 
   # add the expected frequency into the tibble
   assoc_tb$a_exp <- a_exp

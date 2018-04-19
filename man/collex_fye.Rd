@@ -4,14 +4,12 @@
 \alias{collex_fye}
 \title{Fisher's Exact Test}
 \usage{
-collex_fye(df, collstr_digit = 3, mpfr_precision = NULL)
+collex_fye(df, collstr_digit = 3)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare}}.}
 
 \item{collstr_digit}{The floating digits of the collostruction strength. The default is \code{3}.}
-
-\item{mpfr_precision}{Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.}
 }
 \value{
 A tibble consisting of the collocates (column \code{w}),

@@ -4,12 +4,10 @@
 \alias{fye_compute}
 \title{Fisher's Exact Test}
 \usage{
-fye_compute(df, mpfr_precision = NULL, collstr_digit = NULL)
+fye_compute(df, collstr_digit = NULL)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare}}.}
-
-\item{mpfr_precision}{Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.}
 
 \item{collstr_digit}{The floating digits of the collostruction strength. It is passed on from \code{\link{collex_fye}} and the default is \code{3}.}
 }
