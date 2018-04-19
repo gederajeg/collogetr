@@ -4,15 +4,20 @@
 \alias{assoc_prepare}
 \title{Generate frequency table for association measure}
 \usage{
-assoc_prepare(colloc_out = NULL, stopword_list = NULL)
+assoc_prepare(colloc_out = NULL, stopword_list = NULL,
+  mpfr_precision = NULL)
 }
 \arguments{
 \item{colloc_out}{The output list of \code{\link{colloc_leipzig}}.}
 
 \item{stopword_list}{Character vectors containing list of stopwords to be removed from the collocation measures.}
+
+\item{mpfr_precision}{Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
+It is included to handle error produced when many floating points cannot be handled by the CPU.
+The default is \code{NULL}.}
 }
 \value{
-A tbl_df version of contigency table
+A tbl_df of two columns. One of them is nested columns with input-data for row-wise Fisher-Exact Test with \code{\link{collex_fye}}.
 }
 \description{
 The function to produce frequency table required as input for association measures for collocations

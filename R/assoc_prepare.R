@@ -5,6 +5,8 @@
 #' @param colloc_out The output list of \code{\link{colloc_leipzig}}.
 #' @param stopword_list Character vectors containing list of stopwords to be removed from the collocation measures.
 #' @param mpfr_precision Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
+#'     It is included to handle error produced when many floating points cannot be handled by the CPU.
+#'     The default is \code{NULL}.
 #' @export
 #' @importFrom purrr is_null
 #' @importFrom dplyr filter
@@ -18,13 +20,13 @@
 #' @importFrom stringr str_detect
 #' @importFrom tidyr nest
 #'
-#' @return A tbl_df version of contigency table
+#' @return A tbl_df of two columns. One of them is nested columns with input-data for row-wise Fisher-Exact Test with \code{\link{collex_fye}}.
 #' @examples
 #' \dontrun{
 #'  assoc_tb <- assoc_prepare(colloc_leipzig_output, stopword_list = NULL)
 #' }
 #'
-assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precision = 120) {
+assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precision = NULL) {
 
   # check if stopwords removed from the calculation of collocation strength
   if(!purrr::is_null(stopword_list)) {
@@ -55,6 +57,7 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precisio
   c <- dplyr::quo(c)
   d <- dplyr::quo(d)
   assoc <- dplyr::quo(assoc)
+  w <- dplyr::quo(w)
 
   # get the frequency for the contigency table inputs
   assoc_tb <- dplyr::mutate(assoc_tb,
@@ -81,6 +84,6 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL, mpfr_precisio
                             !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a > .data$a_exp, "attraction"),
                             !!dplyr::quo_name(assoc) := replace(.data$assoc, .data$a < .data$a_exp, "repulsion"))
 
-  assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, w)) # nest the data columns required for row-wise FYE with purrr map
+  assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w)) # nest the data columns required for row-wise FYE with purrr map
   return(assoc_tb)
 }

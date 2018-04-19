@@ -234,10 +234,10 @@ word_vect_to_df <- function(tokenised_text = NULL) {
 #'
 #' @description Perform one-tailed Fisher's Exact test for the collostruction/collocation strength.
 #'     The \emph{p}-value is log-transformed to the base of ten as in the \emph{Collostructional Analysis}.
-#'     This is an internal function called via \code{\link{fye}}.
+#'     This is an internal function called via \code{\link{collex_fye}}.
 #' @param df The output of \code{\link{assoc_prepare}}.
 #' @param mpfr_precision Integer indicating the maximal precision to be used in \bold{bits}. This is passed to the \code{precBits} argument of \code{\link[Rmpfr]{mpfr}}.
-#' @param collstr_digit The floating digits of the collostruction strength. The default is \code{3}.
+#' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_fye}} and the default is \code{3}.
 #'
 #' @return A double vector of collostruction strength
 #'
@@ -255,7 +255,7 @@ fye_compute <- function(df, mpfr_precision = NULL, collstr_digit = NULL) {
     } else {
       pval <- stats::fisher.test(crosstab, alternative = "less")$p.value
       pval <- Rmpfr::asNumeric(Rmpfr::mpfr(pval, mpfr_precision))
-      collstr <- round(-log10(pval), collstr_digit)
+      collstr <- round(log10(pval), collstr_digit)
     }
   } else { # if MPFR precision is not required
     collstr <- dplyr::if_else(df$a > df$a_exp,
@@ -265,6 +265,39 @@ fye_compute <- function(df, mpfr_precision = NULL, collstr_digit = NULL) {
 
   return(collstr)
 }
+
+
+#' Uni-directional measure \emph{Delta P} (Construction as the cue).
+#'
+#' @description Perform uni-directional association measure called \emph{Delta P}. This one measures how likely is the collocates/collexemes given the presence of the construction. That is, the construction/node word is the cue while the collocates/collexemes are the outcomes.
+#'     The function is internally called when performing \code{\link{collex_fye}}.
+#' @param df The output of \code{\link{assoc_prepare}}.
+#' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_fye}} and the default is \code{3}.
+#'
+#' @return A double numeric vector
+dP_cue_collex <- function(df, collstr_digit = NULL) {
+  output <- round(df$a/(df$a + df$b) - df$c/(df$c + df$d), collstr_digit)
+  return(output)
+}
+
+#' Uni-directional measure \emph{Delta P} (Collocates as the cue).
+#'
+#' @description Perform uni-directional association measure called \emph{Delta P}. This one measures how likely is the construction/node word given the presence of the collocates/collexemes. That is, the collocates/collexemes are the cue while the construction/node word is the outcome.
+#'     The function is internally called when performing \code{\link{collex_fye}}.
+#' @param df The output of \code{\link{assoc_prepare}}.
+#' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_fye}} and the default is \code{3}.
+#'
+#' @return A double numeric vector
+dP_cue_cxn <- function(df, collstr_digit = NULL) {
+  output <- round(df$a/(df$a + df$c) - df$b/(df$b + df$d), collstr_digit)
+  return(output)
+}
+
+
+
+# Perform Delta P
+# dP.cxn.cue.collex <- round(a/(a + b) - c/(c + d), collstr.float.digit)
+# dP.collex.cue.cxn <- round(a/(a + c) - b/(b + d), collstr.float.digit)
 
 ## Below are codes used to test-run the function
 # span = 3
