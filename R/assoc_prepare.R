@@ -55,6 +55,7 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL) {
   d <- dplyr::quo(d)
   assoc <- dplyr::quo(assoc)
   w <- dplyr::quo(w)
+  a_exp <- dplyr::quo(a_exp)
 
   # get the frequency for the contigency table inputs
   assoc_tb <- dplyr::mutate(assoc_tb,
@@ -63,12 +64,12 @@ assoc_prepare <- function(colloc_out = NULL, stopword_list = NULL) {
                             !!dplyr::quo_name(d) := .data$corpus_size - (.data$a + .data$b + .data$c))
 
 
-  # compute the expected co-occurrence frequency
-    margin_product <- assoc_tb$n_w_in_corp * assoc_tb$n_pattern
-    a_exp <- margin_product/assoc_tb$corpus_size
-
-  # add the expected frequency into the tibble
-  assoc_tb$a_exp <- a_exp
+  # compute the expected co-occurrence frequency and add into the tibble
+    # margin_product <- assoc_tb$n_w_in_corp * assoc_tb$n_pattern
+    # a_exp <- margin_product/assoc_tb$corpus_size
+  assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w))
+  assoc_tb <- dplyr::mutate(assoc_tb, !!dplyr::quo_name(a_exp) := purrr::map_dbl(data, exp_freq, 3))
+  assoc_tb <- tidyr::unnest(assoc_tb)
 
   # add association direction
   assoc_tb <- dplyr::mutate(assoc_tb,

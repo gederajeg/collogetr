@@ -282,6 +282,21 @@ dP_cue_cxn <- function(df, collstr_digit = NULL) {
 }
 
 
+#' Get the expected frequency
+#'
+#' @description Generate expected frequency for cell \emph{a} based on the output of Chi-square Test.
+#'     It is called internally via \code{\link{assoc_prepare}}.
+#' @param df Nested data frame
+#' @param collstr_digit Floating points to keep
+#' @importFrom stats chisq.test
+#'
+#' @return A double vector
+exp_freq <- function(df, collstr_digit) {
+  mtx <- cbind(c(df$a, df$c), c(df$b, df$d))
+  exp <- round(suppressWarnings(stats::chisq.test(mtx, correct = TRUE)$expected[1,1]), collstr_digit)
+  return(exp)
+}
+
 
 # Perform Delta P
 # dP.cxn.cue.collex <- round(a/(a + b) - c/(c + d), collstr.float.digit)
