@@ -17,7 +17,7 @@
 #' @importFrom stringr str_detect
 #' @importFrom tidyr nest
 #'
-#' @return A tbl_df of two columns. One of them is nested columns with input-data for row-wise Fisher-Exact Test with \code{\link{collex_fye}}.
+#' @return A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
 #' @examples
 #' \dontrun{
 #'  assoc_tb <- assoc_prepare(colloc_leipzig_output, stopword_list = NULL)

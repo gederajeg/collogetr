@@ -12,7 +12,7 @@ assoc_prepare(colloc_out = NULL, stopword_list = NULL)
 \item{stopword_list}{Character vectors containing list of stopwords to be removed from the collocation measures.}
 }
 \value{
-A tbl_df of two columns. One of them is nested columns with input-data for row-wise Fisher-Exact Test with \code{\link{collex_fye}}.
+A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
 }
 \description{
 The function to produce frequency table required as input for association measures for collocations
