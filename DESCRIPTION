@@ -1,7 +1,7 @@
 Package: collogetr
 Type: Package
 Title: Collocates retriever
-Version: 0.2.0
+Version: 0.1.0
 Author: Gede Primahadi Wijaya Rajeg
 Maintainer: Gede Primahadi Wijaya Rajeg <primahadiwijaya@gmail.com>
 Description: Generates window-span collocates from raw text corpora.
