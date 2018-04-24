@@ -5,8 +5,8 @@ Version: 0.1.0
 Author: Gede Primahadi Wijaya Rajeg
 Maintainer: Gede Primahadi Wijaya Rajeg <primahadiwijaya@gmail.com>
 Description: Generates window-span collocates from raw text corpora.
-    The current functionality deals with the sentence-based corpus from the (Indonesian) Leipzig Corpora.
-    There is also a function to perform collexeme/collocational analysis to determine mutual association strength between a node-word/search pattern and its window-span collocates.
+    The current functionality deals with the sentence-based corpus-input from the (Indonesian) Leipzig Corpora.
+    There are also functions to perform collexeme/collocational analysis to determine mutual association strength between a node-word/search pattern and its window-span collocates.
 Depends: R (>= 3.3.1)
 Imports:
   dplyr (>= 0.7.4),
