@@ -254,6 +254,24 @@ fye_compute <- function(df, collstr_digit = NULL) {
   return(collstr)
 }
 
+#' Chi-square contribution
+#'
+#' @description Compute the chi-square contribution as the association measure of the co-occurrence cell (i.e., cell \code{a}).
+#'     This is an internal function called via \code{\link{collex_chisq}}.
+#' @param df The output of \code{\link{assoc_prepare}}.
+#' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_chisq}} and the default is \code{3}.
+#'
+#' @return A double vector of collostruction strength based on chi-square contribution
+chisq_compute <- function(df, collstr_digit = NULL) {
+
+  # compute chi-square contribution of cell `a` that contains co-occurrence frequency between the node and the collocates
+  chisq_a <- ((df$a - df$a_exp) ^ 2)/df$a_exp
+  if (purrr::is_null(collstr_digit)) {
+    return(chisq_a)
+  } else {
+    return(round(chisq_a, collstr_digit))
+  }
+}
 
 #' Uni-directional measure \emph{Delta P} (Construction as the cue).
 #'
@@ -296,11 +314,6 @@ exp_freq <- function(df, collstr_digit) {
   exp <- round(suppressWarnings(stats::chisq.test(mtx, correct = TRUE)$expected[1,1]), collstr_digit)
   return(exp)
 }
-
-
-# Perform Delta P
-# dP.cxn.cue.collex <- round(a/(a + b) - c/(c + d), collstr.float.digit)
-# dP.collex.cue.cxn <- round(a/(a + c) - b/(b + d), collstr.float.digit)
 
 ## Below are codes used to test-run the function
 # span = 3
