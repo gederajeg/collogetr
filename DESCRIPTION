@@ -1,9 +1,10 @@
 Package: collogetr
 Type: Package
-Title: Collocates retriever
+Title: Collocates retriever for the Indonesian Leipzig Corpora
 Version: 0.1.0
-Author: Gede Primahadi Wijaya Rajeg
-Maintainer: Gede Primahadi Wijaya Rajeg <primahadiwijaya@gmail.com>
+Date: 2018-07-04
+Authors@R: person("Gede Primahadi Wijaya", "Rajeg", email = "primahadiwijaya@gmail.com",
+               role = c("aut", "cre"))
 Description: Generates window-span collocates from raw text corpora.
     The current functionality deals with the sentence-based corpus-input from the Indonesian Leipzig Corpora.
     There are also functions to perform collexeme/collocational analysis to determine mutual association strength between a node-word/search pattern and its window-span collocates.
