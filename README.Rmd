@@ -26,96 +26,128 @@ scaps <- function(concept) {
 
 # collogetr
 
-The goal of collogetr is to perform window-span collocates retrieval from the sentence-based corpus of the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). It is powered by most of the core packages from the [tidyverse](https://www.tidyverse.org). The initial purpose of this package was to help me with my [PhD thesis](http://rpubs.com/primahadi/ca_3d_metaphor_happiness_synonyms_Indonesian) on `r scaps("happiness")` metaphors in Indonesian based on data from the Leipzig Corpora.
+## Overview
 
-This package is under development. Currently, there is one function available for retrieving the collocates (i.e., `colloc_leipzig()`). Two other functions are designed for the association measure computation. The first one is to prepare input-data (i.e., `assoc_prepare()`) for the measure based on the output of `colloc_leipzig()`. The second one is to perform association measure of collocates with the node-word as in the [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (i.e., `collex_fye()`). Future plan is to include other function for generating non-Leipzig, sentence-based corpus inputs. The development version of the package can be installed via GitHub with [devtools](https://github.com/hadley/devtools):
+`collogetr` has a function (viz. `colloc_leipzig()`) to retrieve window-span collocates of a set of word forms (viz. the *node word*) from the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two functions to process the output of `colloc_leipzig()` into tabular formats as input for **association measure** between the collocates and the node, as in the [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html). These functions are `assoc_prepare()` and `assoc_prepare_dca()`. The former generates input for [*Simple Collexeme/Collocational Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf) using `collex_fye()`, meanwhile the latter uses the output of `assoc_prepare()` to generate input for [*Distinctive Collexeme/Collocates Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf) using `collex_fye_dca()`. The package is built on top of the core [tidyverse](https://www.tidyverse.org) packages.
+
+## Installation
+
+Install from GitHub with [devtools](https://github.com/hadley/devtools):
 
 ```{r eval = FALSE}
 library(devtools)
 install_github("gederajeg/collogetr")
 ```
 
+## Usages
 
-## Example for retrieving the collocates with `colloc_leipzig()`.
-
-The following code shows how to use `colloc_leipzig()` to search for the collocates for the directional preposition *ke* 'to' in Indonesian. The function will print out progress messages for steps taken. The input corpus below (i.e. `demo_corpus_leipzig`) is included as data in this package whose documentation can be accessed via `?demo_corpus_leipzig`.
-
-```{r example, eval = TRUE}
+### Load `collogetr`
+```{r load-collogetr, message = FALSE}
 library(collogetr)
-out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
-                       pattern = "\\bke\\b",
+```
+
+### Package data
+
+The package has three data sets for demonstration. The important one is the `demo_corpus_leipzig` whose documentation can be accessed via `?demo_corpus_leipzig`. Another data is a list of Indonesian stopwords (i.e. `stopwords`) that can be filtered out when performing collocational measure. The last one is `leipzig_corpus_path` containing character vector of full path to my Leipzig Corpus files in my computer.
+
+#### Accepted inputs
+
+`colloc_leipzig()` accepts two types of input data:
+
+1. A named-list object with character-vector elements of each Leipzig Corpus Files, represented by `demo_corpus_leipzig` as shown below:
+
+```{r leipzig_list_input}
+lapply(demo_corpus_leipzig[1:2], sample, 2)
+```
+
+2. Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
+
+```{r leipzig_path_input}
+leipzig_corpus_path[1:2]
+```
+
+### Demo
+
+#### Retrieve collocates
+
+Here is how to retrieve for the collocates for the Indonesian verb *mengatakan* 'to say sth.'. The function will print out progress messages of the stages onto the console. It generates warning(s) when a search pattern or node word is not found in a corpus file.
+
+```{r example, eval = TRUE, message = FALSE}
+out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
+                       pattern = "mengatakan",
                        window = "r",
-                       span = 1,
+                       span = 1L,
                        save_interim = FALSE)
 ```
 
-The collocates are restricted to those occurring one-word to the right of *ke* (i.e., its R1 collocates). The window direction and span are respectively specified in the `window` and `span` arguments. The `"r"` character in `window` stands for 'right'-side collocates (`"l"` for 'left'-side collocates and `"b"` for both right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires regular expression input. `colloc_leipzig()` accept two kinds of corpus-input. First, a named-list object with character-vector elements of each Leipzig Corpus Files. The format of this kind of input is shown below.
+The collocates are restricted to those occurring _one_ word (i.e. `span = 1L`) to the _right_ (`window = "r"`) of the verb. The `"r"` character in `window` stands for *right*-side collocates (`"l"` for *left*-side collocates and `"b"` for *both* right- and left-side collocates). The `span` argument requires integer to indicate the range of words covered in the specified window. The `pattern` argument requires one or more exact word forms. If more than one, put into a character vector (e.g., `c("mengatakan", "menjanjikan")`). The `save_interim` is `FALSE` means that no output is saved into the computer, but in the console (i.e., in the `out` object). 
 
-```{r leipzig_list_input}
-lapply(demo_corpus_leipzig[2:3], sample, 3)
-```
+If `save_interim = TRUE`, the function will save the outputs into the files in the computer. `colloc_leipzig()` has specified the default file names for the outputs via these arguments: (i) `freqlist_output_file`, (ii) `colloc_output_file`, (iii) `corpussize_output_file`, and (iv) `search_pattern_output_file`. It is recommended that the output filenames are stored as a character vector. See **Examples** "(2)" in the documentation of `colloc_leipzig()` for a call when `save_interim = TRUE`.
 
-The second input is full-path to the Leipzig Corpus Files saved as UTF-8 encoded plain-texts. If this kind of input is preferred, supply the path to the `leipzig_path` argument; the `leipzig_corpus_list` will be by default set with `NULL`.
+#### Exploring the output of `colloc_leipzig()`.
 
-## Exploring the output of `colloc_leipzig()`.
+The output of `colloc_leipzig()` is a list of `r length(out)` elements:
 
-The output of `colloc_leipzig()` is a list of `r length(out)` elements.
+1. `colloc_df`; a table/tibble of raw collocates data with columns for:
+    1. corpus names
+    2. sentence id in which the collocates and the node word(s) are found
+    3. numeric vector of position of the collocates in the given sentences
+    4. the collocates (column `w`)
+    5. the span information (e.g., `"r1"` for one-word, right-side collocates)
+    6. the node word
+    7. the text/sentence match in which the collocates and the node are found
+2. `freqlist_df`; a table/tibble of word-frequency list in the loaded corpus
+3. `corpussize_df`; a table/tibble of total word-tokens in the loaded corpus
+4. `pattern`; a character vector of the search pattern/node
 
 ```{r colloc_output}
 str(out)
 ```
 
-The first is `collocs_df` that is a tibble of raw collocates data, that is, not yet counted for their frequencies. The frequencies of the collocates are stored in the second element, namely `collocs_freq`. The `words_freq` element consist of frequency list of all word-tokens in the loaded corpus. This frequencly-list data (and the `all_corpus_size` data), is included for the development of this function to include functions to perform collocational strength measure for the search pattern with the collocates (i.e., `collex_fye()`; cf. below).
+The `freqlist_df` and `corpussize_df` are important for performing the collocational strength measure for the search pattern with the collocates.
 
-```{r colloc_freq_output}
-# top-10 most frequent collocates in the sample corpus
-out$collocs_freq[1:10,]
+#### Prepare input data for *Simple Collexeme/Collocational Analysis* (SCA).
+
+First we need to call `assoc_prepare()` for generating the data for SCA with `collex_fye()`. The demo illustrates it with on-console output of `colloc_leipzig()`. Cf. the **Examples** "2.2" in the documentation for `assoc_prepare()` for handling saved outputs (`?assoc_prepare()`).
+
+```{r assoc-prepare}
+assoc_tb <- assoc_prepare(colloc_out = out, 
+                          window_span = "r1",
+                          per_corpus = FALSE, # combine all data across corpus
+                          stopword_list = collogetr::stopwords,
+                          float_digits = 3L)
 ```
 
-## Performing association measure (i.e., *Collexeme Analysis*) with `collex_fye()`.
-
-There are two available functions for the purpose of *Collexeme Analysis* with this package. The first one is `assoc_prepare()`. This function prepares the data (i.e., the output of `colloc_leipzig()`) into a tidy format required to perform the association measure (with `collex_fye()`), including calculating the expected co-occurrence frequencies between the collocates/collexemes and the node-word/construction. As in the Collostructional Analysis (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), the measure uses one-tailed *Fisher-Yates Exact* test whose *p*-~fisher~value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word/construction (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*, one in which the extent to which the presence of the node-word/construction cues the collocates/collexemes, and *vice versa*.
-
-The `assoc_prepare()` and `collex_fye()` functions are designed following the tidy principle so that the association measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function.
-
-The following chunk illustrates the retrieval of right-side collocates of future marker *akan* 'will/be going to' in Indonesian and the use of `assoc_prepare()` to generate the input-data for the association measure of the collocates with *akan*.
-
-```{r example-fye, message = FALSE}
-# search the collocates
-out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
-                       pattern = "\\bakan\\b",
-                       window = "r",
-                       span = 3,
-                       save_interim = FALSE)
-
-# prepare the input data; stopwords list are included in the package
-assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
-
-# peek into the assoc_tb
-head(assoc_tb, 3)
+Peek into the output of `assoc_prepare()`
+```{r assoc-prepare-head}
+head(assoc_tb)
 ```
 
-The column `data` in `assoc_tb` consists of nested tibble/table as a list. Each contains required data for performing association measure for each of the collocates in column `w`. This nested column can be inspected as follows (for the first row, i.e. for the word *menjadi* 'to become').
+The `assoc_prepare()` and `collex_fye()` functions are designed following the tidy principle so that the association/collocation measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function. `assoc_prepare()` includes calculating the expected co-occurrence frequencies between the collocates/collexemes and the node word/construction. 
+
+The column `data` in `assoc_tb` above consists of nested tibble/table as a list. Each contains required data for performing association measure for each of the collocates in column `w`. This nested column can be inspected as follows (for the first row, namely for the word *pihaknya* 'the party').
 
 ```{r inspect-nested-column}
 # get the tibble in the `data` column for the first row
 assoc_tb$data[[1]]
 ```
 
-Then, we can perform the Collexeme Analysis as follows with `assoc_tb` as the input for the `df` argument. The output is sorted in descending order of the Collostruction Strength (in the `collstr` column).
+#### *Simple Collexeme/Collocates Analysis (SCA)*
+
+As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-~fisher~value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
+
+Here is the code to perform the SCA
 
 ```{r perform-fye}
 # perform FYE test for Collexeme Analysis
 am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3)
-
-# get the top-15 most strongly attracted collocates
-dplyr::top_n(am_fye, 15, collstr)
 ```
 
-The following code can be used to retrieved collocates that occur less frequently than expected (or in *repulsion* association).
+Now we can retrieve the top-10 most strongly attracted collocates to *mengatakan* 'to say sth.'. The association strength is shown in the `collstr` column, which stands for *collostruction strength*. The higher, the stronger the association.
 
-```{r fye-repulsion}
-dplyr::filter(am_fye, assoc == "repulsion")
+```{r attracted-collocates}
+# get the top-10 most strongly attracted collocates
+dplyr::top_n(am_fye, 10, collstr)
 ```
 
-Future development is to include a function to perform *Distinctive Collocates/Collexemes* analysis (cf. Gries and Stefanowitsch, [2004](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf)), other association measures using different statistics (e.g., *X*^2^, or log-likelihood ratio), and way to handle large floating-point precisions.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p~fisher exact~-value.
