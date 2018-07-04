@@ -233,7 +233,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
                                sep = ""))
         detected_pattern[pp] <- pattern[pp]
       } else {
-        message(stringr::str_c("No match is detected for the input form '",
+        warning(stringr::str_c("No match is detected for the input form '",
                                stringr::str_replace_all(exact_pattern[1], "\\^|\\$", ""),
                                "' in ",
                                corpus_names,
@@ -496,7 +496,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
   } else {
 
     # message for non-match result in all corpora
-    message("\nSORRY!\nNot a single match is found for your search pattern in all the loaded corpora!")
+    warning("\nSORRY!\nNot a single match is found for your search pattern in all the loaded corpora!")
   }
 
 } # end of "colloc_leipzig()"
