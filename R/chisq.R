@@ -13,9 +13,9 @@
 #' @export
 #' @examples
 #' out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
-#'                       pattern = "\\bakan\\b",
+#'                       pattern = "mengatakan",
 #'                       window = "r",
-#'                       span = 3,
+#'                       span = 3L,
 #'                       save_interim = FALSE)
 #' assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
 #' am_chisq <- collex_chisq(df = assoc_tb, collstr_digit = 3)
