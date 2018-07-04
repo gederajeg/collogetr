@@ -31,11 +31,32 @@
 #' @return A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
 #' @examples
 #' \dontrun{
+#'  # (1) if the colloc_leipzig() output is stored as list on console
 #'  assoc_tb <- assoc_prepare(colloc_out = colloc_leipzig_output,
 #'                            window_span = "r1",
 #'                            per_corpus = FALSE,
 #'                            stopword_list = NULL,
 #'                            float_digits = 3L)
+#'
+#' # (2) if the output of colloc_leipzig() is saved into disk
+#'       supply the vector of output file names
+#' ## (2.1) Run colloc_leipzig with "save_interim = TRUE"
+#' outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
+#'                            pattern = my_pattern,
+#'                            window = "r",
+#'                            span = 3L,
+#'                            save_interim = TRUE # save interim results to disk
+#'                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
+#'                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
+#'                            corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
+#'                            search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
+#'                            )
+#' ## (2.2) supply colloc_out with "outfiles"
+#' assoc_tb <- assoc_prepare(colloc_out = outfiles,
+#'                           window_span = "r1",
+#'                           per_corpus = FALSE,
+#'                           stopword_list = stopwords,
+#'                           float_digits = 3L)
 #' }
 #'
 assoc_prepare <- function(colloc_out = NULL,
@@ -60,6 +81,13 @@ assoc_prepare <- function(colloc_out = NULL,
     search_pattern <- readr::read_lines(file = colloc_out[4])
   }
 
+  # prepare quoted variable
+  n_w_in_corp <- dplyr::quo(n_w_in_corp)
+  a <- dplyr::quo(a)
+  corpus_names <- dplyr::quo(corpus_names)
+  corpus_size <- dplyr::quo(corpus_size)
+  node <- dplyr::quo(node)
+  n_pattern <- dplyr::quo(n_pattern)
 
   # if per_corpus == FALSE, user wants to take aggregated collocational and frequency list data from all corpora
   if (per_corpus == FALSE) {
@@ -67,22 +95,22 @@ assoc_prepare <- function(colloc_out = NULL,
     colloc_df <- dplyr::group_by(colloc_df, .data$node)
     message("Tallying frequency list of all words in ALL CORPORA!")
     freqlist_df <- dplyr::group_by(freqlist_df, .data$w)
-    freqlist_df <- dplyr::summarise(freqlist_df, !!dplyr::quo_name(dplyr::quo(n_w_in_corp)) := sum(.data$n))
+    freqlist_df <- dplyr::summarise(freqlist_df, !!dplyr::quo_name(n_w_in_corp) := sum(.data$n))
   } else {
     colloc_df <- dplyr::group_by(colloc_df, .data$node, .data$corpus_names)
-    freqlist_df <- dplyr::rename(freqlist_df, !!dplyr::quo_name(dplyr::quo(n_w_in_corp)) := .data$n)
+    freqlist_df <- dplyr::rename(freqlist_df, !!dplyr::quo_name(n_w_in_corp) := .data$n)
   }
 
   # if window_span is NULL, user intends to use all collocates span
   if (purrr::is_null(window_span)) {
     colloc_freq_df <- dplyr::count(colloc_df, .data$w, sort = TRUE)
     colloc_freq_df <- dplyr::arrange(colloc_freq_df, .data$node, dplyr::desc(.data$n))
-    colloc_freq_df <- dplyr::rename(colloc_freq_df, !!dplyr::quo_name(dplyr::quo(a)) := .data$n)
+    colloc_freq_df <- dplyr::rename(colloc_freq_df, !!dplyr::quo_name(a) := .data$n)
   } else {
     colloc_freq_df <- dplyr::filter(colloc_df, .data$span %in% window_span)
     colloc_freq_df <- dplyr::count(colloc_freq_df, .data$w, sort = TRUE)
     colloc_freq_df <- dplyr::arrange(colloc_freq_df, .data$node, dplyr::desc(.data$n))
-    colloc_freq_df <- dplyr::rename(colloc_freq_df, !!dplyr::quo_name(dplyr::quo(a)) := .data$n)
+    colloc_freq_df <- dplyr::rename(colloc_freq_df, !!dplyr::quo_name(a) := .data$n)
   }
 
   # check if stopwords removed from the calculation of collocation strength
@@ -99,7 +127,7 @@ assoc_prepare <- function(colloc_out = NULL,
     corpussize_df <- unname(unlist(dplyr::tally(freqlist_df, wt = .data$n_w_in_corp)))
   } else {
     freqlist_df <- dplyr::group_by(freqlist_df, .data$corpus_names)
-    corpussize_df <- dplyr::summarise(freqlist_df, !!dplyr::quo_name(dplyr::quo(corpus_size)) := sum(.data$n_w_in_corp))
+    corpussize_df <- dplyr::summarise(freqlist_df, !!dplyr::quo_name(corpus_size) := sum(.data$n_w_in_corp))
   }
 
   # get the total frequency of the search pattern
@@ -124,8 +152,8 @@ assoc_prepare <- function(colloc_out = NULL,
   }
   npattern_df <- dplyr::filter(freqlist_df, stringr::str_detect(.data$w, search_pattern_id))
   npattern_df <- dplyr::rename(npattern_df,
-                               !!dplyr::quo_name(dplyr::quo(n_pattern)) := .data$n_w_in_corp,
-                               !!dplyr::quo_name(dplyr::quo(node)) := .data$w)
+                               !!dplyr::quo_name(n_pattern) := .data$n_w_in_corp,
+                               !!dplyr::quo_name(node) := .data$w)
 
   # generate an association table data base
   if (per_corpus == FALSE) {
@@ -154,9 +182,9 @@ assoc_prepare <- function(colloc_out = NULL,
 
 
   if (per_corpus == FALSE) {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!dplyr::quo(node)))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node))
   } else {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!dplyr::quo(node), !!dplyr::quo(corpus_names)))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
   }
 
   # compute the expected co-occurrence frequency and add into the tibble
@@ -176,9 +204,9 @@ assoc_prepare <- function(colloc_out = NULL,
 
   # nest the data columns required for row-wise FYE with purrr map
   if (per_corpus == FALSE) {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!dplyr::quo(node)))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node))
   } else {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!dplyr::quo(node), !!dplyr::quo(corpus_names)))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
   }
   return(nested_assoc_tb)
 
