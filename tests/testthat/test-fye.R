@@ -2,19 +2,19 @@ context("test-fye.R")
 
 # prepare data
 out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
-                                            pattern = "\\bakan\\b",
+                                            pattern = "mengatakan",
                                             window = "r",
-                                            span = 3,
+                                            span = 3L,
                                             save_interim = FALSE)
 assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
-am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3)
+am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3L)
 
 test_that("collex_fye produces tibble", {
   expect_output(str(am_fye), "tbl_df")
 })
 
-test_that("collex_fye produces tibble of 7 columns", {
-  expect_equal(dim(am_fye)[2], 7L)
+test_that("collex_fye produces tibble of 9 columns", {
+  expect_equal(dim(am_fye)[2], 9L)
 })
 
 test_that("collstr and the dPs measures are of the type 'double'", {
