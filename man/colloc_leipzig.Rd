@@ -5,13 +5,13 @@
 \title{Generate window-span collocates for the Leipzig Corpora}
 \usage{
 colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
-  pattern = NULL, window = "b", span = 2, case_insensitive = TRUE,
-  split_corpus_regex = "([^a-zA-Z-]+|--)", to_lower_colloc = TRUE,
-  save_interim = FALSE, colloc_output_name = "df_colloc.txt",
-  colloc_freq_output_name = "df_colloc_freq.txt",
-  freqlist_output_name = "df_freqlist.txt",
-  sentence_output_name = "df_sentence_match.txt",
-  corpus_size_output_name = "df_corpus_size.txt")
+  pattern = NULL, case_insensitive = TRUE, window = "b", span = 2L,
+  split_corpus_pattern = "([^a-zA-Z-]+|--)", to_lower_colloc = TRUE,
+  save_interim = FALSE,
+  freqlist_output_file = "collogetr_out_1_freqlist.txt",
+  colloc_output_file = "collogetr_out_2_collocates.txt",
+  corpussize_output_file = "collogetr_out_3_corpus_size.txt",
+  search_pattern_output_file = "collogetr_out_4_search_pattern.txt")
 }
 \arguments{
 \item{leipzig_path}{Character strings of (i) file names of the Leipzig corpus if they are in the working directory, or (ii) the complete file path to each of the Leipzig corpus files.}
@@ -20,41 +20,67 @@ colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
 Example of this type of data-input can be seen in \code{data("demo_corpus_leipzig")}.
 So specify either \code{leipzig_path} OR \code{leipzig_corpus_list} and set one of them to \code{NULL}.}
 
-\item{pattern}{Regular expressions/exact patterns for the target pattern.}
-
-\item{window}{Character; window-span direction of the collocates: \code{"r"} ('\bold{right} of the node'), \code{"l"} ('\bold{left} of the node'), or the default is \code{"b"} ('both \bold{left} and \bold{right} context-window').}
-
-\item{span}{Integer vector indicating the span of the collocate scope.}
+\item{pattern}{Regular expressions/exact patterns for the target pattern. It accepts character vector input containing a set of regexes/exact patterns.}
 
 \item{case_insensitive}{Logical; whether the search for the \code{pattern} ignores case (\code{TRUE} -- default) or not (\code{FALSE}).}
 
-\item{split_corpus_regex}{Regular expressions used to tokenise the corpus into word-vector.
+\item{window}{Character; window-span direction of the collocates: \code{"r"} ('\bold{right} of the node'), \code{"l"} ('\bold{left} of the node'), or the default is \code{"b"} ('both \bold{left} and \bold{right} context-window').}
+
+\item{span}{An integer vector indicating the span of the collocate scope. The default is \code{2L}.}
+
+\item{split_corpus_pattern}{Regular expressions used to tokenise the corpus into word-vector.
+The default regex is \code{"([^a-zA-Z-]+|--)"}.
 This procedure supports the vectorised method of the function to generate the collocate of the search pattern.}
 
 \item{to_lower_colloc}{Logical; whether to lowercase the retrieved collocates and the nodes (\code{TRUE} -- default) or not (\code{FALSE}).}
 
 \item{save_interim}{Logical; whether to save interim results into plain text files or not (\code{FALSE} -- default).}
 
-\item{colloc_output_name}{Character strings for the name of the file for the raw collocate table.}
+\item{freqlist_output_file}{Character strings for the name of the file for the word frequency in a corpus.}
 
-\item{colloc_freq_output_name}{Character strings for the name of the file for the collocate frequency table.}
+\item{colloc_output_file}{Character strings for the name of the file for the raw collocate table.}
 
-\item{freqlist_output_name}{Character strings for the name of the file for the word frequency in a corpus.}
+\item{corpussize_output_file}{Character strings for the name of the file for the total word-size of a corpus.}
 
-\item{sentence_output_name}{Character strings for the name of the file for the full sentence match containing the collocates.}
-
-\item{corpus_size_output_name}{Character strings for the name of the file for the total word-size of a corpus.}
+\item{search_pattern_output_file}{Character strings for the name of the file for the search_pattern.}
 }
 \value{
-List of raw collocate items, collocates frequency, frequency list of all words in the corpus, the summed size of all corpus, the search regex-patterns.
+List of raw collocate items, frequency list of all words in the loaded corpus files, the total word tokens in each loaded corpus, and the search pattern.
 }
 \description{
 The function produces tibble-output collocates for the Leipzig corpus files.
 }
 \examples{
-out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
-                      pattern = "\\\\bke\\\\b",
-                      window = "r",
-                      span = 1,
-                      save_interim = FALSE)
+\dontrun{
+# prepare the leipzig file path and search patterns
+my_leipzig_path <- c("/Users/Primahadi/Documents/ind_news_2008_300K-sentences.txt",
+                     "/Users/Primahadi/Documents/ind_news_2009_300K-sentences.txt")
+# the input pattern accepts exact word forms (e.g., c("menjalani", "menjalankan"))
+my_pattern <- c("menjalani", "menjalankan")
+
+# (1) run the function but output the results in console ()
+collout <- colloc_leipzig(leipzig_path = my_leipzig_path,
+                           pattern = my_pattern,
+                           window = "r", # get right side collocates
+                           span = 3L, # for 'three' words to the right of the node/pattern
+                           save_interim = FALSE # don't save into a file
+                           )
+# check the content of the output list
+names(collout)
+str(collout)
+
+# (2) run the function but save interim results per loaded corpus
+output_file_names <- colloc_leipzig(leipzig_path = my_leipzig_path,
+                                    pattern = my_pattern,
+                                    window = "r",
+                                    span = 3L,
+                                    save_interim = TRUE # save interim results to disk
+                                    freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
+                                    colloc_output_file = "~/Desktop/out_2_collocates.txt",
+                                    corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
+                                    search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
+                                    )
+}
+
+
 }

@@ -4,12 +4,19 @@
 \alias{assoc_prepare}
 \title{Generate frequency table for association measure}
 \usage{
-assoc_prepare(colloc_out = NULL, stopword_list = NULL)
+assoc_prepare(colloc_out = NULL, window_span = NULL, per_corpus = FALSE,
+  stopword_list = NULL, float_digits = 3L)
 }
 \arguments{
 \item{colloc_out}{The output list of \code{\link{colloc_leipzig}}.}
 
+\item{window_span}{Specify the window and span combination of the collocates to focus on for the measure (e.g., \code{"r1"} for 1 word to the right of the node; or a set of values as in \code{c("r1", "r2")}). The default is \code{NULL}.}
+
+\item{per_corpus}{Logical; whether to process the collocates per corpus file (\code{TRUE}) or aggregate the data across the corpus files (\code{FALSE}).}
+
 \item{stopword_list}{Character vectors containing list of stopwords to be removed from the collocation measures.}
+
+\item{float_digits}{The integer for floating digits of the expected frequency values. The default is \code{3L}.}
 }
 \value{
 A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
@@ -19,7 +26,11 @@ The function to produce frequency table required as input for association measur
 }
 \examples{
 \dontrun{
- assoc_tb <- assoc_prepare(colloc_leipzig_output, stopword_list = NULL)
+ assoc_tb <- assoc_prepare(colloc_out = colloc_leipzig_output,
+                           window_span = "r1",
+                           per_corpus = FALSE,
+                           stopword_list = NULL,
+                           float_digits = 3L)
 }
 
 }
