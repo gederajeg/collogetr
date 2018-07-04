@@ -44,12 +44,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "297406 Usulanku sendiri sebenarnya adalah dengan membuka Konsulat Jenderal sendiri di negara tujuan para TKI yang fokus mengenai perlinndungan TKI ini."
-#> [2] "483955 Ciri-ciri kelompok teratur: Memiliki identitas kolektif yang tegas (misalnya tampak pada nama kelompok, simbol kelompok,dll)."                   
+#> [1] "793739 Reliabilitas Penelitian Lapangan."                       
+#> [2] "850998 Setelah selesai Shalat Jumat, beliau kembali ke Tatakan."
 #> 
 #> $ind_news_2008_300K
-#> [1] "118063 Sebaliknya, kepada para obligor yang telah menikmati kucuran dana ribuan miliar rupiah, mestinya sadar sesadar-sadarnya, uang-uang itu tidak akan dibawa mereka ke liang kubur."
-#> [2] "173494 \"Jumlah kematian (di Rwanda) meningkat menjadi 33 dan lebih dari 400 orang cedera serius,\" kata Deputi Kepala Kepolisian Rwanda Mary Gahonzire kepada Reuters."
+#> [1] "112547 Usai pengibaran bendera akan diisi sejumlah permainan yang akan diikuti oleh anak-anak warga negara Indonesia yang menetap di Beijing."
+#> [2] "12351 Hotel Sheraton, termasuk bangunan megah yang harus pindah akibat perluasan tersebut."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -197,4 +197,4 @@ dplyr::top_n(am_fye, 10, collstr)
 #> # ... with 1 more variable: dP_cxn_cue_collex <dbl>
 ```
 
-Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p~fisher exact~-value.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p<sub>FisherExact</sub>-value.

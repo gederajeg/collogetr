@@ -150,4 +150,4 @@ Now we can retrieve the top-10 most strongly attracted collocates to *mengatakan
 dplyr::top_n(am_fye, 10, collstr)
 ```
 
-Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p~fisher exact~-value.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p~FisherExact~-value.
