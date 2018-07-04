@@ -134,7 +134,7 @@ assoc_tb$data[[1]]
 
 #### *Simple Collexeme/Collocates Analysis (SCA)*
 
-As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-~fisher~value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
+As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-~FisherExact~value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
 
 Here is the code to perform the SCA
 
@@ -150,4 +150,4 @@ Now we can retrieve the top-10 most strongly attracted collocates to *mengatakan
 dplyr::top_n(am_fye, 10, collstr)
 ```
 
-Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p~FisherExact~-value.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*~FisherExact~-value. Updated README file is prepared for retrieving data to perform *Distinctive Collexeme Analysis*.

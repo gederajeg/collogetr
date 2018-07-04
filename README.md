@@ -44,12 +44,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "793739 Reliabilitas Penelitian Lapangan."                       
-#> [2] "850998 Setelah selesai Shalat Jumat, beliau kembali ke Tatakan."
+#> [1] "445437 Drina masih belum membuka pintu pagar untuk anak muda itu."                                                                                                                   
+#> [2] "560160 Menurut Ahmad Riva'i Damanik, Ketua Nahdlatul Ulama Simalungun, keluarga Idin sebelumnya tinggal di pinggiran kebun kelapa sawit, sekitar empat kilometer dari Nagori Bangun."
 #> 
 #> $ind_news_2008_300K
-#> [1] "112547 Usai pengibaran bendera akan diisi sejumlah permainan yang akan diikuti oleh anak-anak warga negara Indonesia yang menetap di Beijing."
-#> [2] "12351 Hotel Sheraton, termasuk bangunan megah yang harus pindah akibat perluasan tersebut."
+#> [1] "249118 100 per dolar AS, karena sentimen positif semakin besar memicu untuk terus menguat."                                                                                                                    
+#> [2] "200526 Pemerintah sendiri mengasumsikan pertumbuhan ekonomi 2009 mencapai 6,3 persen dan tingkat inflasi 6,5 persen, sedang DPR mengasumsikan 6,4 persen pertumbuhan ekonomi dan 6,2 persen inflasi pada 2009."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -167,7 +167,7 @@ assoc_tb$data[[1]]
 
 #### *Simple Collexeme/Collocates Analysis (SCA)*
 
-As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>fisher</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
+As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>FisherExact</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
 
 Here is the code to perform the SCA
 
@@ -197,4 +197,4 @@ dplyr::top_n(am_fye, 10, collstr)
 #> # ... with 1 more variable: dP_cxn_cue_collex <dbl>
 ```
 
-Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed p<sub>FisherExact</sub>-value.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform *Distinctive Collexeme Analysis*.
