@@ -70,16 +70,16 @@ names(collout)
 str(collout)
 
 # (2) run the function but save interim results per loaded corpus
-output_file_names <- colloc_leipzig(leipzig_path = my_leipzig_path,
-                                    pattern = my_pattern,
-                                    window = "r",
-                                    span = 3L,
-                                    save_interim = TRUE # save interim results to disk
-                                    freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
-                                    colloc_output_file = "~/Desktop/out_2_collocates.txt",
-                                    corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
-                                    search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
-                                    )
+outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
+                           pattern = my_pattern,
+                           window = "r",
+                           span = 3L,
+                           save_interim = TRUE # save interim results to disk
+                           freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
+                           colloc_output_file = "~/Desktop/out_2_collocates.txt",
+                           corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
+                           search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
+                           )
 }
 
 
