@@ -10,7 +10,7 @@
 #' @param window Character; window-span direction of the collocates: \code{"r"} ('\bold{right} of the node'), \code{"l"} ('\bold{left} of the node'), or the default is \code{"b"} ('both \bold{left} and \bold{right} context-window').
 #' @param span An integer vector indicating the span of the collocate scope. The default is \code{2L}.
 #' @param split_corpus_pattern Regular expressions used to tokenise the corpus into word-vector.
-#'     The default regex is \code{"([^a-zA-Z-]+|--)"}.
+#'     The default regex is \code{"([^a-zA-Z-¬]+|--)"}.
 #'     This procedure supports the vectorised method of the function to generate the collocate of the search pattern.
 #' @param to_lower_colloc Logical; whether to lowercase the retrieved collocates and the nodes (\code{TRUE} -- default) or not (\code{FALSE}).
 #' @param save_interim Logical; whether to save interim results into plain text files or not (\code{FALSE} -- default).
@@ -106,7 +106,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
                            case_insensitive = TRUE,
                            window = "b",
                            span = 2L,
-                           split_corpus_pattern = "([^a-zA-Z-]+|--)",
+                           split_corpus_pattern = "([^a-zA-Z-¬]+|--)",
                            to_lower_colloc = TRUE,
                            save_interim = FALSE,
                            freqlist_output_file = "collogetr_out_1_freqlist.txt",
