@@ -9,6 +9,6 @@
 demo_corpus_leipzig
 }
 \description{
-A random subset of 250 sentences from all unannotated Indonesian Leipzig Corpora files.
+A random subset of 250 sentences from each of the 15 Indonesian Leipzig Corpora files in the author's computer.
 }
 \keyword{datasets}

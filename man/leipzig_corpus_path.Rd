@@ -3,19 +3,12 @@
 \docType{data}
 \name{leipzig_corpus_path}
 \alias{leipzig_corpus_path}
-\title{Balinese newspapers texts}
+\title{Filepath of the Indonesian Leipzig Corpora}
 \format{An object of class \code{character} of length 15.}
 \usage{
 leipzig_corpus_path
 }
 \description{
-A random ten corpus files of Balinese newspapers texts. These corpus files are raw plain texts without any annotation and which have not been split by sentences.
-Indonesian short stories
-}
-\details{
-A random ten corpus files of Indonesian short stories retrieved from online blog. These corpus files are raw plain texts without any annotation and which have not been split by sentences.
-Filepath of the Indonesian Leipzig Corpora
-
-Package author's filepath to the plain-texts Indonesian Leipzig Corpora
+The filepaths to the plain-texts of the Indonesian Leipzig Corpora in the author's computer
 }
 \keyword{datasets}

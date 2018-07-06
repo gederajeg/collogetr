@@ -1,7 +1,17 @@
 #' Leipzig corpora demo
 #'
-#' A random subset of 250 sentences from all unannotated Indonesian Leipzig Corpora files.
+#' A random subset of 250 sentences from each of the 15 Indonesian Leipzig Corpora files in the author's computer.
 "demo_corpus_leipzig"
+
+#' Filepath of the Indonesian Leipzig Corpora
+#'
+#' The filepaths to the plain-texts of the Indonesian Leipzig Corpora in the author's computer
+"leipzig_corpus_path"
+
+#' Indonesian stopwords
+#'
+#' Character vector containing Indonesian words selected as stopwords.
+"stopwords"
 
 #' Balinese newspapers texts
 #'
@@ -12,11 +22,6 @@
 #'
 #' A random ten corpus files of Indonesian short stories retrieved from online blog. These corpus files are raw plain texts without any annotation and which have not been split by sentences.
 #"demo_corpus_id"
-
-#' Filepath of the Indonesian Leipzig Corpora
-#'
-#' Package author's filepath to the plain-texts Indonesian Leipzig Corpora
-"leipzig_corpus_path"
 
 #' Filepath of the cleaned Indonesian Leipzig Corpora
 #'
@@ -37,9 +42,4 @@
 #'
 #' Package author's filepath to the Balinese newspapers texts.
 #"orti_bali_path"
-
-#' Indonesian stopwords
-#'
-#' Character vector containing Indonesian words selected as stopwords.
-"stopwords"
 
