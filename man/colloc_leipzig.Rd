@@ -6,7 +6,7 @@
 \usage{
 colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
   pattern = NULL, case_insensitive = TRUE, window = "b", span = 2L,
-  split_corpus_pattern = "([^a-zA-Z-]+|--)", to_lower_colloc = TRUE,
+  split_corpus_pattern = "([^a-zA-Z-¬]+|--)", to_lower_colloc = TRUE,
   save_interim = FALSE,
   freqlist_output_file = "collogetr_out_1_freqlist.txt",
   colloc_output_file = "collogetr_out_2_collocates.txt",
@@ -20,7 +20,7 @@ colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
 Example of this type of data-input can be seen in \code{data("demo_corpus_leipzig")}.
 So specify either \code{leipzig_path} OR \code{leipzig_corpus_list} and set one of them to \code{NULL}.}
 
-\item{pattern}{Regular expressions/exact patterns for the target pattern. It accepts character vector input containing a set of regexes/exact patterns.}
+\item{pattern}{Character vector input containing a set of exact word forms.}
 
 \item{case_insensitive}{Logical; whether the search for the \code{pattern} ignores case (\code{TRUE} -- default) or not (\code{FALSE}).}
 
@@ -29,7 +29,7 @@ So specify either \code{leipzig_path} OR \code{leipzig_corpus_list} and set one 
 \item{span}{An integer vector indicating the span of the collocate scope. The default is \code{2L}.}
 
 \item{split_corpus_pattern}{Regular expressions used to tokenise the corpus into word-vector.
-The default regex is \code{"([^a-zA-Z-]+|--)"}.
+The default regex is \code{"([^a-zA-Z-\u00AC]+|--)"}. The character \code{"\u00AC"} is a hexademical version of \code{"¬"}, which may occur in the Leipzig Corpora as separator between root and suffixes of a word, in addition to hypen.
 This procedure supports the vectorised method of the function to generate the collocate of the search pattern.}
 
 \item{to_lower_colloc}{Logical; whether to lowercase the retrieved collocates and the nodes (\code{TRUE} -- default) or not (\code{FALSE}).}
