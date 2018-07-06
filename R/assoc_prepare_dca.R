@@ -28,19 +28,31 @@
 assoc_prepare_dca <- function(assoc_tb_df = NULL) {
   # data comes from assoc_tb nested table
   dca_table <- tidyr::unnest(assoc_tb_df)
-  dca_table <- dplyr::select(dca_table, .data$w, .data$node, .data$a)
-  dca_table <- tidyr::spread(dca_table, key = .data$node, value = .data$a, fill = 0L)
-  cxn_names <- colnames(dca_table)[-1]
-  cxn_a_sym <- rlang::sym(cxn_names[1])
-  cxn_b_sym <- rlang::sym(cxn_names[2])
-  sum_cxn_a <- sum(dca_table[[2]])
-  sum_cxn_b <- sum(dca_table[[3]])
-  a_exp <- dplyr::quo(a_exp)
-  c <- dplyr::quo(c)
-  d <- dplyr::quo(d)
-  dca_table <- dplyr::mutate(dca_table,
-                             !!dplyr::quo_name(c) := sum_cxn_a - !!cxn_a_sym,
-                             !!dplyr::quo_name(d) := sum_cxn_b - !!cxn_b_sym,
-                             !!dplyr::quo_name(a_exp) := (!!cxn_a_sym + !!cxn_b_sym) * (!!cxn_a_sym + !!c)/(!!cxn_a_sym + !!cxn_b_sym + !!c + !!d))
-  return(dca_table)
+
+  # check that the node-word must be two words as in DCA
+  if (length(unique(dca_table$node)) != 2) {
+
+    node_length <- length(unique(dca_table$node))
+    stop(paste("The number of the node words/constructions in the input data is ", node_length, "!\n  DCA requires 2 words/constructions to be compared!\n  If the word/construction is only 1, use `assoc_prepare()` then `collex_fye()`.", sep = ""))
+
+  } else if (length(unique(dca_table$node)) == 2) {
+
+    dca_table <- dplyr::select(dca_table, .data$w, .data$node, .data$a)
+    dca_table <- tidyr::spread(dca_table, key = .data$node, value = .data$a, fill = 0L)
+    cxn_names <- colnames(dca_table)[-1]
+    cxn_a_sym <- rlang::sym(cxn_names[1])
+    cxn_b_sym <- rlang::sym(cxn_names[2])
+    sum_cxn_a <- sum(dca_table[[2]])
+    sum_cxn_b <- sum(dca_table[[3]])
+    a_exp <- dplyr::quo(a_exp)
+    c <- dplyr::quo(c)
+    d <- dplyr::quo(d)
+    dca_table <- dplyr::mutate(dca_table,
+                               !!dplyr::quo_name(c) := sum_cxn_a - !!cxn_a_sym,
+                               !!dplyr::quo_name(d) := sum_cxn_b - !!cxn_b_sym,
+                               !!dplyr::quo_name(a_exp) := (!!cxn_a_sym + !!cxn_b_sym) * (!!cxn_a_sym + !!c)/(!!cxn_a_sym + !!cxn_b_sym + !!c + !!d))
+    return(dca_table)
+  }
+
+
 }
