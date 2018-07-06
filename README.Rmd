@@ -46,6 +46,11 @@ install_github("gederajeg/collogetr")
 library(collogetr)
 ```
 
+### Citation `collogetr`
+```{r cite-collogetr}
+citation("collogetr")
+```
+
 ### Package data
 
 The package has three data sets for demonstration. The important one is the `demo_corpus_leipzig` whose documentation can be accessed via `?demo_corpus_leipzig`. Another data is a list of Indonesian stopwords (i.e. `stopwords`) that can be filtered out when performing collocational measure. The last one is `leipzig_corpus_path` containing character vector of full path to my Leipzig Corpus files in my computer.

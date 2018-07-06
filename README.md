@@ -31,6 +31,28 @@ Usages
 library(collogetr)
 ```
 
+### Citation `collogetr`
+
+``` r
+citation("collogetr")
+#> 
+#> To cite package 'collogetr' in publications use:
+#> 
+#>   Gede Primahadi Wijaya Rajeg (2018). collogetr: Collocates
+#>   retriever for the Indonesian Leipzig Corpora. R package version
+#>   0.1.0. https://github.com/gederajeg/collogetr
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {collogetr: Collocates retriever for the Indonesian Leipzig Corpora},
+#>     author = {Gede Primahadi Wijaya Rajeg},
+#>     year = {2018},
+#>     note = {R package version 0.1.0},
+#>     url = {https://github.com/gederajeg/collogetr},
+#>   }
+```
+
 ### Package data
 
 The package has three data sets for demonstration. The important one is the `demo_corpus_leipzig` whose documentation can be accessed via `?demo_corpus_leipzig`. Another data is a list of Indonesian stopwords (i.e. `stopwords`) that can be filtered out when performing collocational measure. The last one is `leipzig_corpus_path` containing character vector of full path to my Leipzig Corpus files in my computer.
@@ -44,12 +66,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "40773 Untuk itulah aku lahir dan untuk itulah aku datang ke dalam dunia ini, supaya aku memberi kesaksian tentang kebenaran; setiap orang yang berasal dari kebenaran mendengarkan suaraku."       
-#> [2] "977393 Johanes, - (2006) Particulate matter (PM10) dalam rumah sebagai faktor kejadian infeksi saluran pernafasan akut (ISPA) balita di Kecamatan Payakumbuh Kabupaten Lima Puluh Kota tahun 2006."
+#> [1] "154926 Dengan dipasangnya hotspot di titik-titik tertentu seorang peneliti bisa leluasa mencari informasi, membuka emial dan mengirim email sesuai keinginan."
+#> [2] "673221 Juga ada gambar ke dua, komposisi mirip gambar pertama, bertuliskan 'NKRI' di sebelah kiri, tulisan 'Hijrah' di tengah, dan tulisan 'NII' di kanan."   
 #> 
 #> $ind_news_2008_300K
-#> [1] "141644 \"Korban sendiri mengendarai mobil tersebut, sedangkan anak dan istrinya tidak ikut,\" katanya."                                    
-#> [2] "204474 Sutradara film \"Opera Jawa\" dan \"Daun di Atas Bantal\" ini menilai wajar bila umat Islam bereaksi keras terhadap film \"Fitna\"."
+#> [1] "124531 Pada waktu itu, harga minyak selama 20 tahun stabil 10-20 dolar AS, sehingga patokan batas atas Fujian sebesar 25 dolar AS dinilai cukup layak."                                                                                      
+#> [2] "249133 Angka penjualan kantor dan mal naik dua kali lipat pada semester I dari Rp26,9 miliar menjadi Rp62,3 miliar tahun 2008 berasal dari Bakrie Tower yang berlokasi di Rasuna Epicentrum super blok pertama yang dikembangkan Bakrieland."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
