@@ -47,7 +47,9 @@ library(collogetr)
 ```
 
 ### Citation `collogetr`
-```{r cite-collogetr}
+
+To cite the package in publication, type as follows:
+```{r cite-collogetr, eval = TRUE}
 citation("collogetr")
 ```
 
