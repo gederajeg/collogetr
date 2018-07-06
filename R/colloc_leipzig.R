@@ -42,6 +42,7 @@
 #' @importFrom purrr map
 #' @importFrom purrr pmap
 #' @importFrom purrr map_dbl
+#' @importFrom purrr map_int
 #' @importFrom purrr map_chr
 #' @importFrom purrr set_names
 #' @importFrom stringr regex
@@ -179,6 +180,8 @@ colloc_leipzig <- function(leipzig_path = NULL,
 
   } # end of 'save interim' if else statement
 
+  # vector for storing detected pattern in all loaded corpora
+  detected_pattern_all_corpus <- vector(mode = "list", length = length(corpus_input))
 
   for (c in seq_along(corpus_input)) {
 
@@ -215,10 +218,20 @@ colloc_leipzig <- function(leipzig_path = NULL,
         exact_pattern <- stringr::str_c("^", pattern[pp], "$", collapse = "")
       }
 
-      # check if regex pattern is designed as "^....$"
+      # check if regex pattern is designed as "^....$"; if it is simply a word form (e.g., "mau"), assume that it is a whole word, hence add the word boundary "\\b"
       if (stringr::str_detect(regex_pattern[1], "(\\^|\\$)")) {
 
-        pattern_to_detect <- stringr::str_replace_all(pattern[pp], "(\\^|\\$)", "")
+        pattern_to_detect <- stringr::str_replace_all(pattern[pp], "(\\^|\\$)", "\\b")
+        regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
+
+      } else if (!stringr::str_detect(regex_pattern[1], "(\\^|\\$)")) {
+
+        pattern_to_detect <- stringr::str_c("\\b", pattern[pp], "\\b", sep = "")
+        regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
+
+      } else if (stringr::str_detect(regex_pattern[1], "\\b")) {
+
+        pattern_to_detect <- stringr::str_c("\\b", pattern[pp], "\\b", sep = "")
         regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
 
       }
@@ -453,11 +466,14 @@ colloc_leipzig <- function(leipzig_path = NULL,
         res_corpussize[[c]] <- corpus_size
       }
 
-    } # end of "if (length(detected_pattern) == 0L)
+    } # end of "if (length(detected_pattern) == 0L)"
 
     rm(corpora)
+    detected_pattern_all_corpus[[c]] <- detected_pattern
 
   } # end of "c" loop for each corpus file
+
+
 
   # save the search pattern
   if (save_interim) {
@@ -465,7 +481,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
     cat(res_pattern, file = search_pattern_output_file, sep = "\n", append = FALSE)
   }
 
-  if (length(detected_pattern) > 0L) {
+  if (any(purrr::map_int(detected_pattern_all_corpus, length)) > 0L) {
 
     if (save_interim == FALSE) {
 
