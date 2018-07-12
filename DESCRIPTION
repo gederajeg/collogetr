@@ -9,6 +9,7 @@ Description: Generates window-span collocates from raw text corpora.
     The current functionality deals with the sentence-based corpus-input from the Indonesian Leipzig Corpora.
     There are also functions to determine mutual association strength between a node-word/search pattern and its window-span collocates.
     The currently available association measures are the Collexeme/Collocates Analysis and Distinctive Collexeme/Collocates Analysis.
+    These measures are based on the log-transformed p-value of the one-tailed Fisher-Yates Exact test.
 Depends: R (>= 3.3)
 Imports:
   dplyr (>= 0.7.4),
