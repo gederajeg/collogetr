@@ -22,21 +22,8 @@ collex_fye_dca <- function(df = NULL, collstr_digit = 3L) {
   colnames(df)[2:3] <- c("a", "b")
   df <- tidyr::nest(dplyr::group_by(df, !!w))
 
-  fye_dca <- function(df) {
-
-    # get into crosstabulation format
-    crosstab <- rbind(c(df$a, df$b), c(df$c, df$d))
-
-    # FYE computation
-    fye_pval <- dplyr::if_else(df$a > df$a_exp,
-                               stats::fisher.test(crosstab, alternative = "greater")$p.value,
-                               stats::fisher.test(crosstab, alternative = "less")$p.value)
-
-    return(fye_pval)
-  }
-
   df <- dplyr::mutate(df,
-                      !!dplyr::quo_name(p_fye) := purrr::map_dbl(data, fye_dca))
+                      !!dplyr::quo_name(p_fye) := purrr::map_dbl(data, fye_compute))
   df <- tidyr::unnest(df)
   df$dist_for <- dplyr::if_else(df$a > df$a_exp, columns[1], columns[2])
   df$collstr <- dplyr::if_else(df$a > df$a_exp,
