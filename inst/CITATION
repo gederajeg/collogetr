@@ -7,3 +7,28 @@ bibentry(
          note = "R package development version 1.0.0",
          header = "To cite `collogetr` in publication, please use:",
          textVersion = paste("Rajeg, G. P. W. (2018). collogetr: Collocates retriever and collocational association measure for the Indonesian Leipzig Corpora. R package development version 1.0.0. url: https://github.com/gederajeg/collogetr"))
+
+bibentry(bibtype = "Article",
+         title = "Collostructions: Investigating the interaction of words and constructions",
+         journal = "International Journal of Corpus Linguistics",
+         volume = "8",
+         number = "2",
+         pages = "209-243",
+         author = c(person(given = "Anatol", family = "Stefanowitsch", role = "aut"),
+                    person(given = c("Stefan", "Th."), family = "Gries", role = "aut")),
+         year = "2003",
+         header = "Please also cite the following foundational works on the Collexeme Analysis and Distinctive Collexeme Analysis:",
+         textVersion = paste("Stefanowitsch, A., & Gries, S. T. (2003). Collostructions: Investigating the interaction of words and constructions. International Journal of Corpus Linguistics, 8(2), 209–243.")
+         )
+
+bibentry(bibtype = "Article",
+         title = "Extending collostructional analysis: A corpus-based perspective on 'alternations'",
+         journal = "International Journal of Corpus Linguistics",
+         volume = "9",
+         number = "1",
+         pages = "97-129",
+         author = c(person(given = c("Stefan", "Th."), family = "Gries", role = "aut"),
+                    person(given = "Anatol", family = "Stefanowitsch", role = "aut")),
+         year = "2004",
+         textVersion = paste("Gries, S. T., & Stefanowitsch, A. (2004). Extending collostructional analysis: A corpus-based perspective on ‘alternations’. International Journal of Corpus Linguistics, 9(1), 97–129.")
+         )
