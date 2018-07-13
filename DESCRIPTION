@@ -1,6 +1,6 @@
 Package: collogetr
 Type: Package
-Title: Collocates Retriever and Collocational Association Measure for the Indonesian Leipzig Corpora
+Title: Collocates Retriever and Collocation Association Measure for the Indonesian Leipzig Corpora
 Version: 1.0.0
 Date: 2018-07-04
 Authors@R: person("Gede Primahadi Wijaya", "Rajeg", email = "primahadiwijaya@gmail.com",
