@@ -67,7 +67,7 @@ dca_top_collex <- function(dca_res, dist_for = NULL, top_n = 20L) {
   }
   if (!is.null(top_n)) {
     dist_df <- dplyr::top_n(dist_df, n = top_n, wt = .data$collstr)
-    return(as.data.frame(dist_df))
+    return(dist_df)
   } else {
     return(dist_df)
   }
