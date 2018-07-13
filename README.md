@@ -45,15 +45,21 @@ citation("collogetr")
 #>   Corpora. R package development version 1.0.0. url:
 #>   https://github.com/gederajeg/collogetr
 #> 
-#> A BibTeX entry for LaTeX users is
+#> Please also cite the following foundational works on the Collexeme
+#> Analysis and Distinctive Collexeme Analysis:
 #> 
-#>   @Manual{,
-#>     title = {collogetr: Collocates retriever and collocational association measure for the Indonesian Leipzig Corpora},
-#>     author = {Gede Primahadi Wijaya Rajeg},
-#>     year = {2018},
-#>     url = {https://github.com/gederajeg/collogetr},
-#>     note = {R package development version 1.0.0},
-#>   }
+#>   Stefanowitsch, A., & Gries, S. T. (2003). Collostructions:
+#>   Investigating the interaction of words and constructions.
+#>   International Journal of Corpus Linguistics, 8(2), 209–243.
+#> 
+#>   Gries, S. T., & Stefanowitsch, A. (2004). Extending
+#>   collostructional analysis: A corpus-based perspective on
+#>   ‘alternations’. International Journal of Corpus Linguistics,
+#>   9(1), 97–129.
+#> 
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
 
 ### Package data
@@ -69,12 +75,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "691154 Sama halnya dengan ini."                                                                                                                                                                                                                    
-#> [2] "954519 Kalau kita kaitkan perkembangan teknologi informasi dengan pemerintah saat ini yang lebih dikenal dengan e-government, tahapan penerapan teknologi informasi dikategorikan dalam tahapan persiapan, pematangan, pemantapan dan pemanfaatan."
+#> [1] "636686 Dan aku sedikit pun tak terkilan jika sepanjang hidup ini aku tak pernah menjejakkan kaki ke luar negara."
+#> [2] "166339 Konflik intern militer dan partai-partai menajam, korupsi meluas, dan keadaan keamanan memburuk."         
 #> 
 #> $ind_news_2008_300K
-#> [1] "83092 Sebelumnya Presiden Susilo Bambang Yudhoyono telah meresmikan panen di daerah tersebut bulan April yang disebut-sebut sukses."                                                       
-#> [2] "231343 Ekspektasi Suku Bunga dan Jumlah Tabungan Tingkat suku bunga tabungan pada enam bulan mendatang diperkirakan oleh konsumen akan mengalami peningkatan, dengan indeks sebesar 109,4."
+#> [1] "234706 Ditambahkannya, Liga Arab dan Uni Afrika telah bekerjasasama untuk menemukan penyelesaian bagi masalah Sudan tersebut \"sejak awal sekali\"."                
+#> [2] "13268 Sedangkan di Bali peningkatan kunjungan wisatawan mancanegara cukup signifikan, yakni pada Januari sebesar 25 persen, Pebruari 27 persen dan Maret 25 persen."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -206,24 +212,24 @@ Now we can retrieve the top-10 most strongly attracted collocates to *mengatakan
 # get the top-10 most strongly attracted collocates
 dplyr::top_n(am_fye, 10, collstr)
 #> # A tibble: 16 x 9
-#>    w        node        a   a_exp assoc     p_fye collstr dP_collex_cue_c…
-#>    <chr>    <chr>   <int>   <dbl> <chr>     <dbl>   <dbl>            <dbl>
-#>  1 pemerin… mengat…     4 0.354   attrac… 4.55e⁻⁴    3.34          0.0240 
-#>  2 israel   mengat…     2 0.0780  attrac… 2.71e⁻³    2.57          0.0130 
-#>  3 angklung mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  4 ayla     mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  5 definisi mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  6 hofos    mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  7 kawanan  mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  8 keberun… mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#>  9 keterka… mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 10 konjen   mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 11 lily     mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 12 pemerin… mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 13 pemoton… mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 14 ptn      mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 15 ukm      mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
-#> 16 wna      mengat…     1 0.00400 attrac… 3.69e⁻³    2.43          0.00700
+#>    w         node         a a_exp assoc     p_fye collstr dP_collex_cue_c…
+#>    <chr>     <chr>    <int> <dbl> <chr>     <dbl>   <dbl>            <dbl>
+#>  1 pemerint… mengata…     4 0.354 attrac… 4.55e-4    3.34            0.024
+#>  2 israel    mengata…     2 0.078 attrac… 2.71e-3    2.57            0.013
+#>  3 angklung  mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  4 ayla      mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  5 definisi  mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  6 hofos     mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  7 kawanan   mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  8 keberunt… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>  9 keterkai… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 10 konjen    mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 11 lily      mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 12 pemerint… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 13 pemotong… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 14 ptn       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 15 ukm       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#> 16 wna       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
 #> # ... with 1 more variable: dP_cxn_cue_collex <dbl>
 ```
 
