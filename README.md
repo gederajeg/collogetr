@@ -75,12 +75,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "636686 Dan aku sedikit pun tak terkilan jika sepanjang hidup ini aku tak pernah menjejakkan kaki ke luar negara."
-#> [2] "166339 Konflik intern militer dan partai-partai menajam, korupsi meluas, dan keadaan keamanan memburuk."         
+#> [1] "327666 Bisul Anda dibedah dengan pisau tajam, kemudian dipencet-pencet untuk mengeluarkan nanahnya."
+#> [2] "295752 Keliatannya dia sudah ditinggu oleh seseorang ditempat parkir itu."                          
 #> 
 #> $ind_news_2008_300K
-#> [1] "234706 Ditambahkannya, Liga Arab dan Uni Afrika telah bekerjasasama untuk menemukan penyelesaian bagi masalah Sudan tersebut \"sejak awal sekali\"."                
-#> [2] "13268 Sedangkan di Bali peningkatan kunjungan wisatawan mancanegara cukup signifikan, yakni pada Januari sebesar 25 persen, Pebruari 27 persen dan Maret 25 persen."
+#> [1] "293216 Betancourt, yang diculik ketika ia berkampanye sebagai calon presiden memiliki dwi kewarganegaraan, Perancis dan Kolombia dan merupakan sandera dengan posisi tertinggi."
+#> [2] "36491 \"Bagian yang paling menegangkan di Le Mans adalah di tikungan pertama, menurun dan melaku di lintasan panjang."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -116,11 +116,10 @@ The output of `colloc_leipzig()` is a list of 4 elements:
 1.  `colloc_df`; a table/tibble of raw collocates data with columns for:
     1.  corpus names
     2.  sentence id in which the collocates and the node word(s) are found
-    3.  numeric vector of position of the collocates in the given sentences
-    4.  the collocates (column `w`)
-    5.  the span information (e.g., `"r1"` for one-word, right-side collocates)
-    6.  the node word
-    7.  the text/sentence match in which the collocates and the node are found
+    3.  the collocates (column `w`)
+    4.  the span information (e.g., `"r1"` for one-word, right-side collocates)
+    5.  the node word
+    6.  the text/sentence match in which the collocates and the node are found
 2.  `freqlist_df`; a table/tibble of word-frequency list in the loaded corpus
 3.  `corpussize_df`; a table/tibble of total word-tokens in the loaded corpus
 4.  `pattern`; a character vector of the search pattern/node

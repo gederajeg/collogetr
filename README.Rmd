@@ -98,8 +98,7 @@ The output of `colloc_leipzig()` is a list of `r length(out)` elements:
 1. `colloc_df`; a table/tibble of raw collocates data with columns for:
     1. corpus names
     2. sentence id in which the collocates and the node word(s) are found
-    3. numeric vector of position of the collocates in the given sentences
-    4. the collocates (column `w`)
+    3. the collocates (column `w`)
     5. the span information (e.g., `"r1"` for one-word, right-side collocates)
     6. the node word
     7. the text/sentence match in which the collocates and the node are found
