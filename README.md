@@ -1,7 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [MIT](https://tldrlegal.com/license/mit-license#summary) + [file LICENSE](https://github.com/gederajeg/collogetr/blob/master/LICENSE) <br/>
-
 [![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
@@ -10,7 +8,7 @@ collogetr
 Overview
 --------
 
-`collogetr` has one function (viz. `colloc_leipzig()`) to retrieve window-span collocates for a set of word forms (viz. the *node word*) from the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two functions to process the output of `colloc_leipzig()` into tabular formats as input for **association measure** between the collocates and the node, as in the [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html). These functions are `assoc_prepare()` and `assoc_prepare_dca()`. The former generates input for [*Simple Collexeme/Collocational Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf) computed using `collex_fye()`, meanwhile the latter uses the output of `assoc_prepare()` to generate input for [*Distinctive Collexeme/Collocates Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf) computed using `collex_fye_dca()`. The package is built on top of the core [tidyverse](https://www.tidyverse.org) packages.
+`collogetr` has one function (viz. `colloc_leipzig()`) to retrieve window-span collocates for a set of word forms (viz. the *node word*) from the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two functions to process the output of `colloc_leipzig()` into tabular formats as input for **association measure** between the collocates and the node, as in Stefanowitsch and Gries' ([2003](#ref-stefanowitsch_collostructions_2003)) [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (see also, Gries, [2015](#ref-gries_more_2015); Stefanowitsch, [2013](#ref-hoffmann_collostructional_2013); Stefanowitsch & Gries, [2009](#ref-stefanowitsch_corpora_2009)). These functions are `assoc_prepare()` and `assoc_prepare_dca()`. The former generates input for [*Simple Collexeme/Collocational Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf) computed using `collex_fye()`, meanwhile the latter uses the output of `assoc_prepare()` to generate input for [*Distinctive Collexeme/Collocates Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf) (Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)) computed using `collex_fye_dca()`. `collogetr` is built on top of the core packages in the [tidyverse](https://www.tidyverse.org).
 
 Installation
 ------------
@@ -75,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "494506 Hal terpenting yang harus kita lakukan apabila terdapat hal-hal yang jahat dalam kehidupan kita adalah segera datang kepada Tuhan yang setia dan adil pasti akan mengampuni kita dan menyucikan kita dari segala kejahatan (1 Yoh."
-#> [2] "310883 Apakah memang hanya separuh, atau terpotong karena karakter ayng terlalu banyak."                                                                                                                                                  
+#> [1] "775444 Kaum Khawarij mengusir dia, karena dekatnya dengan ‘Ali, dan pernyataannya yang selalu mengagungkan ‘Ali dan Ahlul-Bayt."
+#> [2] "466935 Orang-orang tertentu akan merasa kebingungan memilih barang yang hendak dibeli."                                         
 #> 
 #> $ind_news_2008_300K
-#> [1] "185041 Jika lebih dari itu, maka akan dicarikan penyebab lain dari kenaikan harga tersebut selain dari biaya produksi,\" ujarnya."
-#> [2] "212046 AKIM adalah partai pecahan PAS, salah satu koalisi partai oposisi."
+#> [1] "67564 \" Dewan HAM yang berpusat di Jenewa dan beranggotakan 47 negara itu dibentuk tahun 2006 untuk menggantikan Komisi HAM."
+#> [2] "25447 Torres, yang mencetak gol kemenangan Spanyol di final Euro 2008, kini menjadi top skorer Liga Inggris dengan lima gol."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -177,9 +175,9 @@ head(assoc_tb)
 #> 6 angklung   mengatakan <tibble [1 × 9]>
 ```
 
-The `assoc_prepare()` and `collex_fye()` functions are designed following the tidy principle so that the association/collocation measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function. `assoc_prepare()` includes calculating the expected co-occurrence frequencies between the collocates/collexemes and the node word/construction.
+The `assoc_prepare()` and `collex_fye()` functions are designed following the tidy principle so that the association/collocation measure is performed in a row-wise fashion, benefiting from the combination of [*nested* column](http://r4ds.had.co.nz/many-models.html#list-columns-1) (cf., Wickham & Grolemund, [2017](#ref-wickham_r_2017), p. 409) for the input-data (using `tidyr::nest()`) and `purrr`'s `map_*` function. `assoc_prepare()` includes calculating the expected co-occurrence frequencies between the collocates/collexemes and the node word/construction.
 
-The column `data` in `assoc_tb` above consists of nested tibble/table as a list. Each contains required data for performing association measure for each of the collocates in column `w`. This nested column can be inspected as follows (for the first row, namely for the word *pihaknya* 'the party').
+The column `data` in `assoc_tb` above consists of nested tibble/table as a list. Each contains required data for performing association measure for each of the collocates in column `w` (Gries, [2013](#ref-gries_50-something_2013), [2015](#ref-gries_more_2015); Stefanowitsch & Gries, [2003](#ref-stefanowitsch_collostructions_2003), [2009](#ref-stefanowitsch_corpora_2009)). This nested column can be inspected as follows (for the first row, namely for the word *pihaknya* 'the party').
 
 ``` r
 # get the tibble in the `data` column for the first row
@@ -194,7 +192,7 @@ Column `a` indicates the co-occurrence frequency between the node word and the c
 
 #### *Simple Collexeme/Collocates Analysis (SCA)*
 
-As in the *Collostructional Analysis* (cf. Stefanowitsch and Gries, [2003](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>FisherExact</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (cf., e.g., Gries, Hampe, and Schönefeld, [2005](http://www.linguistics.ucsb.edu/faculty/stgries/research/2005_STG-BH-DS_CollStr-vs-Freq_CogLing.pdf), *inter alia*). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P*; one of these shows the extent to which the presence of the node-word cues the collocates/collexemes, and *vice versa*.
+As in the *Collostructional Analysis* (Stefanowitsch & Gries, [2003](#ref-stefanowitsch_collostructions_2003)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>FisherExact</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (Gries, Hampe, & Schönefeld, [2005](#ref-gries_converging_2005)). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P* (Gries, [2013](#ref-gries_50-something_2013), [2015](#ref-gries_more_2015), p. 524). One of these shows the extent to which the presence of the node-word cues the presence of the collocates/collexemes; the other one determines the extent to which the collocates/collexemes cues the presence of the node-word.
 
 Here is the code to perform the SCA
 
@@ -231,3 +229,23 @@ dplyr::top_n(am_fye, 10, collstr)
 ```
 
 Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform *Distinctive Collexeme Analysis*.
+
+### References
+
+Gries, S. T. (2013). 50-something years of work on collocations: What is or should be next …. *International Journal of Corpus Linguistics*, *18*(1), 137–166. doi:[10.1075/ijcl.18.1.09gri](https://doi.org/10.1075/ijcl.18.1.09gri)
+
+Gries, S. T. (2015). More (old and new) misunderstandings of collostructional analysis: On Schmid and Küchenhoff (2013). *Cognitive Linguistics*, *26*(3), 505–536. doi:[10.1515/cog-2014-0092](https://doi.org/10.1515/cog-2014-0092)
+
+Gries, S. T., & Stefanowitsch, A. (2004). Extending collostructional analysis: A corpus-based perspective on ’alternations’. *International Journal of Corpus Linguistics*, *9*(1), 97–129.
+
+Gries, S. T., Hampe, B., & Schönefeld, D. (2005). Converging evidence: Bringing together experimental and corpus data on the association of verbs and constructions. *Cognitive Linguistics*, *16*(4), 635–676.
+
+Hilpert, M. (2006). Distinctive collexeme analysis and diachrony. *Corpus Linguistics and Linguistic Theory*, *2*(2), 243–256.
+
+Stefanowitsch, A. (2013). Collostructional analysis. In T. Hoffmann & G. Trousdale (Eds.), *The Oxford handbook of Construction Grammar* (pp. 290–306). Oxford: Oxford University Press. doi:[10.1093/oxfordhb/9780195396683.013.0016](https://doi.org/10.1093/oxfordhb/9780195396683.013.0016)
+
+Stefanowitsch, A., & Gries, S. T. (2003). Collostructions: Investigating the interaction of words and constructions. *International Journal of Corpus Linguistics*, *8*(2), 209–243.
+
+Stefanowitsch, A., & Gries, S. T. (2009). Corpora and grammar. In A. Lüdeling & M. Kytö (Eds.), *Corpus linguistics: An international handbook* (Vol. 2, pp. 933–951). Berlin: Mouton de Gruyter.
+
+Wickham, H., & Grolemund, G. (2017). *R for Data Science*. Canada: O’Reilly. Retrieved from <http://r4ds.had.co.nz/>

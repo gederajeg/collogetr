@@ -9,3 +9,7 @@
 ^codecov\.yml$
 ^experiment_script$
 ^collogetr_out.*\.txt$
+^_pkgdown\.yml$
+^citation_README\.bib$
+^docs$
+^apa-old-doi.*\.csl$

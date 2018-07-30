@@ -27,5 +27,5 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: testthat,
     covr
-URL: https://github.com/gederajeg/collogetr
+URL: https://gederajeg.github.io/collogetr/, https://github.com/gederajeg/collogetr
 BugReports: https://github.com/gederajeg/collogetr/issues
