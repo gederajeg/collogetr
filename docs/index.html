@@ -140,12 +140,12 @@
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(demo_corpus_leipzig[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], sample, <span class="dv">2</span>)
 <span class="co">#&gt; $ind_mixed_2012_1M</span>
-<span class="co">#&gt; [1] "705166 Beberapa kawan mengatakan kalau voting dilakukan secara tertutup satu orang satu suara dan tidak ada kesepakatan antar fraksi, jujur saja banyak orang, baik dari PDIP maupun Golkar, akan membelok dari kesepakan, dengan menolak Memorandum."</span>
-<span class="co">#&gt; [2] "533556 Meode pembayaran dengan kartu yang paling dikenal adalah pembayaran dengan kartu kredit."                                                                                                                                                      </span>
+<span class="co">#&gt; [1] "894117 Pada saat yang sama, semoga tak pernah diketahui orang lain, bahwa Anda berada di antara orang-orang yang mengesampingkan pekerjaan Allah atau yang membesar-besarkan pekerjaan dari seorang pribadi di atas kekurangan orang lain."</span>
+<span class="co">#&gt; [2] "425922 Sementara anggota KPU setelah habis masa jabatannya lima tahun, tidak dapat menduduki jabatan politik, pemerintahan dan BUMN selama lima tahun dengan mendapatkan tunjangan kesejahteraan selama lima tahun."                       </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ind_news_2008_300K</span>
-<span class="co">#&gt; [1] "237136 Sendratari yang dahulu dipertunjukkan di pemakaman ini, menampilkan Tari Sisia yang dibawakan oleh Sri Maharyeni."                                                             </span>
-<span class="co">#&gt; [2] "41643 Berbeda terhadap \"Yesterday\", Maria Tuyen, salah seorang kasir restoran itu, menyatakan, tidak mengira bahwa \"Maria\" maupun \"Hanya Satu\" adalah lagu berbahasa Indonesia."</span></code></pre></div>
+<span class="co">#&gt; [1] "276710 H Susilo Bambang Yudhoyono, President of the Republic of Indonesia, Istana Merdeka, Jakarta 10110, Indonesia\"."                                                                                     </span>
+<span class="co">#&gt; [2] "53592 Dia juga sudah memanggil semua BUMN yang sudah menjadi perusahaan terbuka guna membahas rencana pembelian saham kembali di saat harga-harga saham sedang rendah akibat buruknya kondisi pasar global."</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Full-paths to the Leipzig Corpus plain texts, as in the <code>leipzig_corpus_path</code>.</li>
 </ol>
@@ -278,6 +278,74 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <span class="co">#&gt; # ... with 1 more variable: dP_cxn_cue_collex &lt;dbl&gt;</span></code></pre></div>
 <p>Column <code>a</code> contains the co-occurrence frequency of the collocates (<code>w</code>) with the <code>node</code> as its R1 collocates in the demo corpus. <code>p_fye</code> shows the one-tailed <em>p</em><sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform <em>Distinctive Collexeme Analysis</em>.</p>
 </div>
+</div>
+<div id="session-info" class="section level3">
+<h3 class="hasAnchor">
+<a href="#session-info" class="anchor"></a>Session info</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/session_info">session_info</a></span>()
+<span class="co">#&gt; Session info -------------------------------------------------------------</span>
+<span class="co">#&gt;  setting  value                       </span>
+<span class="co">#&gt;  version  R version 3.5.1 (2018-07-02)</span>
+<span class="co">#&gt;  system   x86_64, darwin15.6.0        </span>
+<span class="co">#&gt;  ui       X11                         </span>
+<span class="co">#&gt;  language (EN)                        </span>
+<span class="co">#&gt;  collate  en_US.UTF-8                 </span>
+<span class="co">#&gt;  tz       Australia/Melbourne         </span>
+<span class="co">#&gt;  date     2018-07-30</span>
+<span class="co">#&gt; Packages -----------------------------------------------------------------</span>
+<span class="co">#&gt;  package    * version date       source                              </span>
+<span class="co">#&gt;  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      </span>
+<span class="co">#&gt;  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  base       * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       </span>
+<span class="co">#&gt;  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      </span>
+<span class="co">#&gt;  collogetr  * 1.0.1   2018-07-30 Github (gederajeg/collogetr@1e4f0e7)</span>
+<span class="co">#&gt;  commonmark   1.5     2018-04-28 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  compiler     3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      </span>
+<span class="co">#&gt;  datasets   * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  desc         1.2.0   2018-05-01 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  dplyr        0.7.6   2018-06-29 CRAN (R 3.5.1)                      </span>
+<span class="co">#&gt;  evaluate     0.11    2018-07-17 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  fansi        0.2.3   2018-05-06 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  fs           1.2.3   2018-06-08 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  glue         1.3.0   2018-07-17 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  graphics   * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  grDevices  * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  hms          0.4.2   2018-03-10 cran (@0.4.2)                       </span>
+<span class="co">#&gt;  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  knitr        1.20    2018-02-20 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                      </span>
+<span class="co">#&gt;  MASS         7.3-50  2018-04-30 CRAN (R 3.5.1)                      </span>
+<span class="co">#&gt;  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                      </span>
+<span class="co">#&gt;  methods    * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  pillar       1.3.0   2018-07-14 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                      </span>
+<span class="co">#&gt;  pkgdown      1.1.0   2018-06-02 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  purrr        0.2.5   2018-05-29 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                      </span>
+<span class="co">#&gt;  Rcpp         0.12.18 2018-07-23 CRAN (R 3.5.1)                      </span>
+<span class="co">#&gt;  readr        1.1.1   2017-05-16 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  rlang        0.2.1   2018-05-30 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  rmarkdown    1.10    2018-06-11 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  roxygen2     6.0.1   2017-02-06 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.3)                      </span>
+<span class="co">#&gt;  rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1)                      </span>
+<span class="co">#&gt;  stats      * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  stringi      1.2.4   2018-07-20 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  stringr      1.3.1   2018-05-10 cran (@1.3.1)                       </span>
+<span class="co">#&gt;  tibble       1.4.2   2018-01-22 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  tidyr        0.8.1   2018-05-18 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  tools        3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  utf8         1.1.4   2018-05-24 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  utils      * 3.5.1   2018-07-05 local                               </span>
+<span class="co">#&gt;  withr        2.1.2   2018-03-15 cran (@2.1.2)                       </span>
+<span class="co">#&gt;  xml2         1.2.0   2018-01-24 CRAN (R 3.5.0)                      </span>
+<span class="co">#&gt;  yaml         2.1.19  2018-05-01 CRAN (R 3.5.0)</span></code></pre></div>
 </div>
 <div id="references" class="section level3 unnumbered">
 <h3 class="hasAnchor">

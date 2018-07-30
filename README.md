@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "775444 Kaum Khawarij mengusir dia, karena dekatnya dengan ‘Ali, dan pernyataannya yang selalu mengagungkan ‘Ali dan Ahlul-Bayt."
-#> [2] "466935 Orang-orang tertentu akan merasa kebingungan memilih barang yang hendak dibeli."                                         
+#> [1] "180504 ” SUNGGUH sebuah kehormatan besar bagiku untuk mengenal dan belajar ilmu agama dari Kiai Sholeh Darat salah seorang wali Allah terkemuka ini."                                                                                 
+#> [2] "169725 Karena Yesus dalam kemanusiaanNya itu disebut “Anak Abraham” dan “Anak Daud “ ( Matius 1:1), maka haruslah dalam jasad daging kemanusiaanNya itu mengalir “gen” dari Abraham dan Daud bapa-bapa leluhurNya secara manusia itu."
 #> 
 #> $ind_news_2008_300K
-#> [1] "67564 \" Dewan HAM yang berpusat di Jenewa dan beranggotakan 47 negara itu dibentuk tahun 2006 untuk menggantikan Komisi HAM."
-#> [2] "25447 Torres, yang mencetak gol kemenangan Spanyol di final Euro 2008, kini menjadi top skorer Liga Inggris dengan lima gol."
+#> [1] "81638 \"Sekitar 80 persen produk kakao Indonesia dihasilkan oleh petani perorangan."                
+#> [2] "20744 Setelah beberapa jam pertempuran itu terhenti tetapi suara tembakan sporadis masih terdengar."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -229,6 +229,67 @@ dplyr::top_n(am_fye, 10, collstr)
 ```
 
 Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform *Distinctive Collexeme Analysis*.
+
+### Session info
+
+``` r
+devtools::session_info()
+#> Session info -------------------------------------------------------------
+#>  setting  value                       
+#>  version  R version 3.5.1 (2018-07-02)
+#>  system   x86_64, darwin15.6.0        
+#>  ui       X11                         
+#>  language (EN)                        
+#>  collate  en_US.UTF-8                 
+#>  tz       Australia/Melbourne         
+#>  date     2018-07-30
+#> Packages -----------------------------------------------------------------
+#>  package    * version date       source                              
+#>  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      
+#>  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)                      
+#>  base       * 3.5.1   2018-07-05 local                               
+#>  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       
+#>  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      
+#>  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      
+#>  collogetr  * 1.0.1   2018-07-30 Github (gederajeg/collogetr@1e4f0e7)
+#>  compiler     3.5.1   2018-07-05 local                               
+#>  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      
+#>  datasets   * 3.5.1   2018-07-05 local                               
+#>  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)                      
+#>  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)                      
+#>  dplyr        0.7.6   2018-06-29 CRAN (R 3.5.1)                      
+#>  evaluate     0.11    2018-07-17 CRAN (R 3.5.0)                      
+#>  fansi        0.2.3   2018-05-06 CRAN (R 3.5.0)                      
+#>  glue         1.3.0   2018-07-17 CRAN (R 3.5.0)                      
+#>  graphics   * 3.5.1   2018-07-05 local                               
+#>  grDevices  * 3.5.1   2018-07-05 local                               
+#>  hms          0.4.2   2018-03-10 cran (@0.4.2)                       
+#>  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)                      
+#>  knitr        1.20    2018-02-20 CRAN (R 3.5.0)                      
+#>  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                      
+#>  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                      
+#>  methods    * 3.5.1   2018-07-05 local                               
+#>  pillar       1.3.0   2018-07-14 CRAN (R 3.5.0)                      
+#>  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                      
+#>  purrr        0.2.5   2018-05-29 CRAN (R 3.5.0)                      
+#>  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                      
+#>  Rcpp         0.12.18 2018-07-23 CRAN (R 3.5.1)                      
+#>  readr        1.1.1   2017-05-16 CRAN (R 3.5.0)                      
+#>  rlang        0.2.1   2018-05-30 CRAN (R 3.5.0)                      
+#>  rmarkdown    1.10    2018-06-11 CRAN (R 3.5.0)                      
+#>  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.3)                      
+#>  stats      * 3.5.1   2018-07-05 local                               
+#>  stringi      1.2.4   2018-07-20 CRAN (R 3.5.0)                      
+#>  stringr      1.3.1   2018-05-10 cran (@1.3.1)                       
+#>  tibble       1.4.2   2018-01-22 CRAN (R 3.5.0)                      
+#>  tidyr        0.8.1   2018-05-18 CRAN (R 3.5.0)                      
+#>  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)                      
+#>  tools        3.5.1   2018-07-05 local                               
+#>  utf8         1.1.4   2018-05-24 CRAN (R 3.5.0)                      
+#>  utils      * 3.5.1   2018-07-05 local                               
+#>  withr        2.1.2   2018-03-15 cran (@2.1.2)                       
+#>  yaml         2.1.19  2018-05-01 CRAN (R 3.5.0)
+```
 
 ### References
 
