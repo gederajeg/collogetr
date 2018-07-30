@@ -8,3 +8,4 @@
 ^README-.*\.png$
 ^codecov\.yml$
 ^experiment_script$
+^collogetr_out.*\.txt$

@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 packrat/lib*/
+collogetr_out*.txt
+experiment*
