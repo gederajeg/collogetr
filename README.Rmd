@@ -7,9 +7,9 @@ output:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 **Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/>
-**License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)<br/>
+**License:** [MIT](https://tldrlegal.com/license/mit-license#summary) + [file LICENSE](https://github.com/gederajeg/collogetr/blob/master/LICENSE) <br/>
 
-[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr)<br/>
+[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 

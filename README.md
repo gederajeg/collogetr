@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [GPL-2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)<br/>
+**Authors:** [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749)<br/> **License:** [MIT](https://tldrlegal.com/license/mit-license#summary) + [file LICENSE](https://github.com/gederajeg/collogetr/blob/master/LICENSE) <br/>
 
-[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr)<br/> [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
 =========
@@ -75,12 +75,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "372385 Meskipun telah mengupayakan hal seperti itu, stasiun-stasiun televisi dunia tetap menampilkan gambar-gambar kekejian di Palestina."
-#> [2] "631721 Sejak tahun 1958 termasuk penyair produktif."                                                                                      
+#> [1] "494506 Hal terpenting yang harus kita lakukan apabila terdapat hal-hal yang jahat dalam kehidupan kita adalah segera datang kepada Tuhan yang setia dan adil pasti akan mengampuni kita dan menyucikan kita dari segala kejahatan (1 Yoh."
+#> [2] "310883 Apakah memang hanya separuh, atau terpotong karena karakter ayng terlalu banyak."                                                                                                                                                  
 #> 
 #> $ind_news_2008_300K
-#> [1] "286945 Perekonomian Cina diperkirakan memang akan melamban tahun depan, namun tetap saja akan tumbuh sekitar 9%, sementara Amerika Serikat sudah menghadapi resesi."
-#> [2] "189755 Tiga anggota al-Qaeda lainnya dan sejumlah anak yang tak diketahui identitasnya juga tewas di dalam serangan udara 28 Juli itu."
+#> [1] "185041 Jika lebih dari itu, maka akan dicarikan penyebab lain dari kenaikan harga tersebut selain dari biaya produksi,\" ujarnya."
+#> [2] "212046 AKIM adalah partai pecahan PAS, salah satu koalisi partai oposisi."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -209,24 +209,24 @@ Now we can retrieve the top-10 most strongly attracted collocates to *mengatakan
 # get the top-10 most strongly attracted collocates
 dplyr::top_n(am_fye, 10, collstr)
 #> # A tibble: 16 x 9
-#>    w         node         a a_exp assoc     p_fye collstr dP_collex_cue_c…
-#>    <chr>     <chr>    <int> <dbl> <chr>     <dbl>   <dbl>            <dbl>
-#>  1 pemerint… mengata…     4 0.354 attrac… 4.55e-4    3.34            0.024
-#>  2 israel    mengata…     2 0.078 attrac… 2.71e-3    2.57            0.013
-#>  3 angklung  mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  4 ayla      mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  5 definisi  mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  6 hofos     mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  7 kawanan   mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  8 keberunt… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#>  9 keterkai… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 10 konjen    mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 11 lily      mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 12 pemerint… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 13 pemotong… mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 14 ptn       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 15 ukm       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
-#> 16 wna       mengata…     1 0.004 attrac… 3.69e-3    2.43            0.007
+#>    w     node      a a_exp assoc   p_fye collstr dP_collex_cue_c…
+#>    <chr> <chr> <int> <dbl> <chr>   <dbl>   <dbl>            <dbl>
+#>  1 peme… meng…     4 0.354 attr… 4.55e-4    3.34            0.024
+#>  2 isra… meng…     2 0.078 attr… 2.71e-3    2.57            0.013
+#>  3 angk… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  4 ayla  meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  5 defi… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  6 hofos meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  7 kawa… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  8 kebe… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#>  9 kete… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 10 konj… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 11 lily  meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 12 peme… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 13 pemo… meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 14 ptn   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 15 ukm   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
+#> 16 wna   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
 #> # ... with 1 more variable: dP_cxn_cue_collex <dbl>
 ```
 
