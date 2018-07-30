@@ -45,5 +45,11 @@ testthat::test_that("message is out for the save_interim", {
                                 window = "r",
                                 span = 1L,
                                 save_interim = FALSE), regexp = "SAVE INTERIM", all = FALSE, perl = TRUE)
+  expect_message(colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
+                                leipzig_path = NULL,
+                                pattern = "memberikan",
+                                window = "r",
+                                span = 1L,
+                                save_interim = TRUE), regexp = "Generating output files", all = FALSE, perl = TRUE)
 })
 

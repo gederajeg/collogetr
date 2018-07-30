@@ -14,9 +14,16 @@ test_that("output of assoc_prepare is a tibble", {
   expect_output(str(assoc_tb), "(tbl_df|tbl|data\\.frame)", perl = TRUE)
 })
 
-test_that("output of assoc_prepare consists of three (3L) columns", {
+test_that("output of assoc_prepare consists of three (3L) columns when `per_corpus` is `FALSE`", {
   expect_equal(dim(assoc_tb)[2], 3L)
+  expect_output(str(assoc_prepare(out)), "(3 variables|\\$ (w|node|data))")
 })
+
+test_that("output of assoc_prepare consists of three (4L) columns when `per_corpus` is `TRUE`", {
+  expect_equal(dim(assoc_prepare(out, per_corpus = TRUE))[2], 4L)
+  expect_output(str(assoc_prepare(out, per_corpus = TRUE)), "(4 variables|\\$ (corpus_names|w|node|data))")
+})
+
 
 # prepare small stopwords list
 stopwords_list <- c("yang", "akan", "akankah", "melalui", "dari", "adalah", "ketika", "dan", "atau")
