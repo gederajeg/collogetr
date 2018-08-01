@@ -143,8 +143,8 @@ colloc_leipzig <- function(leipzig_path = NULL,
     pattern <- pattern
   }
 
-  # store the search pattern to be saved
-  res_pattern <- pattern
+  # store the user-input search pattern to be saved
+  user_input_pattern <- pattern
 
   # define a function to generate a results holder
   results_holder <- function(input = NULL, input_names = NULL, mode = "list") {
@@ -187,176 +187,173 @@ colloc_leipzig <- function(leipzig_path = NULL,
 
     # check the type of corpus input then load the corpus file
     if (corpus_input_type == "path") {
+
       corpora <- readr::read_lines(file = corpus_input[c])
+
     } else {
+
       corpora <- corpus_input[[c]]
+
     }
 
     # get corpus names
     corpus_names <- corpus_names_all[c]
 
-    # vector to store which search pattern(s) is detected in the loaded corpus
-    detected_pattern <- vector()
+    # define the corpus with sentence marker
+    sent_marker <- stringr::str_c(rep("stcs", span), collapse = " ")
+    corpora1 <- stringr::str_c(sent_marker, corpora, sent_marker)
 
-    # check if the search pattern can be found in the loaded corpus
-    for (pp in seq_along(pattern)) {
+    # define span setting function
+    span_setting <- function(window = NULL, span = NULL) {
 
-      # define regex and exact pattern
-      regex_pattern <- stringr::regex(pattern[pp], ignore_case = case_insensitive)
+      if (window == "l") {
 
-      # if the pattern does have word boundary character ("\\b")
-      if (stringr::str_detect(pattern[pp], "\\\\b")) {
+        span1 <- span
+        span <- -span:0
+        names(span) <- c(stringr::str_c("l", span1:1, sep = ""), "node")
 
-        exact_pattern <- stringr::str_replace_all(regex_pattern[1], "\\\\b(.+?)\\\\b", "^\\1$")
+      } else if (window == "r") {
 
-      } else if (stringr::str_detect(pattern[pp], "(\\^|\\$)")) {
-
-        exact_pattern <- regex_pattern[1]
+        span1 <- span
+        span <- 0:span
+        names(span) <- c("node", stringr::str_c("r", 1:span1))
 
       } else {
 
-        exact_pattern <- stringr::str_c("^", pattern[pp], "$", collapse = "")
-      }
-
-      # check if regex pattern is designed as "^....$"; if it is simply a word form (e.g., "mau"), assume that it is a whole word, hence add the word boundary "\\b"
-      if (stringr::str_detect(regex_pattern[1], "(\\^|\\$)")) {
-
-        pattern_to_detect <- stringr::str_replace_all(pattern[pp], "(\\^|\\$)", "\\b")
-        regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
-
-      } else if (!stringr::str_detect(regex_pattern[1], "(\\^|\\$)")) {
-
-        pattern_to_detect <- stringr::str_c("\\b", pattern[pp], "\\b", sep = "")
-        regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
-
-      } else if (stringr::str_detect(regex_pattern[1], "\\b")) {
-
-        pattern_to_detect <- stringr::str_c("\\b", pattern[pp], "\\b", sep = "")
-        regex_pattern <- stringr::regex(pattern_to_detect, ignore_case = case_insensitive)
+        span1 <- span
+        span <- -span:span
+        names(span) <- c(stringr::str_c("l", span1:1, sep = ""), "node", stringr::str_c("r", 1:span1, sep = ""))
 
       }
 
-      # detect if any match is found
-      if (any(stringr::str_which(corpora, pattern = regex_pattern))) {
-        message(stringr::str_c("At least one match is detected for the input form '",
-                               stringr::str_replace_all(exact_pattern[1], "\\^|\\$", ""),
-                               "' in ",
-                               corpus_names,
-                               ".",
-                               sep = ""))
-        detected_pattern[pp] <- pattern[pp]
-      } else {
-        warning(stringr::str_c("No match is detected for the input form '",
-                               stringr::str_replace_all(exact_pattern[1], "\\^|\\$", ""),
-                               "' in ",
-                               corpus_names,
-                               ".",
-                               sep = ""))
-      }
+      return(span)
     }
 
-    # remove NAs from detected_pattern
-    detected_pattern <- detected_pattern[!is.na(detected_pattern)]
+    # define the span set
+    span_set <- span_setting(window = window, span = span)
+    span_set_excl_node <- span_set[names(span_set) != "node"] # exclude span for the node
 
-    # check if no patterns are detected in a corpus
-    if (length(detected_pattern) == 0L) {
+    # tokenising the corpus
+    message(paste('1. Tokenising the "', corpus_names, '" corpus. This process takes a while!!!', sep = ""))
+    corpus_token <- stringr::str_split(string = corpora1, pattern = split_corpus_pattern)
+    names(corpus_token) <- stringr::str_c("s_", 1:length(corpus_token), "__", sep = "")
+    corpus_token <- unlist(corpus_token)
+    message("    1.1 Removing one-character tokens...")
+    corpus_token <- corpus_token[nchar(corpus_token) > 1L] # remove one-letter/character token
+    corpus_token <- corpus_token[!stringr::str_detect(corpus_token, "^(-+|-([A-Za-z0-9]|[0-9]+)|([A-Za-z]|[0-9]+)-)$")]
+
+    # get the sentence id and vector position of the word in the corpus word-vector
+    sent_id <- as.integer(stringr::str_extract(names(corpus_token), "(?<=^s_)\\d+"))
+    w_vector_pos = seq_along(corpus_token)
+
+    # lower-casing the word-tokens
+    if (to_lower_colloc == TRUE) {
+
+      message("    1.2 Lowercasing the corpus word-vector...")
+      corpus_token <- stringr::str_to_lower(corpus_token)
+
+    }
+    rm(corpora1)
+
+    # store the corpus-vector into a tibble
+    corpus_token_df <- tibble::tibble(corpus_names = corpus_names,
+                                      sent_id,
+                                      w = corpus_token,
+                                      w_vector_pos)
+    rm(corpus_token)
+
+    # define the exact search pattern
+    exact_pattern <- function(pattern = NULL) {
+
+      search_pattern <- vector("character", length = length(pattern))
+
+      for (i in seq_along(pattern)) {
+
+        # if the pattern does have word boundary character ("\\b")
+        if (stringr::str_detect(pattern[i], "\\\\b")) {
+
+          search_pattern[i] <- stringr::str_replace_all(pattern[i], "\\\\b(.+?)\\\\b", "^\\1$")
+
+        } else if (stringr::str_detect(pattern[i], "(\\^|\\$)")) {
+
+          search_pattern[i] <- pattern[i]
+
+        } else {
+
+          search_pattern[i] <- stringr::str_c("^", pattern[i], "$", collapse = "")
+
+        }
+
+      }
+
+      return(search_pattern)
+    }
+    search_pattern <- exact_pattern(pattern = pattern)
+
+    # check if the search pattern can be found in the loaded corpus
+    pattern_checker <- function(df_corpus = NULL,
+                                search_pattern = NULL,
+                                corpus_file = NULL,
+                                case_insensitive = case_insensitive) {
+
+      # vector to store which search pattern(s) is detected in the loaded corpus
+      detected_pattern <- vector(mode = "character")
+
+      for (pp in seq_along(search_pattern)) {
+
+        # detect if any match is found
+        if (any(stringr::str_which(df_corpus$w, stringr::regex(pattern = search_pattern[pp], ignore_case = case_insensitive)))) {
+
+          message(stringr::str_c("    At least one match is detected for '",
+                                 stringr::str_replace_all(search_pattern[pp], "\\^|\\$", ""),
+                                 "' in ",
+                                 corpus_file,
+                                 ".",
+                                 sep = ""))
+
+          detected_pattern[pp] <- search_pattern[pp]
+
+        } else {
+
+          warning(stringr::str_c("    No match is detected for '",
+                                 stringr::str_replace_all(search_pattern[pp], "\\^|\\$", ""),
+                                 "' in ",
+                                 corpus_file,
+                                 ".",
+                                 sep = ""))
+
+        }
+      }
+
+      # remove NAs from detected_pattern
+      detected_pattern <- detected_pattern[!is.na(detected_pattern)]
+
+      return(detected_pattern)
+    }
+
+    detected_search_pattern <- pattern_checker(corpus_token_df, search_pattern, corpus_names)
+
+
+    # check if at least one pattern is found to proceed
+    if (length(detected_search_pattern) == 0L) {
 
       next # move to the next corpus!
 
     } else { # if at least one pattern is found, proceed!
 
-      # define the corpus with sentence marker
-      sent_marker <- stringr::str_c(rep("stcs", span), collapse = " ")
-      corpora1 <- stringr::str_c(sent_marker, corpora, sent_marker)
-
-      # define span setting function
-      span_setting <- function(window = NULL, span = NULL) {
-        if (window == "l") {
-          span1 <- span
-          span <- -span:0
-          names(span) <- c(stringr::str_c("l", span1:1, sep = ""), "node")
-        } else if (window == "r") {
-          span1 <- span
-          span <- 0:span
-          names(span) <- c("node", stringr::str_c("r", 1:span1))
-        } else {
-          span1 <- span
-          span <- -span:span
-          names(span) <- c(stringr::str_c("l", span1:1, sep = ""), "node", stringr::str_c("r", 1:span1, sep = ""))
-        }
-        return(span)
-      }
-
-      # define the span set
-      span_set <- span_setting(window = window, span = span)
-      span_set_excl_node <- span_set[names(span_set) != "node"] # exclude span for the node
-
-      # tokenising the corpus
-      message("1. Tokenising the corpus into corpus word-vector...")
-      corpus_token <- stringr::str_split(string = corpora1, pattern = split_corpus_pattern)
-      names(corpus_token) <- stringr::str_c("s_", 1:length(corpus_token), "__", sep = "")
-      message("    1.1 Vectorising the split corpus (it does take some time for 1M-sentences corpora!!!)...")
-      corpus_token <- unlist(corpus_token)
-      message("    1.2 Removing one-character tokens")
-      corpus_token <- corpus_token[nchar(corpus_token) > 1L] # remove one-letter/character token
-      corpus_token <- corpus_token[!stringr::str_detect(corpus_token, "^-+$")] # remove hypen
-      corpus_token <- corpus_token[!stringr::str_detect(corpus_token, "^-([A-Za-z0-9]|[0-9]+)$")]
-      corpus_token <- corpus_token[!stringr::str_detect(corpus_token, "^([A-Za-z]|[0-9]+)-$")]
-      rm(corpora1)
-
-      # store the corpus-vector into a tibble
-      corpus_token_df <- tibble::tibble(corpus_names = corpus_names,
-                                        sent_id = as.integer(stringr::str_extract(names(corpus_token), "(?<=^s_)\\d+")),
-                                        sent_elements = as.integer(stringr::str_extract(names(corpus_token), "(?<=__)\\d+")),
-                                        w = corpus_token,
-                                        w_vector_pos = seq_along(corpus_token))
-      rm(corpus_token)
-
-      # lower-casing the word-tokens
-      if (to_lower_colloc == TRUE) {
-        message("    1.3 Lowercasing the corpus word-vector...")
-        wlower <- stringr::str_to_lower(corpus_token_df$w)
-        w <- dplyr::quo(w)
-        corpus_token_df <- dplyr::mutate(corpus_token_df,
-                                         !!dplyr::quo_name(w) := wlower)
-        rm(wlower)
-      }
-
       # define holder for the collocates per pattern
-      temp_colloc <- results_holder(input = detected_pattern, input_names = detected_pattern)
+      temp_colloc <- results_holder(input = detected_search_pattern, input_names = detected_search_pattern)
 
-      for (p in seq_along(detected_pattern)) {
-
-        # define regex and exact pattern
-        regex_pattern <- stringr::regex(detected_pattern[p], ignore_case = case_insensitive)
-
-        # if the pattern does have word boundary character ("\\b")
-        if (stringr::str_detect(detected_pattern[p], "\\\\b")) {
-
-          exact_pattern <- stringr::str_replace_all(regex_pattern[1], "\\\\b(.+?)\\\\b", "^\\1$")
-
-        } else if (stringr::str_detect(detected_pattern[p], "(\\^|\\$)")) {
-
-          exact_pattern <- regex_pattern[1]
-
-        } else {
-
-          exact_pattern <- stringr::str_c("^", detected_pattern[p], "$", collapse = "")
-        }
+      for (p in seq_along(detected_search_pattern)) {
 
         # nodeword
-        nodewords <- stringr::str_replace_all(exact_pattern, "\\^|\\$", "")
+        nodewords <- stringr::str_replace_all(detected_search_pattern[p], "\\^|\\$", "")
 
         # pull out the vector position of the node
-        message_text <- stringr::str_c("2.", p, " Gathering the vector-position for '", nodewords, "' ...", sep = "")
+        message_text <- stringr::str_c("2.", p, " Gathering the collocates for '", nodewords, "' ...", sep = "")
         message(message_text)
         node_pos <- dplyr::pull(dplyr::filter(corpus_token_df,
-
-                                              # filter nodeword using regex with word boundary --------
-                                              # stringr::str_detect(.data$w, pattern = regex_pattern)),
-
-                                              # filter nodeword using regex with exact pattern ---------
-                                              stringr::str_detect(.data$w, pattern = exact_pattern)),
+                                              stringr::str_detect(.data$w, pattern = detected_search_pattern[p])),
                                 .data$w_vector_pos)
 
         # add node status to all words in the corpus
@@ -374,7 +371,8 @@ colloc_leipzig <- function(leipzig_path = NULL,
         # determine the vector position of the collocates and store them into a data frame
         colloc_pos <- sapply(node_pos, function(node_post) node_post + span_set_excl_node, simplify = TRUE)
 
-        if (is.matrix(colloc_pos)) { # if the vector position is returned as matrix, proceed as follows
+        if (is.matrix(colloc_pos)) { # if the vector position is returned as a matrix, proceed as follows:
+
           colloc_pos <- as.data.frame(colloc_pos)
           colloc_pos$span <- rownames(colloc_pos)
 
@@ -386,6 +384,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
           colloc_pos <- tidyr::spread(colloc_pos, .data$vars, .data$span)
           rownames(colloc_pos) <- unique(names(colloc_pos1))
           colloc_pos$span <- rownames(colloc_pos)
+
         }
 
         colloc_pos <- dplyr::as_tibble(dplyr::select(colloc_pos, .data$span, dplyr::everything()))
@@ -393,11 +392,10 @@ colloc_leipzig <- function(leipzig_path = NULL,
         colloc_pos <- dplyr::select(colloc_pos, -.data$junk_column_var)
 
         # retrieve the collocates from the word vector by matching their vector position
-        message_text <- stringr::str_c("3.", p, " Gathering the collocates for '", nodewords, "' ...", sep = "")
-        message(message_text)
         colloc_pos <- dplyr::filter(colloc_pos,
                                     .data$w_vector_pos >= 1,
                                     .data$w_vector_pos <= dim(corpus_token_df)[1])
+
         colloc_df_unique <- dplyr::left_join(colloc_pos, corpus_token_df, by = "w_vector_pos")
         colloc_df_unique <- dplyr::filter(colloc_df_unique,
                                           !duplicated(.data$w_vector_pos), # get unique collocates
@@ -407,15 +405,12 @@ colloc_leipzig <- function(leipzig_path = NULL,
 
         # add the nodeword column
         node <- dplyr::quo(node)
-        colloc_df_unique <- dplyr::mutate(colloc_df_unique,
-                                          !!dplyr::quo_name(node) := nodewords)
+        colloc_df_unique <- dplyr::mutate(colloc_df_unique, !!dplyr::quo_name(node) := nodewords)
 
         # re-arranging the columns order
         colloc_df_unique <- dplyr::select(colloc_df_unique,
                                           .data$corpus_names,
                                           .data$sent_id,
-                                          # .data$sent_elements,
-                                          # .data$w_vector_pos,
                                           .data$w,
                                           .data$span,
                                           .data$node)
@@ -440,8 +435,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
 
       # generate corpus size tibble
       corpus_size <- tibble::tibble(corpus_names = corpus_names,
-                                    size = dplyr::pull(dplyr::tally(freqlist, .data$n),
-                                                       .data$nn))
+                                    size = dplyr::pull(dplyr::tally(freqlist, .data$n), .data$nn))
 
       if (save_interim) {
 
@@ -469,16 +463,16 @@ colloc_leipzig <- function(leipzig_path = NULL,
     } # end of "if (length(detected_pattern) == 0L)"
 
     rm(corpora)
-    detected_pattern_all_corpus[[c]] <- detected_pattern
+    detected_pattern_all_corpus[[c]] <- detected_search_pattern
 
   } # end of "c" loop for each corpus file
 
-
-
   # save the search pattern
   if (save_interim) {
+
     cat("SEARCH_PATTERN", file = search_pattern_output_file, sep = "\n", append = TRUE)
-    cat(res_pattern, file = search_pattern_output_file, sep = "\n", append = FALSE)
+    cat(user_input_pattern, file = search_pattern_output_file, sep = "\n", append = FALSE)
+
   }
 
   if (any(purrr::map_int(detected_pattern_all_corpus, length)) > 0L) {
@@ -486,21 +480,21 @@ colloc_leipzig <- function(leipzig_path = NULL,
     if (save_interim == FALSE) {
 
       # prepare all output data when not saving into disk
-      message("4. Storing all of the outputs...")
+      message("3. Storing all of the outputs...")
       res_colloc <- dplyr::bind_rows(res_colloc)
       res_freqlist <- dplyr::bind_rows(res_freqlist)
       res_corpussize <- dplyr::bind_rows(res_corpussize)
       output_all <- list(colloc_df = res_colloc,
                          freqlist_df = res_freqlist,
                          corpussize_df = res_corpussize,
-                         pattern = res_pattern)
+                         pattern = user_input_pattern)
       message("\nDONE!\n")
       return(output_all)
 
     } else {
 
       # message for finish processing all loaded corpora and saving interim results!
-      message("\nReturning the names of the saved files!")
+      message("3. Returning the names of the saved files!")
       output_file_names <- c(freqlist_output_file,
                              colloc_output_file,
                              corpussize_output_file,
@@ -512,7 +506,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
   } else {
 
     # message for non-match result in all corpora
-    warning("\nSORRY!\nNot a single match is found for your search pattern in all the loaded corpora!")
+    warning("\nSORRY!\nNot a single match is found for your search pattern(s) in all the loaded corpora!")
   }
 
 } # end of "colloc_leipzig()"
