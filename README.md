@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&svg=true)](https://ci.appveyor.com/project/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
 =========
@@ -40,7 +40,7 @@ citation("collogetr")
 #> 
 #>   Rajeg, G. P. W. (2018). collogetr: Collocates retriever and
 #>   collocational association measure for the Indonesian Leipzig
-#>   Corpora. R package development version 1.0.0. url:
+#>   Corpora. R package development version 1.0.2. url:
 #>   https://github.com/gederajeg/collogetr
 #> 
 #> Please also cite the following foundational works on the Collexeme
@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "620751 Sebelumnya, ini data dari babysitter tersebut: SUSTER DIAH (HP."                                            
-#> [2] "453559 Saya seorang mahasiswa tingkat akhir di salah satu perguruan tinggi swasta yang berada di bilangan Ciputat."
+#> [1] "246862 Jangan lupa, sejak beberapa tahun terakhir, telah terjadi pergeseran peradaban di skala masyarakat Surabaya."
+#> [2] "994715 Bagaimana dia akan pentingnya sebagai pusat karakter dibentuk?"                                              
 #> 
 #> $ind_news_2008_300K
-#> [1] "203012 Gelael tiba di Medan, Kamis (22/5), sementara Tommy direncanakan tiba di Medan, Sabtu (24/5) dan langsung akan mengujicoba sirkuit rally yang baru saja dibangun IMI Sumut itu."                              
-#> [2] "193054 Pasukan keamanan Pakistan telah melancarkan serangan di lembah Swat pada Selasa setelah Taliban lokal membunuh tiga agen intelijen dan menculik 25 polisi dan pasukan paramiliter dari sebuah pos kepolisian."
+#> [1] "9246 Sedangkan gejolak global terjadi krisis keuangan di Amerika Serikat dan Eropa mengakibatkan ekspor Indonesia mengalami penurunan, tuturnya."                                                                       
+#> [2] "94650 \"Jadi masyararakat yang berpenghasilan kurang dari Rp2,5 juta diberi kesempatan untuk menyewa terlebih dahulu rumah yang akan dibeli, dengan harapan setelah lima tahun penghasilannya akan membaik,\" tuturnya."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -257,7 +257,7 @@ devtools::session_info()
 #>  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       
 #>  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      
 #>  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      
-#>  collogetr  * 1.0.1   2018-07-30 Github (gederajeg/collogetr@1e4f0e7)
+#>  collogetr  * 1.0.2   2018-08-01 Github (gederajeg/collogetr@34de4cd)
 #>  compiler     3.5.1   2018-07-05 local                               
 #>  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      
 #>  datasets   * 3.5.1   2018-07-05 local                               

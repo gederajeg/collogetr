@@ -9,8 +9,7 @@ csl: 'apa-old-doi-prefix.csl'
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&svg=true)](https://ci.appveyor.com/project/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 
 ```{r, echo = FALSE}

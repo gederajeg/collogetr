@@ -108,7 +108,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   Rajeg, G. P. W. (2018). collogetr: Collocates retriever and</span>
 <span class="co">#&gt;   collocational association measure for the Indonesian Leipzig</span>
-<span class="co">#&gt;   Corpora. R package development version 1.0.0. url:</span>
+<span class="co">#&gt;   Corpora. R package development version 1.0.2. url:</span>
 <span class="co">#&gt;   https://github.com/gederajeg/collogetr</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Please also cite the following foundational works on the Collexeme</span>
@@ -140,12 +140,12 @@
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(demo_corpus_leipzig[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], sample, <span class="dv">2</span>)
 <span class="co">#&gt; $ind_mixed_2012_1M</span>
-<span class="co">#&gt; [1] "150302 Akan tetapi, melalui praktek ia dapat mempelajari penggunaan metode kerja terbuka ini."</span>
-<span class="co">#&gt; [2] "161798 Untuk bidang tarik suara, beberapa album juga telah diluncurkan."                      </span>
+<span class="co">#&gt; [1] "616396 Dina duduk di kamar santai dan menyalakan televisi."                                                                                </span>
+<span class="co">#&gt; [2] "543823 Maulana, Galuh Dian (2005) Penentuan spesifikasi perangkat lunak analisa aktivitas anggota kliring dengan rational unified process."</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ind_news_2008_300K</span>
-<span class="co">#&gt; [1] "13268 Sedangkan di Bali peningkatan kunjungan wisatawan mancanegara cukup signifikan, yakni pada Januari sebesar 25 persen, Pebruari 27 persen dan Maret 25 persen."                                                                                  </span>
-<span class="co">#&gt; [2] "67775 Bayern kecolongan satu gol ketika Benjamin Koehler menciptakan gol untuk Frankfurt, namun Daniel van Buyten dan Toni yang mencetak golnya yang ke-19 dan ke-20 dalam kompetisi Bundesliga, membuat tim Bavarians itu pulang membawa kemenangan."</span></code></pre></div>
+<span class="co">#&gt; [1] "83092 Sebelumnya Presiden Susilo Bambang Yudhoyono telah meresmikan panen di daerah tersebut bulan April yang disebut-sebut sukses."                                                                                                                         </span>
+<span class="co">#&gt; [2] "98133 Pernyataan Khamenei itu dibuat menjelang perundingan di Jenewa, Sabtu antara perunding nuklir Iran Saeed Jalili dan ketua kebijakan luar negeri Uni Eropa Javier Solana mengenai usul-usul terbaru untuk mengakhiri pertikaian menyangkut nuklir Iran."</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Full-paths to the Leipzig Corpus plain texts, as in the <code>leipzig_corpus_path</code>.</li>
 </ol>
@@ -303,7 +303,7 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <span class="co">#&gt;  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       </span>
 <span class="co">#&gt;  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      </span>
 <span class="co">#&gt;  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      </span>
-<span class="co">#&gt;  collogetr  * 1.0.1   2018-07-30 Github (gederajeg/collogetr@1e4f0e7)</span>
+<span class="co">#&gt;  collogetr  * 1.0.2   2018-08-01 Github (gederajeg/collogetr@34de4cd)</span>
 <span class="co">#&gt;  commonmark   1.5     2018-04-28 CRAN (R 3.5.0)                      </span>
 <span class="co">#&gt;  compiler     3.5.1   2018-07-05 local                               </span>
 <span class="co">#&gt;  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      </span>
@@ -423,6 +423,7 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/gederajeg/collogetr"><img src="https://travis-ci.org/gederajeg/collogetr.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/gederajeg/collogetr"><img src="https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/gederajeg/collogetr?branch=master"><img src="https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg" alt="Coverage Status"></a></li>
 </ul>
 </div>
