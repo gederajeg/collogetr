@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">collogetr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.0.2</span>
       </span>
     </div>
 
@@ -134,24 +134,31 @@
 <div id="accepted-inputs" class="section level4">
 <h4 class="hasAnchor">
 <a href="#accepted-inputs" class="anchor"></a>Accepted inputs</h4>
-<p><code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> accepts two types of input data:</p>
+<p><code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> accepts two types of corpus-input data:</p>
 <ol style="list-style-type: decimal">
 <li>A named-list object with character-vector elements of each Leipzig Corpus Files, represented by <code>demo_corpus_leipzig</code> and the format of which is shown below:</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(demo_corpus_leipzig[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], sample, <span class="dv">2</span>)
 <span class="co">#&gt; $ind_mixed_2012_1M</span>
-<span class="co">#&gt; [1] "894117 Pada saat yang sama, semoga tak pernah diketahui orang lain, bahwa Anda berada di antara orang-orang yang mengesampingkan pekerjaan Allah atau yang membesar-besarkan pekerjaan dari seorang pribadi di atas kekurangan orang lain."</span>
-<span class="co">#&gt; [2] "425922 Sementara anggota KPU setelah habis masa jabatannya lima tahun, tidak dapat menduduki jabatan politik, pemerintahan dan BUMN selama lima tahun dengan mendapatkan tunjangan kesejahteraan selama lima tahun."                       </span>
+<span class="co">#&gt; [1] "150302 Akan tetapi, melalui praktek ia dapat mempelajari penggunaan metode kerja terbuka ini."</span>
+<span class="co">#&gt; [2] "161798 Untuk bidang tarik suara, beberapa album juga telah diluncurkan."                      </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ind_news_2008_300K</span>
-<span class="co">#&gt; [1] "276710 H Susilo Bambang Yudhoyono, President of the Republic of Indonesia, Istana Merdeka, Jakarta 10110, Indonesia\"."                                                                                     </span>
-<span class="co">#&gt; [2] "53592 Dia juga sudah memanggil semua BUMN yang sudah menjadi perusahaan terbuka guna membahas rencana pembelian saham kembali di saat harga-harga saham sedang rendah akibat buruknya kondisi pasar global."</span></code></pre></div>
+<span class="co">#&gt; [1] "13268 Sedangkan di Bali peningkatan kunjungan wisatawan mancanegara cukup signifikan, yakni pada Januari sebesar 25 persen, Pebruari 27 persen dan Maret 25 persen."                                                                                  </span>
+<span class="co">#&gt; [2] "67775 Bayern kecolongan satu gol ketika Benjamin Koehler menciptakan gol untuk Frankfurt, namun Daniel van Buyten dan Toni yang mencetak golnya yang ke-19 dan ke-20 dalam kompetisi Bundesliga, membuat tim Bavarians itu pulang membawa kemenangan."</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Full-paths to the Leipzig Corpus plain texts, as in the <code>leipzig_corpus_path</code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">leipzig_corpus_path[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
 <span class="co">#&gt; [1] "/Users/Primahadi/Documents/Corpora/_corpusindo/Leipzig Corpora/ind_mixed_2012_1M-sentences.txt" </span>
 <span class="co">#&gt; [2] "/Users/Primahadi/Documents/Corpora/_corpusindo/Leipzig Corpora/ind_news_2008_300K-sentences.txt"</span></code></pre></div>
+<p>In terms of the input strings for the <code>pattern</code> argument, <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> accepts three scenarios:</p>
+<ol style="list-style-type: decimal">
+<li><p>Plain string representing a whole word form, such as <code>"memberikan"</code> ‘to give’</p></li>
+<li><p>Regex of a whole word, such as <code>"^memberikan$"</code> ‘to give’</p></li>
+<li><p>Regex of a whole word with word boundary character (<code>\\b</code>), such as <code>"\\bmemberikan\\b"</code>.</p></li>
+</ol>
+<p>All of these three forms will be used to match the exact word form of the search pattern after the corpus file is tokenised into individual words. That is, input patterns following scenario 1 or 3 will be turned into their exact search pattern represented in scenario 2 (i.e., with the beginning- and end-of-line anchors, hence <code>"^...$"</code>). So user can directly use the input pattern in scenario 2 for the <code>pattern</code> argument. If there are more than one word to be searched, put them into a character vector (e.g., <code>c("^memberi$", "^membawa$")</code>).</p>
 </div>
 </div>
 <div id="demo" class="section level3">
@@ -166,7 +173,7 @@
                        <span class="dt">window =</span> <span class="st">"r"</span>,
                        <span class="dt">span =</span> 1L,
                        <span class="dt">save_interim =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>In the example above, the collocates are restricted to those occurring <em>one</em> word (i.e. <code>span = 1L</code>) to the <em>right</em> (<code>window = "r"</code>) of <em>mengatakan</em> ‘to say’. The <code>"r"</code> character in <code>window</code> stands for <em>right</em>-side collocates (<code>"l"</code> for <em>left</em>-side collocates and <code>"b"</code> for <em>both</em> right- and left-side collocates). The <code>span</code> argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The <code>pattern</code> argument requires one or more exact word forms; if more than one, put into a character vector (e.g., <code>c("mengatakan", "menjanjikan")</code>). The <code>pattern</code> argument also accepts strings marked with <em>word boundary</em> character (i.e. <code>"\\b"</code>), thus <code>c("\\bmengatakan\\b", "\\bmenjanjikan\\b")</code>.</p>
+<p>In the example above, the collocates are restricted to those occurring <em>one</em> word (i.e. <code>span = 1L</code>) to the <em>right</em> (<code>window = "r"</code>) of <em>mengatakan</em> ‘to say’. The <code>"r"</code> character in <code>window</code> stands for <em>right</em>-side collocates (<code>"l"</code> for <em>left</em>-side collocates and <code>"b"</code> for <em>both</em> right- and left-side collocates). The <code>span</code> argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The <code>pattern</code> argument requires one or more exact word forms; if more than one, put into a character vector (e.g., <code>c("mengatakan", "menjanjikan")</code>).</p>
 <p>The <code>save_interim</code> is <code>FALSE</code> means that no output is saved into the computer, but in the console (i.e., in the <code>out</code> object). If <code>save_interim = TRUE</code>, the function will save the outputs into the files in the computer. <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> has specified the default file names for the outputs via these arguments: (i) <code>freqlist_output_file</code>, (ii) <code>colloc_output_file</code>, (iii) <code>corpussize_output_file</code>, and (iv) <code>search_pattern_output_file</code>. It is recommended that the output filenames are stored as a character vector. See <strong>Examples</strong> “(2)” in the documentation of <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> for a call when <code>save_interim = TRUE</code>.</p>
 </div>
 <div id="exploring-the-output-of-colloc_leipzig-" class="section level4">
@@ -219,11 +226,7 @@
                           <span class="dt">window_span =</span> <span class="st">"r1"</span>,
                           <span class="dt">per_corpus =</span> <span class="ot">FALSE</span>, <span class="co"># combine all data across corpus</span>
                           <span class="dt">stopword_list =</span> collogetr<span class="op">::</span>stopwords,
-                          <span class="dt">float_digits =</span> 3L)
-<span class="co">#&gt; Your colloc_leipzig output is stored as list!</span>
-<span class="co">#&gt; You chose to combine the collocational and frequency list data from ALL CORPORA!</span>
-<span class="co">#&gt; Tallying frequency list of all words in ALL CORPORA!</span>
-<span class="co">#&gt; You chose to remove stopwords!</span></code></pre></div>
+                          <span class="dt">float_digits =</span> 3L)</code></pre></div>
 <p>Inspect the output of <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(assoc_tb)
 <span class="co">#&gt; # A tibble: 6 x 3</span>
@@ -291,7 +294,7 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <span class="co">#&gt;  language (EN)                        </span>
 <span class="co">#&gt;  collate  en_US.UTF-8                 </span>
 <span class="co">#&gt;  tz       Australia/Melbourne         </span>
-<span class="co">#&gt;  date     2018-07-30</span>
+<span class="co">#&gt;  date     2018-08-01</span>
 <span class="co">#&gt; Packages -----------------------------------------------------------------</span>
 <span class="co">#&gt;  package    * version date       source                              </span>
 <span class="co">#&gt;  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      </span>

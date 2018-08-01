@@ -59,7 +59,7 @@ The package has three data sets for demonstration. The important one is the `dem
 
 #### Accepted inputs
 
-`colloc_leipzig()` accepts two types of input data:
+`colloc_leipzig()` accepts two types of corpus-input data:
 
 1. A named-list object with character-vector elements of each Leipzig Corpus Files, represented by `demo_corpus_leipzig` and the format of which is shown below:
 
@@ -72,6 +72,16 @@ lapply(demo_corpus_leipzig[1:2], sample, 2)
 ```{r leipzig_path_input}
 leipzig_corpus_path[1:2]
 ```
+
+In terms of the input strings for the `pattern` argument, `colloc_leipzig()` accepts three scenarios:
+
+1. Plain string representing a whole word form, such as `"memberikan"` 'to give'
+
+2. Regex of a whole word, such as `"^memberikan$"` 'to give'
+
+3. Regex of a whole word with word boundary character (`\\b`), such as `"\\bmemberikan\\b"`.
+
+All of these three forms will be used to match the exact word form of the search pattern after the corpus file is tokenised into individual words. That is, input patterns following scenario 1 or 3 will be turned into their exact search pattern represented in scenario 2 (i.e., with the beginning- and end-of-line anchors, hence `"^...$"`). So user can directly use the input pattern in scenario 2 for the `pattern` argument. If there are more than one word to be searched, put them into a character vector (e.g., `c("^memberi$", "^membawa$")`).
 
 ### Demo
 
@@ -87,7 +97,7 @@ out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
                        save_interim = FALSE)
 ```
 
-In the example above, the collocates are restricted to those occurring _one_ word (i.e. `span = 1L`) to the _right_ (`window = "r"`) of *mengatakan* 'to say'. The `"r"` character in `window` stands for *right*-side collocates (`"l"` for *left*-side collocates and `"b"` for *both* right- and left-side collocates). The `span` argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The `pattern` argument requires one or more exact word forms; if more than one, put into a character vector (e.g., `c("mengatakan", "menjanjikan")`). The `pattern` argument also accepts strings marked with *word boundary* character (i.e. `"\\b"`), thus `c("\\bmengatakan\\b", "\\bmenjanjikan\\b")`. 
+In the example above, the collocates are restricted to those occurring _one_ word (i.e. `span = 1L`) to the _right_ (`window = "r"`) of *mengatakan* 'to say'. The `"r"` character in `window` stands for *right*-side collocates (`"l"` for *left*-side collocates and `"b"` for *both* right- and left-side collocates). The `span` argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The `pattern` argument requires one or more exact word forms; if more than one, put into a character vector (e.g., `c("mengatakan", "menjanjikan")`). 
 
 The `save_interim` is `FALSE` means that no output is saved into the computer, but in the console (i.e., in the `out` object). If `save_interim = TRUE`, the function will save the outputs into the files in the computer. `colloc_leipzig()` has specified the default file names for the outputs via these arguments: (i) `freqlist_output_file`, (ii) `colloc_output_file`, (iii) `corpussize_output_file`, and (iv) `search_pattern_output_file`. It is recommended that the output filenames are stored as a character vector. See **Examples** "(2)" in the documentation of `colloc_leipzig()` for a call when `save_interim = TRUE`.
 
@@ -116,7 +126,7 @@ The `freqlist_df` and `corpussize_df` are important for performing the collocati
 
 First we need to call `assoc_prepare()` for generating the data for SCA with `collex_fye()`. The demo illustrates it with on-console output of `colloc_leipzig()`. Cf. the **Examples** "2.2" in the documentation for `assoc_prepare()` for handling saved outputs (`?assoc_prepare()`).
 
-```{r assoc-prepare}
+```{r assoc-prepare, message = FALSE, warning = FALSE}
 assoc_tb <- assoc_prepare(colloc_out = out, 
                           window_span = "r1",
                           per_corpus = FALSE, # combine all data across corpus

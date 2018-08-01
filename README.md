@@ -66,19 +66,19 @@ The package has three data sets for demonstration. The important one is the `dem
 
 #### Accepted inputs
 
-`colloc_leipzig()` accepts two types of input data:
+`colloc_leipzig()` accepts two types of corpus-input data:
 
 1.  A named-list object with character-vector elements of each Leipzig Corpus Files, represented by `demo_corpus_leipzig` and the format of which is shown below:
 
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "180504 ” SUNGGUH sebuah kehormatan besar bagiku untuk mengenal dan belajar ilmu agama dari Kiai Sholeh Darat salah seorang wali Allah terkemuka ini."                                                                                 
-#> [2] "169725 Karena Yesus dalam kemanusiaanNya itu disebut “Anak Abraham” dan “Anak Daud “ ( Matius 1:1), maka haruslah dalam jasad daging kemanusiaanNya itu mengalir “gen” dari Abraham dan Daud bapa-bapa leluhurNya secara manusia itu."
+#> [1] "620751 Sebelumnya, ini data dari babysitter tersebut: SUSTER DIAH (HP."                                            
+#> [2] "453559 Saya seorang mahasiswa tingkat akhir di salah satu perguruan tinggi swasta yang berada di bilangan Ciputat."
 #> 
 #> $ind_news_2008_300K
-#> [1] "81638 \"Sekitar 80 persen produk kakao Indonesia dihasilkan oleh petani perorangan."                
-#> [2] "20744 Setelah beberapa jam pertempuran itu terhenti tetapi suara tembakan sporadis masih terdengar."
+#> [1] "203012 Gelael tiba di Medan, Kamis (22/5), sementara Tommy direncanakan tiba di Medan, Sabtu (24/5) dan langsung akan mengujicoba sirkuit rally yang baru saja dibangun IMI Sumut itu."                              
+#> [2] "193054 Pasukan keamanan Pakistan telah melancarkan serangan di lembah Swat pada Selasa setelah Taliban lokal membunuh tiga agen intelijen dan menculik 25 polisi dan pasukan paramiliter dari sebuah pos kepolisian."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -88,6 +88,16 @@ leipzig_corpus_path[1:2]
 #> [1] "/Users/Primahadi/Documents/Corpora/_corpusindo/Leipzig Corpora/ind_mixed_2012_1M-sentences.txt" 
 #> [2] "/Users/Primahadi/Documents/Corpora/_corpusindo/Leipzig Corpora/ind_news_2008_300K-sentences.txt"
 ```
+
+In terms of the input strings for the `pattern` argument, `colloc_leipzig()` accepts three scenarios:
+
+1.  Plain string representing a whole word form, such as `"memberikan"` 'to give'
+
+2.  Regex of a whole word, such as `"^memberikan$"` 'to give'
+
+3.  Regex of a whole word with word boundary character (`\\b`), such as `"\\bmemberikan\\b"`.
+
+All of these three forms will be used to match the exact word form of the search pattern after the corpus file is tokenised into individual words. That is, input patterns following scenario 1 or 3 will be turned into their exact search pattern represented in scenario 2 (i.e., with the beginning- and end-of-line anchors, hence `"^...$"`). So user can directly use the input pattern in scenario 2 for the `pattern` argument. If there are more than one word to be searched, put them into a character vector (e.g., `c("^memberi$", "^membawa$")`).
 
 ### Demo
 
@@ -103,7 +113,7 @@ out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
                        save_interim = FALSE)
 ```
 
-In the example above, the collocates are restricted to those occurring *one* word (i.e. `span = 1L`) to the *right* (`window = "r"`) of *mengatakan* 'to say'. The `"r"` character in `window` stands for *right*-side collocates (`"l"` for *left*-side collocates and `"b"` for *both* right- and left-side collocates). The `span` argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The `pattern` argument requires one or more exact word forms; if more than one, put into a character vector (e.g., `c("mengatakan", "menjanjikan")`). The `pattern` argument also accepts strings marked with *word boundary* character (i.e. `"\\b"`), thus `c("\\bmengatakan\\b", "\\bmenjanjikan\\b")`.
+In the example above, the collocates are restricted to those occurring *one* word (i.e. `span = 1L`) to the *right* (`window = "r"`) of *mengatakan* 'to say'. The `"r"` character in `window` stands for *right*-side collocates (`"l"` for *left*-side collocates and `"b"` for *both* right- and left-side collocates). The `span` argument requires integer (i.e., a whole number) to indicate the range of words covered in the specified window. The `pattern` argument requires one or more exact word forms; if more than one, put into a character vector (e.g., `c("mengatakan", "menjanjikan")`).
 
 The `save_interim` is `FALSE` means that no output is saved into the computer, but in the console (i.e., in the `out` object). If `save_interim = TRUE`, the function will save the outputs into the files in the computer. `colloc_leipzig()` has specified the default file names for the outputs via these arguments: (i) `freqlist_output_file`, (ii) `colloc_output_file`, (iii) `corpussize_output_file`, and (iv) `search_pattern_output_file`. It is recommended that the output filenames are stored as a character vector. See **Examples** "(2)" in the documentation of `colloc_leipzig()` for a call when `save_interim = TRUE`.
 
@@ -154,10 +164,6 @@ assoc_tb <- assoc_prepare(colloc_out = out,
                           per_corpus = FALSE, # combine all data across corpus
                           stopword_list = collogetr::stopwords,
                           float_digits = 3L)
-#> Your colloc_leipzig output is stored as list!
-#> You chose to combine the collocational and frequency list data from ALL CORPORA!
-#> Tallying frequency list of all words in ALL CORPORA!
-#> You chose to remove stopwords!
 ```
 
 Inspect the output of `assoc_prepare()`
@@ -242,7 +248,7 @@ devtools::session_info()
 #>  language (EN)                        
 #>  collate  en_US.UTF-8                 
 #>  tz       Australia/Melbourne         
-#>  date     2018-07-30
+#>  date     2018-08-01
 #> Packages -----------------------------------------------------------------
 #>  package    * version date       source                              
 #>  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      
