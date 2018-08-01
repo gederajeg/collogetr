@@ -187,12 +187,7 @@ assoc_prepare <- function(colloc_out = NULL,
     nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
   }
 
-  # compute the expected co-occurrence frequency and add into the tibble
-  exp_freq <- function(df, float_digits) {
-    mtx <- cbind(c(df$a, df$c), c(df$b, df$d))
-    exp <- round(suppressWarnings(stats::chisq.test(mtx, correct = TRUE)$expected[1,1]), float_digits)
-    return(exp)
-  }
+
   nested_assoc_tb <- dplyr::mutate(nested_assoc_tb, !!dplyr::quo_name(a_exp) := purrr::map_dbl(data, exp_freq, float_digits))
   assoc_tb <- tidyr::unnest(nested_assoc_tb)
 

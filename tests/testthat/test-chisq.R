@@ -14,7 +14,7 @@ test_that("collex_chisq produces tibble", {
 })
 
 test_that("collex_chisq produces tibble of 5 columns", {
-  expect_equal(dim(am_chisq)[2], 5L)
+  expect_equal(dim(collex_chisq(assoc_tb, collstr_digit = NULL))[2], 5L)
 })
 
 test_that("chi-square contribution is of the type 'double'", {
