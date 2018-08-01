@@ -1,8 +1,8 @@
 Package: collogetr
 Type: Package
 Title: Collocates Retriever and Collocation Association Measure for the Indonesian Leipzig Corpora
-Version: 1.0.1
-Date: 2018-07-04
+Version: 1.0.2
+Date: 2018-08-01
 Authors@R: person(given = "Gede Primahadi Wijaya", family = "Rajeg", email = "primahadiwijaya@gmail.com",
                role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2047-8621"))
 Description: A tool for generating and analysing window-span collocates of a (set of) node-word(s) from raw text corpora.
