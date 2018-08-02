@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&svg=true)](https://ci.appveyor.com/project/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![Travis-CI Build Status](https://travis-ci.org/gederajeg/collogetr.svg?branch=master)](https://travis-ci.org/gederajeg/collogetr) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&svg=true)](https://ci.appveyor.com/project/gederajeg/collogetr) [![Coverage Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)](https://codecov.io/github/gederajeg/collogetr?branch=master)
 
 collogetr
 =========
@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "246862 Jangan lupa, sejak beberapa tahun terakhir, telah terjadi pergeseran peradaban di skala masyarakat Surabaya."
-#> [2] "994715 Bagaimana dia akan pentingnya sebagai pusat karakter dibentuk?"                                              
+#> [1] "511919 Kamila mencoba menjelaskan, tetapi Ambar tidak mau dengar dan ia menampar Kamila."
+#> [2] "34325 Perkenalanku dengan Rani terjadi saat aku mengunjungi guruku di Wichita, Kansas."  
 #> 
 #> $ind_news_2008_300K
-#> [1] "9246 Sedangkan gejolak global terjadi krisis keuangan di Amerika Serikat dan Eropa mengakibatkan ekspor Indonesia mengalami penurunan, tuturnya."                                                                       
-#> [2] "94650 \"Jadi masyararakat yang berpenghasilan kurang dari Rp2,5 juta diberi kesempatan untuk menyewa terlebih dahulu rumah yang akan dibeli, dengan harapan setelah lima tahun penghasilannya akan membaik,\" tuturnya."
+#> [1] "203012 Gelael tiba di Medan, Kamis (22/5), sementara Tommy direncanakan tiba di Medan, Sabtu (24/5) dan langsung akan mengujicoba sirkuit rally yang baru saja dibangun IMI Sumut itu."
+#> [2] "17759 Selama 2009, dijadwalkan berbagai kegiatan digelar untuk memeriahkan perhelatan itu."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -248,7 +248,7 @@ devtools::session_info()
 #>  language (EN)                        
 #>  collate  en_US.UTF-8                 
 #>  tz       Australia/Melbourne         
-#>  date     2018-08-01
+#>  date     2018-08-02
 #> Packages -----------------------------------------------------------------
 #>  package    * version date       source                              
 #>  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      
