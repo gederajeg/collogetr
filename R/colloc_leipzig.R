@@ -162,7 +162,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
     cat(table_header_freqlist, file = freqlist_output_file, sep = "\n", append = FALSE)
 
     # output file template for collocates table
-    table_header_collocs <- stringr::str_c("corpus_names\tsent_id\tsent_elements\tw_vector_pos\tw\tspan\tnode\tsent_match", sep = "")
+    table_header_collocs <- stringr::str_c("corpus_names\tsent_id\tw\tspan\tnode\tsent_match", sep = "")
     cat(table_header_collocs, file = colloc_output_file, sep = "\n", append = FALSE)
 
     # output file template for corpus size
