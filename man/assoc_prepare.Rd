@@ -5,7 +5,7 @@
 \title{Generate frequency table for association measure}
 \usage{
 assoc_prepare(colloc_out = NULL, window_span = NULL, per_corpus = FALSE,
-  stopword_list = NULL, float_digits = 3L)
+  stopword_list = NULL, float_digits = 3)
 }
 \arguments{
 \item{colloc_out}{The output list of \code{\link{colloc_leipzig}}.}
@@ -16,7 +16,7 @@ assoc_prepare(colloc_out = NULL, window_span = NULL, per_corpus = FALSE,
 
 \item{stopword_list}{Character vectors containing list of stopwords to be removed from the collocation measures.}
 
-\item{float_digits}{The integer for floating digits of the expected frequency values. The default is \code{3L}.}
+\item{float_digits}{The numeric vector for floating digits of the expected frequency values. The default is \code{3}.}
 }
 \value{
 A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
@@ -31,7 +31,7 @@ The function to produce frequency table required as input for association measur
                            window_span = "r1",
                            per_corpus = FALSE,
                            stopword_list = NULL,
-                           float_digits = 3L)
+                           float_digits = 3)
 
 # (2) if the output of colloc_leipzig() is saved into disk
       supply the vector of output file names
@@ -39,7 +39,7 @@ The function to produce frequency table required as input for association measur
 outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
                            pattern = my_pattern,
                            window = "r",
-                           span = 3L,
+                           span = 3,
                            save_interim = TRUE # save interim results to disk
                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
@@ -51,7 +51,7 @@ assoc_tb <- assoc_prepare(colloc_out = outfiles,
                           window_span = "r1",
                           per_corpus = FALSE,
                           stopword_list = stopwords,
-                          float_digits = 3L)
+                          float_digits = 3)
 }
 
 }

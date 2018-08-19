@@ -5,7 +5,7 @@
 #' @param window_span Specify the window and span combination of the collocates to focus on for the measure (e.g., \code{"r1"} for 1 word to the right of the node; or a set of values as in \code{c("r1", "r2")}). The default is \code{NULL}.
 #' @param per_corpus Logical; whether to process the collocates per corpus file (\code{TRUE}) or aggregate the data across the corpus files (\code{FALSE}).
 #' @param stopword_list Character vectors containing list of stopwords to be removed from the collocation measures.
-#' @param float_digits The integer for floating digits of the expected frequency values. The default is \code{3L}.
+#' @param float_digits The numeric vector for floating digits of the expected frequency values. The default is \code{3}.
 #' @export
 #' @importFrom purrr is_null
 #' @importFrom dplyr filter
@@ -36,7 +36,7 @@
 #'                            window_span = "r1",
 #'                            per_corpus = FALSE,
 #'                            stopword_list = NULL,
-#'                            float_digits = 3L)
+#'                            float_digits = 3)
 #'
 #' # (2) if the output of colloc_leipzig() is saved into disk
 #'       supply the vector of output file names
@@ -44,7 +44,7 @@
 #' outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
 #'                            pattern = my_pattern,
 #'                            window = "r",
-#'                            span = 3L,
+#'                            span = 3,
 #'                            save_interim = TRUE # save interim results to disk
 #'                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
 #'                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
@@ -56,14 +56,14 @@
 #'                           window_span = "r1",
 #'                           per_corpus = FALSE,
 #'                           stopword_list = stopwords,
-#'                           float_digits = 3L)
+#'                           float_digits = 3)
 #' }
 #'
 assoc_prepare <- function(colloc_out = NULL,
                           window_span = NULL,
                           per_corpus = FALSE,
                           stopword_list = NULL,
-                          float_digits = 3L) {
+                          float_digits = 3) {
 
   # assoc_prepare() function-body begins here
 
@@ -174,6 +174,16 @@ assoc_prepare <- function(colloc_out = NULL,
   w <- dplyr::quo(w)
   a_exp <- dplyr::quo(a_exp)
 
+  # the design of the 2-by-2 table
+  #
+  # |          | CxN/Node   | others |
+  # | -------- | ---------- | ------ |
+  # | Collex   |  a         |   b    | n_w_in_corp
+  # | others   |  c         |   d    | ...
+  # | -------- | -----------| ------ |
+  # |          | n_pattern  |   ...  | corpus_size
+
+
   # get the frequency for the contigency table inputs
   assoc_tb <- dplyr::mutate(assoc_tb,
                             !!dplyr::quo_name(b) := .data$n_w_in_corp - .data$a,
@@ -186,7 +196,6 @@ assoc_prepare <- function(colloc_out = NULL,
   } else {
     nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
   }
-
 
   nested_assoc_tb <- dplyr::mutate(nested_assoc_tb, !!dplyr::quo_name(a_exp) := purrr::map_dbl(data, exp_freq, float_digits))
   assoc_tb <- tidyr::unnest(nested_assoc_tb)

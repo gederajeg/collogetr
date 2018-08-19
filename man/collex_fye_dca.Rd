@@ -4,12 +4,12 @@
 \alias{collex_fye_dca}
 \title{Fisher's Exact Test for DCA}
 \usage{
-collex_fye_dca(df = NULL, collstr_digit = 3L)
+collex_fye_dca(df = NULL, collstr_digit = 3)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare_dca}}.}
 
-\item{collstr_digit}{The integer for floating digits of the collostruction strength. The default is \code{3L}.}
+\item{collstr_digit}{The numeric vector for floating digits of the collostruction strength. The default is \code{3}.}
 }
 \value{
 A data frame containing the collocates, their frequency with Construction/Word A and B, p-value of the Fisher Test, Collostruction Strength, and information on the distinctiveness of the collocates with the constructions.

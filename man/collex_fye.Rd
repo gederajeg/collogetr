@@ -4,12 +4,12 @@
 \alias{collex_fye}
 \title{Fisher's Exact Test}
 \usage{
-collex_fye(df, collstr_digit = 3L)
+collex_fye(df, collstr_digit = 3)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare}}.}
 
-\item{collstr_digit}{The integer for floating digits of the collostruction strength. The default is \code{3L}.}
+\item{collstr_digit}{The numeric vector for floating digits of the collostruction strength. The default is \code{3}.}
 }
 \value{
 A tibble consisting of the collocates (column \code{w}),
@@ -31,6 +31,6 @@ out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
                       span = 3L,
                       save_interim = FALSE)
 assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
-am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3L)
+am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3)
 
 }

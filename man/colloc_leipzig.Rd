@@ -5,7 +5,7 @@
 \title{Generate window-span collocates for the Leipzig Corpora}
 \usage{
 colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
-  pattern = NULL, case_insensitive = TRUE, window = "b", span = 2L,
+  pattern = NULL, case_insensitive = TRUE, window = "b", span = 2,
   split_corpus_pattern = "([^a-zA-Z-¬]+|--)", to_lower_colloc = TRUE,
   save_interim = FALSE,
   freqlist_output_file = "collogetr_out_1_freqlist.txt",
@@ -26,7 +26,7 @@ So specify either \code{leipzig_path} OR \code{leipzig_corpus_list} and set one 
 
 \item{window}{Character; window-span direction of the collocates: \code{"r"} ('\bold{right} of the node'), \code{"l"} ('\bold{left} of the node'), or the default is \code{"b"} ('both \bold{left} and \bold{right} context-window').}
 
-\item{span}{An integer vector indicating the span of the collocate scope. The default is \code{2L}.}
+\item{span}{A numeric vector indicating the span of the collocate scope. The default is \code{2} words around the node word.}
 
 \item{split_corpus_pattern}{Regular expressions used to tokenise the corpus into word-vector.
 The default regex is \code{"([^a-zA-Z-\u00AC]+|--)"}. The character \code{"\u00AC"} is a hexademical version of \code{"¬"}, which may occur in the Leipzig Corpora as separator between root and suffixes of a word, in addition to hypen.
@@ -62,7 +62,7 @@ my_pattern <- c("menjalani", "menjalankan")
 collout <- colloc_leipzig(leipzig_path = my_leipzig_path,
                            pattern = my_pattern,
                            window = "r", # get right side collocates
-                           span = 3L, # for 'three' words to the right of the node/pattern
+                           span = 3, # for 'three' words to the right of the node/pattern
                            save_interim = FALSE # don't save into a file
                            )
 # check the content of the output list
@@ -73,7 +73,7 @@ str(collout)
 outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
                            pattern = my_pattern,
                            window = "r",
-                           span = 3L,
+                           span = 3,
                            save_interim = TRUE # save interim results to disk
                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
                            colloc_output_file = "~/Desktop/out_2_collocates.txt",

@@ -4,7 +4,7 @@
 #'     It internally calls the utility function \code{\link{fye_compute}} and performs a row-wise computation using \code{\link[purrr]{map_dbl}}.
 #'     The \emph{p}-value is log-transformed to the base of ten as in the \emph{Collostructional Analysis}.
 #' @param df The output of \code{\link{assoc_prepare}}.
-#' @param collstr_digit The integer for floating digits of the collostruction strength. The default is \code{3L}.
+#' @param collstr_digit The numeric vector for floating digits of the collostruction strength. The default is \code{3}.
 #'
 #' @return A tibble consisting of the collocates (column \code{w}),
 #'     co-occurrence frequencies with the node (column \code{a}),
@@ -34,9 +34,9 @@
 #'                       span = 3L,
 #'                       save_interim = FALSE)
 #' assoc_tb <- assoc_prepare(colloc_out = out, stopword_list = stopwords)
-#' am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3L)
+#' am_fye <- collex_fye(df = assoc_tb, collstr_digit = 3)
 #'
-collex_fye <- function(df, collstr_digit = 3L) {
+collex_fye <- function(df, collstr_digit = 3) {
   collstr <- dplyr::quo(collstr)
   p_fye <- dplyr::quo(p_fye)
   dP_collex_cue_cxn <- dplyr::quo(dP_collex_cue_cxn)
@@ -83,7 +83,7 @@ fye_compute <- function(df) {
 #' @description Generate expected frequency for cell \emph{a} based on the output of Chi-square Test.
 #'     It is called internally via \code{\link{assoc_prepare}}.
 #' @param df Nested data frame
-#' @param collstr_digit Floating points to keep
+#' @param collstr_digit The numeric vector for the floating digits to keep. It is passed from \code{\link{assoc_prepare}}.
 #' @importFrom stats chisq.test
 #'
 #' @return A double vector

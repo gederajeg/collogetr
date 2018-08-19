@@ -2,7 +2,7 @@
 #'
 #' @description Perform one-tailed Fisher's Exact test for the \emph{Distinctive Collexeme/Collocates Analysis}.
 #' @param df The output of \code{\link{assoc_prepare_dca}}.
-#' @param collstr_digit The integer for floating digits of the collostruction strength. The default is \code{3L}.
+#' @param collstr_digit The numeric vector for floating digits of the collostruction strength. The default is \code{3}.
 #' @return A data frame containing the collocates, their frequency with Construction/Word A and B, p-value of the Fisher Test, Collostruction Strength, and information on the distinctiveness of the collocates with the constructions.
 #' @export
 #' @examples
@@ -15,7 +15,7 @@
 #' dca_res <- collex_fye_dca(dca_table)
 #'
 #' }
-collex_fye_dca <- function(df = NULL, collstr_digit = 3L) {
+collex_fye_dca <- function(df = NULL, collstr_digit = 3) {
   p_fye <- dplyr::quo(p_fye)
   w <- dplyr::quo(w)
   columns <- colnames(df)[2:3]

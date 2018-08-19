@@ -9,7 +9,7 @@ exp_freq(df, collstr_digit)
 \arguments{
 \item{df}{Nested data frame}
 
-\item{collstr_digit}{Floating points to keep}
+\item{collstr_digit}{The numeric vector for the floating digits to keep. It is passed from \code{\link{assoc_prepare}}.}
 }
 \value{
 A double vector

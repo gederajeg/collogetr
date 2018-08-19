@@ -8,7 +8,7 @@
 #' @param pattern Character vector input containing a set of exact word forms.
 #' @param case_insensitive Logical; whether the search for the \code{pattern} ignores case (\code{TRUE} -- default) or not (\code{FALSE}).
 #' @param window Character; window-span direction of the collocates: \code{"r"} ('\bold{right} of the node'), \code{"l"} ('\bold{left} of the node'), or the default is \code{"b"} ('both \bold{left} and \bold{right} context-window').
-#' @param span An integer vector indicating the span of the collocate scope. The default is \code{2L}.
+#' @param span A numeric vector indicating the span of the collocate scope. The default is \code{2} words around the node word.
 #' @param split_corpus_pattern Regular expressions used to tokenise the corpus into word-vector.
 #'     The default regex is \code{"([^a-zA-Z-\u00AC]+|--)"}. The character \code{"\u00AC"} is a hexademical version of \code{"¬"}, which may occur in the Leipzig Corpora as separator between root and suffixes of a word, in addition to hypen.
 #'     This procedure supports the vectorised method of the function to generate the collocate of the search pattern.
@@ -80,7 +80,7 @@
 #' collout <- colloc_leipzig(leipzig_path = my_leipzig_path,
 #'                            pattern = my_pattern,
 #'                            window = "r", # get right side collocates
-#'                            span = 3L, # for 'three' words to the right of the node/pattern
+#'                            span = 3, # for 'three' words to the right of the node/pattern
 #'                            save_interim = FALSE # don't save into a file
 #'                            )
 #' # check the content of the output list
@@ -91,7 +91,7 @@
 #' outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
 #'                            pattern = my_pattern,
 #'                            window = "r",
-#'                            span = 3L,
+#'                            span = 3,
 #'                            save_interim = TRUE # save interim results to disk
 #'                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
 #'                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
@@ -106,7 +106,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
                            pattern = NULL,
                            case_insensitive = TRUE,
                            window = "b",
-                           span = 2L,
+                           span = 2,
                            split_corpus_pattern = "([^a-zA-Z-\u00AC]+|--)",
                            to_lower_colloc = TRUE,
                            save_interim = FALSE,

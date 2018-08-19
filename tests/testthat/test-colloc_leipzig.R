@@ -3,7 +3,7 @@ context("test-colloc_leipzig.R")
 out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
                       pattern = "mengatakan",
                       window = "r",
-                      span = 3L,
+                      span = 3,
                       save_interim = FALSE)
 
 testthat::test_that("output of colloc_leipzig is a list of four elements", {
@@ -13,19 +13,19 @@ testthat::test_that("output of colloc_leipzig is a list of four elements", {
 out2 <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
                       pattern = "^mengatakan$",
                       window = "r",
-                      span = 3L,
+                      span = 3,
                       save_interim = FALSE)
 
 out3 <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
                       pattern = "\\bmengatakan\\b",
                       window = "r",
-                      span = 3L,
+                      span = 3,
                       save_interim = FALSE)
 
 out4 <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[1:4],
                        pattern = "\\bmengatakan\\b",
                        window = "l",
-                       span = 3L,
+                       span = 3,
                        save_interim = FALSE)
 
 testthat::test_that("the total occurrence frequency of the node words is the same across different search pattern input (exact, '^..$', and '\\b...\\b') and different window side", {
@@ -40,7 +40,7 @@ testthat::test_that("non-matching pattern of colloc_leipzig produces message", {
                                 leipzig_path = NULL,
                                 pattern = "memilikihgjdgjdsnvjsvnsj",
                                 window = "r",
-                                span = 1L,
+                                span = 1,
                                 save_interim = FALSE), regexp = "(No match is detected|SORRY)", perl = TRUE, all = TRUE)
 })
 
@@ -49,14 +49,14 @@ testthat::test_that("NULL corpus inputs and NULL pattern input produce error", {
                               leipzig_path = NULL,
                               pattern = NULL,
                               window = "r",
-                              span = 1L,
+                              span = 1,
                               save_interim = FALSE), regexp = "Requires")
 
   expect_error(colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
                               leipzig_path = NULL,
                               pattern = NULL,
                               window = "r",
-                              span = 3L,
+                              span = 3,
                               save_interim = FALSE), regexp = "Requires")
 })
 
@@ -65,7 +65,7 @@ testthat::test_that("message is out for the input file type", {
                               leipzig_path = NULL,
                               pattern = "memberikan",
                               window = "r",
-                              span = 1L,
+                              span = 1,
                               save_interim = FALSE), regexp = "input", all = FALSE, perl = TRUE)
 })
 
@@ -74,13 +74,13 @@ testthat::test_that("message is out for the save_interim", {
                                 leipzig_path = NULL,
                                 pattern = "memberikan",
                                 window = "r",
-                                span = 1L,
+                                span = 1,
                                 save_interim = FALSE), regexp = "SAVE INTERIM", all = FALSE, perl = TRUE)
   expect_message(colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig[2:3],
                                 leipzig_path = NULL,
                                 pattern = "memberikan",
                                 window = "r",
-                                span = 1L,
+                                span = 1,
                                 save_interim = TRUE), regexp = "Generating output files", all = FALSE, perl = TRUE)
 })
 
