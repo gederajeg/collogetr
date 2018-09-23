@@ -9,6 +9,6 @@
 leipzig_corpus_path
 }
 \description{
-The filepaths to the plain-texts of the Indonesian Leipzig Corpora in the author's computer
+The author's full filepaths to the plain-texts of the Indonesian Leipzig Corpora
 }
 \keyword{datasets}

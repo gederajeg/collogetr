@@ -9,6 +9,10 @@
 stopwords
 }
 \description{
-Character vector containing Indonesian words selected as stopwords.
+Character vector containing Indonesian stopwords. They are gathered from the following resources:
+\itemize{
+\item{https://raw.githubusercontent.com/rilut/python-goose/patch-1/goose/resources/text/stopwords-id.txt (Last access on 3 April 2016)}
+\item{Appendix D of "Tala F. Z. (2003). A Study of Stemming Effects on Information Retrieval in Bahasa Indonesia. \emph{M.S. thesis, University of Amsterdam}." Retrieved from: https://pdfs.semanticscholar.org/8ed9/c7d54fd3f0b1ce3815b2eca82147b771ca8f.pdf (Last access on 23 September 2018).}
+}
 }
 \keyword{datasets}
