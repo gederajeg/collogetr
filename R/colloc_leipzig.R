@@ -234,7 +234,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
     span_set_excl_node <- span_set[names(span_set) != "node"] # exclude span for the node
 
     # tokenising the corpus
-    message(paste('1. Tokenising the "', corpus_names, '" corpus. This process takes a while!!!', sep = ""))
+    message(paste('1. Tokenising the "', corpus_names, '" corpus. This process may take a while!', sep = ""))
     corpus_token <- stringr::str_split(string = corpora1, pattern = split_corpus_pattern)
     names(corpus_token) <- stringr::str_c("s_", 1:length(corpus_token), "__", sep = "")
     corpus_token <- unlist(corpus_token)
@@ -249,7 +249,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
     # lower-casing the word-tokens
     if (to_lower_colloc == TRUE) {
 
-      message("    1.2 Lowercasing the corpus word-vector...")
+      message("    1.2 Lowercasing the tokenised corpus...")
       corpus_token <- stringr::str_to_lower(corpus_token)
 
     }
@@ -304,7 +304,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
         # detect if any match is found
         if (any(stringr::str_which(df_corpus$w, stringr::regex(pattern = search_pattern[pp], ignore_case = case_insensitive)))) {
 
-          message(stringr::str_c("    At least one match is detected for '",
+          message(stringr::str_c("    At least a match is detected for '",
                                  stringr::str_replace_all(search_pattern[pp], "\\^|\\$", ""),
                                  "' in ",
                                  corpus_file,
