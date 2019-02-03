@@ -4,8 +4,8 @@
 \alias{assoc_prepare}
 \title{Generate frequency table for association measure}
 \usage{
-assoc_prepare(colloc_out = NULL, window_span = NULL, per_corpus = FALSE,
-  stopword_list = NULL, float_digits = 3)
+assoc_prepare(colloc_out = NULL, window_span = NULL,
+  per_corpus = FALSE, stopword_list = NULL, float_digits = 3)
 }
 \arguments{
 \item{colloc_out}{The output list of \code{\link{colloc_leipzig}}.}
