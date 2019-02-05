@@ -8,12 +8,12 @@ collogetr
 Overview
 --------
 
-`collogetr` has one function (viz. `colloc_leipzig()`) to retrieve window-span collocates for a set of word forms (viz. the *node word*) from the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two functions to process the output of `colloc_leipzig()` into tabular formats as input for **association measure** between the collocates and the node, as in Stefanowitsch and Gries' ([2003](#ref-stefanowitsch_collostructions_2003)) [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (see also, Gries, [2015](#ref-gries_more_2015); Stefanowitsch, [2013](#ref-hoffmann_collostructional_2013); Stefanowitsch & Gries, [2009](#ref-stefanowitsch_corpora_2009)). These functions are `assoc_prepare()` and `assoc_prepare_dca()`. The former generates input for [*Simple Collexeme/Collocational Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf) computed using `collex_fye()`, meanwhile the latter uses the output of `assoc_prepare()` to generate input for [*Distinctive Collexeme/Collocates Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf) (Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)) computed using `collex_fye_dca()`. `collogetr` is built on top of the core packages in the [tidyverse](https://www.tidyverse.org).
+collogetr currently has one function (viz. `colloc_leipzig()`) to retrieve window-span collocates for a set of word forms (viz. the *node word*) from the (Indonesian) [Leipzig Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two functions to process the output of `colloc_leipzig()` into tabular formats as input for **association measure** between the collocates and the node, as in Stefanowitsch and Gries' ([2003](#ref-stefanowitsch_collostructions_2003)) [collostructional/collocation analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html) (see also, Gries, [2015](#ref-gries_more_2015); Stefanowitsch, [2013](#ref-hoffmann_collostructional_2013); Stefanowitsch & Gries, [2009](#ref-stefanowitsch_corpora_2009)). These functions are `assoc_prepare()` and `assoc_prepare_dca()`. The former generates input for [*Simple Collexeme/Collocational Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf), which is computed using `collex_fye()`, meanwhile the latter uses the output of `assoc_prepare()` to generate input for [*Distinctive Collexeme/Collocates Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf) (Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)), which is computed using `collex_fye_dca()`. collogetr is built on top of the core packages in the [tidyverse](https://www.tidyverse.org).
 
 Installation
 ------------
 
-Install from GitHub with [devtools](https://github.com/hadley/devtools):
+Install collogetr from GitHub with [devtools](https://github.com/hadley/devtools):
 
 ``` r
 library(devtools)
@@ -23,15 +23,15 @@ install_github("gederajeg/collogetr")
 Usages
 ------
 
-### Load `collogetr`
+### Load collogetr
 
 ``` r
 library(collogetr)
 ```
 
-### Citation `collogetr`
+### Citation for collogetr
 
-To cite the package in publication, type as follows:
+To cite collogetr in publication, type as follows:
 
 ``` r
 citation("collogetr")
@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "511919 Kamila mencoba menjelaskan, tetapi Ambar tidak mau dengar dan ia menampar Kamila."
-#> [2] "34325 Perkenalanku dengan Rani terjadi saat aku mengunjungi guruku di Wichita, Kansas."  
+#> [1] "244342 ” rintihan-rintihan kenikmatan keluar dari mulutku setelah 3 menit berlalu sejak bibir kewanitaanku dilayani oleh jari-jari Rendy."
+#> [2] "500271 Sebab datang-datang cuma tidur dan tak pernah bercada ria."                                                                        
 #> 
 #> $ind_news_2008_300K
-#> [1] "203012 Gelael tiba di Medan, Kamis (22/5), sementara Tommy direncanakan tiba di Medan, Sabtu (24/5) dan langsung akan mengujicoba sirkuit rally yang baru saja dibangun IMI Sumut itu."
-#> [2] "17759 Selama 2009, dijadwalkan berbagai kegiatan digelar untuk memeriahkan perhelatan itu."
+#> [1] "32863 \"Saya memandu karir saya pada sebuah perasaan tertentu, namun saya tidak merasakan hal itu lagi sejak (kejuaraan penutup musim tahun lalu di) Madrid,\" kata Henin."
+#> [2] "37487 Sedang pada 2007 lalu, penerima beasiswa hanya 1.650 siswa."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -103,7 +103,7 @@ All of these three forms will be used to match the exact word form of the search
 
 #### Retrieving the collocates
 
-Here is how to retrieve the collocates for the Indonesian verb *mengatakan* 'to say sth.'. The function will print out progress messages of the stages onto the console. It generates warning(s) when a search pattern or node word is not found in a corpus file or in all loaded corpus files.
+The codes below show how one may retrieve the collocates for the Indonesian verb *mengatakan* 'to say sth.'. The function `colloc_leipzig()` will print out progress messages of the stages onto the console. It generates warning(s) when a search pattern or node word is not found in a corpus file or in all loaded corpus files.
 
 ``` r
 out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
@@ -156,7 +156,7 @@ The `freqlist_df` and `corpussize_df` are important for performing the collocati
 
 #### Preparing input data for *Simple Collexeme/Collocational Analysis* (SCA).
 
-First we need to call `assoc_prepare()` for generating the data for SCA with `collex_fye()`. The demo illustrates it with on-console output of `colloc_leipzig()`. Cf. the **Examples** "2.2" in the documentation for `assoc_prepare()` for handling saved outputs (`?assoc_prepare()`).
+First we need to call `assoc_prepare()` for generating the data SCA. The demo illustrates it with in-console output of `colloc_leipzig()`. See the **Examples** "2.2" in the documentation for `assoc_prepare()` for handling saved outputs (`?assoc_prepare()`).
 
 ``` r
 assoc_tb <- assoc_prepare(colloc_out = out, 
@@ -164,9 +164,13 @@ assoc_tb <- assoc_prepare(colloc_out = out,
                           per_corpus = FALSE, # combine all data across corpus
                           stopword_list = collogetr::stopwords,
                           float_digits = 3L)
+#> Your colloc_leipzig output is stored as list!
+#> You chose to combine the collocational and frequency list data from ALL CORPORA!
+#> Tallying frequency list of all words in ALL CORPORA!
+#> You chose to remove stopwords!
 ```
 
-Inspect the output of `assoc_prepare()`
+Inspect the output of `assoc_prepare()`:
 
 ``` r
 head(assoc_tb)
@@ -189,9 +193,9 @@ The column `data` in `assoc_tb` above consists of nested tibble/table as a list.
 # get the tibble in the `data` column for the first row
 assoc_tb$data[[1]]
 #> # A tibble: 1 x 9
-#>   a_exp     a n_w_in_corp corpus_size n_pattern     b     c     d assoc   
-#>   <dbl> <int>       <int>       <int>     <int> <int> <int> <int> <chr>   
-#> 1 0.354     4          96       41179       152    92   148 40935 attract…
+#>   a_exp     a n_w_in_corp corpus_size n_pattern     b     c     d assoc    
+#>   <dbl> <int>       <int>       <int>     <int> <int> <int> <int> <chr>    
+#> 1 0.354     4          96       41179       152    92   148 40935 attracti…
 ```
 
 Column `a` indicates the co-occurrence frequency between the node word and the collocates column `w`, meanwhile `a_exp` indicates the *expected co-occurrence frequency* between them. The `n_w_in_corp` represents the total token/occurrence frequency of a given collocate. The `n_pattern` stores the total token/occurrence frequency of the node word in the corpus. Column `b`, `c`, and `d` are required for the association measure that is essentially based on 2-by-2 crosstabulation table. The `assoc` column indicates whether the value in `a` is higher than that in `a_exp`, thus indicating *attraction* or *positive association* between the node word and the collocate. The reverse is *repulsion* or *negative association* when the value in `a` is less/lower than that in `a_exp`.
@@ -200,7 +204,7 @@ Column `a` indicates the co-occurrence frequency between the node word and the c
 
 As in the *Collostructional Analysis* (Stefanowitsch & Gries, [2003](#ref-stefanowitsch_collostructions_2003)), `collex_fye()` uses one-tailed *Fisher-Yates Exact* test whose *p*-<sub>FisherExact</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word (Gries, Hampe, & Schönefeld, [2005](#ref-gries_converging_2005)). `collex_fye()` simultaneously performs two uni-directional measures of *Delta P* (Gries, [2013](#ref-gries_50-something_2013), [2015](#ref-gries_more_2015), p. 524). One of these shows the extent to which the presence of the node-word cues the presence of the collocates/collexemes; the other one determines the extent to which the collocates/collexemes cues the presence of the node-word.
 
-Here is the code to perform the SCA
+Here is the codes to perform the SCA using `collex_fye()`:
 
 ``` r
 # perform FYE test for Collexeme Analysis
@@ -231,70 +235,159 @@ dplyr::top_n(am_fye, 10, collstr)
 #> 14 ptn   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
 #> 15 ukm   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
 #> 16 wna   meng…     1 0.004 attr… 3.69e-3    2.43            0.007
-#> # ... with 1 more variable: dP_cxn_cue_collex <dbl>
+#> # … with 1 more variable: dP_cxn_cue_collex <dbl>
 ```
 
-Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform *Distinctive Collexeme Analysis*.
+Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value.
+
+#### *Distinctive Collexeme/Collocates Analysis* (SCA)
+
+The idea of distinctive collocates is to contrast *two* functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words (see Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)). `colloc_leipzig()` can be used to retrieve collocates of *two* functionally/semantically similar words by specifying the `pattern` argument with two character vectors of words.
+
+The following example use one of the Leipzig corpus files (not included in the package but can be downloaded from the Leipzig Corpora webpage for free), namely the `"ind_mixed_2012_1M-sentences"`. The aim is to contrast collocational preferences of two deadjectival transitive verbs based on the root *kuat* 'strong' framed within two causative morphological schemas: one with *per-*+ADJ and the other with ADJ+*-kan*. Theoretically, the *per-* schema indicates that the direct object of the verb is caused to have *more* of the characteristic indicated by the adjectival root, meanwhile the *-kan* schema indicates that the direct object is caused to have the characteristic indicated by the root (that is not previously had). The focus here is on the R1 collocates of the verbs (i.e. one word immediately to the right of the verbs in the sentences).
+
+``` r
+my_leipzig_path <- collogetr::leipzig_corpus_path[1]
+out <- colloc_leipzig(leipzig_path = my_leipzig_path,
+                      pattern = c("memperkuat", "menguatkan"),
+                      window = "r",
+                      span = 1,
+                      save_interim = FALSE)
+```
+
+Then, we prepare the output into the format required for performing DCA with `collex_fye_dca()`.
+
+``` r
+assoc_tb <- assoc_prepare(colloc_out = out,
+                          window_span = "r1",
+                          per_corpus = FALSE,
+                          stopword_list = collogetr::stopwords,
+                          float_digits = 3L)
+
+# prepare the dca input table
+dca_tb <- assoc_prepare_dca(assoc_tb)
+```
+
+Compute DCA for the two verbs and view the results snippet.
+
+``` r
+dca_res <- collex_fye_dca(dca_tb)
+head(dca_res, 10)
+#> # A tibble: 10 x 6
+#>    w          memperkuat menguatkan   p_fye collstr dist_for  
+#>    <chr>           <int>      <int>   <dbl>   <dbl> <chr>     
+#>  1 diagnosis          15          0 0.00908   2.04  memperkuat
+#>  2 posisi             15          0 0.00908   2.04  memperkuat
+#>  3 daya               14          0 0.0125    1.90  memperkuat
+#>  4 sistem             13          0 0.0171    1.77  memperkuat
+#>  5 pertahanan         10          0 0.0439    1.36  memperkuat
+#>  6 basis               8          0 0.0823    1.08  memperkuat
+#>  7 ketahanan           7          0 0.113     0.948 memperkuat
+#>  8 pasukan             7          0 0.113     0.948 memperkuat
+#>  9 rasa                7          0 0.113     0.948 memperkuat
+#> 10 tim                 7          0 0.113     0.948 memperkuat
+```
+
+The package also includes a function called `dca_top_collex()` to retrieve the top-n distinctive collocates for one of the two contrasted words. The `dist_for` argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., construction/word `..., dist_for = "a", ...` or `..., dist_for = "A", ...` for that appearing in the second column from the output of `collex_fye_dca()`, or construction/word `..., dist_for = "b", ...` or `..., dist_for = "B", ...` for that appearing in the third column).
+
+``` r
+# retrieve distinctive collocates for Construction A (i.e., memperkuat)
+dist_for_a <- dca_top_collex(dca_res, dist_for = "memperkuat", top_n = 10)
+head(dist_for_a)
+#> # A tibble: 6 x 6
+#>   w          memperkuat menguatkan   p_fye collstr dist_for  
+#>   <chr>           <int>      <int>   <dbl>   <dbl> <chr>     
+#> 1 diagnosis          15          0 0.00908    2.04 memperkuat
+#> 2 posisi             15          0 0.00908    2.04 memperkuat
+#> 3 daya               14          0 0.0125     1.90 memperkuat
+#> 4 sistem             13          0 0.0171     1.77 memperkuat
+#> 5 pertahanan         10          0 0.0439     1.36 memperkuat
+#> 6 basis               8          0 0.0823     1.08 memperkuat
+```
+
+``` r
+# retrieve distinctive collocates for Construction B (i.e., menguatkan)
+dist_for_b <- dca_top_collex(dca_res, dist_for = "menguatkan", top_n = 10)
+head(dist_for_b)
+#> # A tibble: 6 x 6
+#>   w           memperkuat menguatkan       p_fye collstr dist_for  
+#>   <chr>            <int>      <int>       <dbl>   <dbl> <chr>     
+#> 1 hati                 0         12 0.000000109    6.96 menguatkan
+#> 2 satu                 2          8 0.000636       3.20 menguatkan
+#> 3 iman                 7         10 0.00487        2.31 menguatkan
+#> 4 kebenaran            0          4 0.00501        2.3  menguatkan
+#> 5 orang                0          4 0.00501        2.3  menguatkan
+#> 6 kepercayaan          0          3 0.0189         1.72 menguatkan
+```
 
 ### Session info
 
 ``` r
 devtools::session_info()
-#> Session info -------------------------------------------------------------
+#> ─ Session info ──────────────────────────────────────────────────────────
 #>  setting  value                       
 #>  version  R version 3.5.1 (2018-07-02)
+#>  os       macOS  10.14.2              
 #>  system   x86_64, darwin15.6.0        
 #>  ui       X11                         
 #>  language (EN)                        
 #>  collate  en_US.UTF-8                 
+#>  ctype    en_US.UTF-8                 
 #>  tz       Australia/Melbourne         
-#>  date     2018-08-02
-#> Packages -----------------------------------------------------------------
-#>  package    * version date       source                              
-#>  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      
-#>  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)                      
-#>  base       * 3.5.1   2018-07-05 local                               
-#>  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       
-#>  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      
-#>  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      
-#>  collogetr  * 1.0.2   2018-08-01 Github (gederajeg/collogetr@34de4cd)
-#>  compiler     3.5.1   2018-07-05 local                               
-#>  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      
-#>  datasets   * 3.5.1   2018-07-05 local                               
-#>  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)                      
-#>  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)                      
-#>  dplyr        0.7.6   2018-06-29 CRAN (R 3.5.1)                      
-#>  evaluate     0.11    2018-07-17 CRAN (R 3.5.0)                      
-#>  fansi        0.2.3   2018-05-06 CRAN (R 3.5.0)                      
-#>  glue         1.3.0   2018-07-17 CRAN (R 3.5.0)                      
-#>  graphics   * 3.5.1   2018-07-05 local                               
-#>  grDevices  * 3.5.1   2018-07-05 local                               
-#>  hms          0.4.2   2018-03-10 cran (@0.4.2)                       
-#>  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)                      
-#>  knitr        1.20    2018-02-20 CRAN (R 3.5.0)                      
-#>  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                      
-#>  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                      
-#>  methods    * 3.5.1   2018-07-05 local                               
-#>  pillar       1.3.0   2018-07-14 CRAN (R 3.5.0)                      
-#>  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                      
-#>  purrr        0.2.5   2018-05-29 CRAN (R 3.5.0)                      
-#>  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                      
-#>  Rcpp         0.12.18 2018-07-23 CRAN (R 3.5.1)                      
-#>  readr        1.1.1   2017-05-16 CRAN (R 3.5.0)                      
-#>  rlang        0.2.1   2018-05-30 CRAN (R 3.5.0)                      
-#>  rmarkdown    1.10    2018-06-11 CRAN (R 3.5.0)                      
-#>  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.3)                      
-#>  stats      * 3.5.1   2018-07-05 local                               
-#>  stringi      1.2.4   2018-07-20 CRAN (R 3.5.0)                      
-#>  stringr      1.3.1   2018-05-10 cran (@1.3.1)                       
-#>  tibble       1.4.2   2018-01-22 CRAN (R 3.5.0)                      
-#>  tidyr        0.8.1   2018-05-18 CRAN (R 3.5.0)                      
-#>  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)                      
-#>  tools        3.5.1   2018-07-05 local                               
-#>  utf8         1.1.4   2018-05-24 CRAN (R 3.5.0)                      
-#>  utils      * 3.5.1   2018-07-05 local                               
-#>  withr        2.1.2   2018-03-15 cran (@2.1.2)                       
-#>  yaml         2.1.19  2018-05-01 CRAN (R 3.5.0)
+#>  date     2019-02-06                  
+#> 
+#> ─ Packages ──────────────────────────────────────────────────────────────
+#>  package     * version date       lib source        
+#>  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.4.0)
+#>  backports     1.1.2   2017-12-13 [1] CRAN (R 3.5.0)
+#>  bindr         0.1.1   2018-03-13 [1] CRAN (R 3.4.4)
+#>  bindrcpp    * 0.2.2   2018-03-29 [1] CRAN (R 3.5.0)
+#>  callr         3.1.1   2018-12-21 [1] CRAN (R 3.5.0)
+#>  cli           1.0.1   2018-09-25 [1] CRAN (R 3.5.0)
+#>  collogetr   * 1.0.2   2019-02-05 [1] local         
+#>  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.4.1)
+#>  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.0)
+#>  devtools      2.0.1   2018-10-26 [1] CRAN (R 3.5.1)
+#>  digest        0.6.15  2018-01-28 [1] CRAN (R 3.5.0)
+#>  dplyr         0.7.6   2018-06-29 [1] CRAN (R 3.5.1)
+#>  evaluate      0.11    2018-07-17 [1] CRAN (R 3.5.0)
+#>  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.5.0)
+#>  fs            1.2.3   2018-06-08 [1] CRAN (R 3.5.0)
+#>  glue          1.3.0   2018-07-17 [1] CRAN (R 3.5.0)
+#>  hms           0.4.2   2018-03-10 [1] CRAN (R 3.4.4)
+#>  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.0)
+#>  knitr         1.20    2018-02-20 [1] CRAN (R 3.5.0)
+#>  magrittr      1.5     2014-11-22 [1] CRAN (R 3.4.0)
+#>  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.4.0)
+#>  pillar        1.3.1   2018-12-15 [1] CRAN (R 3.5.0)
+#>  pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.5.0)
+#>  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.0)
+#>  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.0)
+#>  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.0)
+#>  processx      3.2.1   2018-12-05 [1] CRAN (R 3.5.0)
+#>  ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.0)
+#>  purrr         0.3.0   2019-01-27 [1] CRAN (R 3.5.2)
+#>  R6            2.2.2   2017-06-17 [1] CRAN (R 3.4.0)
+#>  Rcpp          0.12.18 2018-07-23 [1] CRAN (R 3.5.1)
+#>  readr         1.3.1   2018-12-21 [1] CRAN (R 3.5.0)
+#>  remotes       2.0.2   2018-10-30 [1] CRAN (R 3.5.0)
+#>  rlang         0.3.1   2019-01-08 [1] CRAN (R 3.5.2)
+#>  rmarkdown     1.11    2018-12-08 [1] CRAN (R 3.5.0)
+#>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.4.3)
+#>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.0)
+#>  stringi       1.2.4   2018-07-20 [1] CRAN (R 3.5.0)
+#>  stringr       1.3.1   2018-05-10 [1] CRAN (R 3.4.4)
+#>  testthat      2.0.1   2018-10-13 [1] CRAN (R 3.5.0)
+#>  tibble        2.0.1   2019-01-12 [1] CRAN (R 3.5.2)
+#>  tidyr         0.8.2   2018-10-28 [1] CRAN (R 3.5.0)
+#>  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.0)
+#>  usethis       1.4.0   2018-08-14 [1] CRAN (R 3.5.0)
+#>  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.5.0)
+#>  withr         2.1.2   2018-03-15 [1] CRAN (R 3.4.4)
+#>  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.0)
+#> 
+#> [1] /Users/Primahadi/Rlibs
+#> [2] /Library/Frameworks/R.framework/Versions/3.5/Resources/library
 ```
 
 ### References
