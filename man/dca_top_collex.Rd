@@ -9,7 +9,7 @@ dca_top_collex(dca_res, dist_for = NULL, top_n = 20L)
 \arguments{
 \item{dca_res}{The output of \code{\link{collex_fye_dca}}}
 
-\item{dist_for}{Character vectors of either \code{"a"}/\code{"A"}, or \code{"b"}/\code{"B"}. This argument indicate the preference of the collexeme/collocates (i.e. whether to Construction A or B).
+\item{dist_for}{Character vectors of names of the contrasted constructions, or either \code{"a"}/\code{"A"}, or \code{"b"}/\code{"B"}. This argument indicate the preference of the collexeme/collocates (i.e. whether to Construction A or B).
 \code{Construction A} is the name for the \emph{second} column from the output of \code{\link{collex_fye_dca}}. \code{Construction B} is the name for the \emph{third} column from the output of \code{\link{collex_fye_dca}}.}
 
 \item{top_n}{Integer for the top-n distinctive collocates/collexemes. The default is \code{20L}.}
