@@ -55,11 +55,11 @@ collex_fye_dca <- function(df = NULL, collstr_digit = 3) {
 #' dca_top_collex(dca_res, "a")
 #' }
 dca_top_collex <- function(dca_res, dist_for = NULL, top_n = 20L) {
-  if (dist_for %in% c("a", "A")) {
+  if (dist_for %in% c("a", "A", colnames(dca_res)[2])) {
     cxn_a <- colnames(dca_res)[2]
     dist_df <- dplyr::filter(dca_res, dist_for == cxn_a)
     # dist_df <- dplyr::select(dist_df, -.data$a_exp)
-  } else if (dist_for %in% c("b", "B")) {
+  } else if (dist_for %in% c("b", "B", colnames(dca_res)[3])) {
     cxn_b <- colnames(dca_res)[3]
     dist_df <- dplyr::filter(dca_res, dist_for == cxn_b)
     # dist_df <- dplyr::select(dist_df, -.data$a_exp)
