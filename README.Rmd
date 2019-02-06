@@ -171,9 +171,9 @@ dplyr::top_n(am_fye, 10, collstr)
 
 Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*~FisherExact~-value.
 
-#### *Distinctive Collexeme/Collocates Analysis* (SCA)
+#### *Distinctive Collexeme/Collocate Analysis* (DCA)
 
-The idea of distinctive collocates is to contrast *two* functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words [@hilpert_distinctive_2006; see @gries_extending_2004]. `colloc_leipzig()` can be used to retrieve collocates of *two* functionally/semantically similar words by specifying the `pattern` argument with two character vectors of words. 
+The idea of distinctive collexemes/collocates is to contrast *two* functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words [@hilpert_distinctive_2006; see @gries_extending_2004]. `colloc_leipzig()` can be used to retrieve collocates of *two* functionally/semantically similar words by specifying the `pattern` argument with two character vectors of words. 
 
 The following example use one of the Leipzig corpus files (not included in the package but can be downloaded from the Leipzig Corpora webpage for free), namely the `"ind_mixed_2012_1M-sentences"`. The aim is to contrast collocational preferences of two deadjectival transitive verbs based on the root *kuat* 'strong' framed within two causative morphological schemas: one with *per-*+ADJ and the other with ADJ+*-kan*. Theoretically, the *per-* schema indicates that the direct object of the verb is caused to have *more* of the characteristic indicated by the adjectival root, meanwhile the *-kan* schema indicates that the direct object is caused to have the characteristic indicated by the root (that is not previously had). The focus here is on the R1 collocates of the verbs (i.e. one word immediately to the right of the verbs in the sentences).
 
@@ -188,7 +188,7 @@ out <- colloc_leipzig(leipzig_path = my_leipzig_path,
 
 Then, we prepare the output into the format required for performing DCA with `collex_fye_dca()`.
 
-```{r prepare-dca-input, message = FALSE}
+```{r prepare-dca-input}
 assoc_tb <- assoc_prepare(colloc_out = out,
                           window_span = "r1",
                           per_corpus = FALSE,
@@ -206,13 +206,15 @@ dca_res <- collex_fye_dca(dca_tb)
 head(dca_res, 10)
 ```
 
-The package also includes a function called `dca_top_collex()` to retrieve the top-n distinctive collocates for one of the two contrasted words. The `dist_for` argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., construction/word `..., dist_for = "a", ...` or `..., dist_for = "A", ...` for that appearing in the second column from the output of `collex_fye_dca()`, or construction/word `..., dist_for = "b", ...` or `..., dist_for = "B", ...` for that appearing in the third column).
+The package also includes a function called `dca_top_collex()` to retrieve the top-n distinctive collocates for one of the two contrasted words. The `dist_for` argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., [i] `..., dist_for = "a", ...` or `..., dist_for = "A", ...` for construction/word appearing in the second column from the output of `collex_fye_dca()`, or [ii] `..., dist_for = "b", ...` or `..., dist_for = "B", ...` for construction/word appearing in the third column).
 
 ```{r top-collex-a}
 # retrieve distinctive collocates for Construction A (i.e., memperkuat)
 dist_for_a <- dca_top_collex(dca_res, dist_for = "memperkuat", top_n = 10)
 head(dist_for_a)
 ```
+
+The codes below retrieve the distinctive collocates for *menguatkan* 'to strengthen' or Construction B.
 
 ```{r top-collex-b}
 # retrieve distinctive collocates for Construction B (i.e., menguatkan)
@@ -222,7 +224,7 @@ head(dist_for_b)
 
 
 ### Session info
-```{r}
+```{r sessinfo}
 devtools::session_info()
 ```
 

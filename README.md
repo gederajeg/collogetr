@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "244342 ” rintihan-rintihan kenikmatan keluar dari mulutku setelah 3 menit berlalu sejak bibir kewanitaanku dilayani oleh jari-jari Rendy."
-#> [2] "500271 Sebab datang-datang cuma tidur dan tak pernah bercada ria."                                                                        
+#> [1] "61119 Oh, nikmat sekali rasanya percumbuan ini bagi Surti."                        
+#> [2] "865392 Saya undang anda untuk mempresentasikan rencana bisnis anda di tempat kami."
 #> 
 #> $ind_news_2008_300K
-#> [1] "32863 \"Saya memandu karir saya pada sebuah perasaan tertentu, namun saya tidak merasakan hal itu lagi sejak (kejuaraan penutup musim tahun lalu di) Madrid,\" kata Henin."
-#> [2] "37487 Sedang pada 2007 lalu, penerima beasiswa hanya 1.650 siswa."
+#> [1] "220694 Namun menurut para wartawan, kirab itu berjalan tanpa insiden besar."                                                                                                        
+#> [2] "189350 Hujan yang turun sejak Senin pukul 22.00 hingga Selasa pagi sekitar 08.00 WIB, membuat Kali Sabi meluap dan menggenangi jalan utama Tangerang-Serang di Provinsi Banten itu."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -240,9 +240,9 @@ dplyr::top_n(am_fye, 10, collstr)
 
 Column `a` contains the co-occurrence frequency of the collocates (`w`) with the `node` as its R1 collocates in the demo corpus. `p_fye` shows the one-tailed *p*<sub>FisherExact</sub>-value.
 
-#### *Distinctive Collexeme/Collocates Analysis* (SCA)
+#### *Distinctive Collexeme/Collocate Analysis* (DCA)
 
-The idea of distinctive collocates is to contrast *two* functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words (see Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)). `colloc_leipzig()` can be used to retrieve collocates of *two* functionally/semantically similar words by specifying the `pattern` argument with two character vectors of words.
+The idea of distinctive collexemes/collocates is to contrast *two* functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words (see Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert, [2006](#ref-hilpert_distinctive_2006)). `colloc_leipzig()` can be used to retrieve collocates of *two* functionally/semantically similar words by specifying the `pattern` argument with two character vectors of words.
 
 The following example use one of the Leipzig corpus files (not included in the package but can be downloaded from the Leipzig Corpora webpage for free), namely the `"ind_mixed_2012_1M-sentences"`. The aim is to contrast collocational preferences of two deadjectival transitive verbs based on the root *kuat* 'strong' framed within two causative morphological schemas: one with *per-*+ADJ and the other with ADJ+*-kan*. Theoretically, the *per-* schema indicates that the direct object of the verb is caused to have *more* of the characteristic indicated by the adjectival root, meanwhile the *-kan* schema indicates that the direct object is caused to have the characteristic indicated by the root (that is not previously had). The focus here is on the R1 collocates of the verbs (i.e. one word immediately to the right of the verbs in the sentences).
 
@@ -263,6 +263,10 @@ assoc_tb <- assoc_prepare(colloc_out = out,
                           per_corpus = FALSE,
                           stopword_list = collogetr::stopwords,
                           float_digits = 3L)
+#> Your colloc_leipzig output is stored as list!
+#> You chose to combine the collocational and frequency list data from ALL CORPORA!
+#> Tallying frequency list of all words in ALL CORPORA!
+#> You chose to remove stopwords!
 
 # prepare the dca input table
 dca_tb <- assoc_prepare_dca(assoc_tb)
@@ -288,7 +292,7 @@ head(dca_res, 10)
 #> 10 tim                 7          0 0.113     0.948 memperkuat
 ```
 
-The package also includes a function called `dca_top_collex()` to retrieve the top-n distinctive collocates for one of the two contrasted words. The `dist_for` argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., construction/word `..., dist_for = "a", ...` or `..., dist_for = "A", ...` for that appearing in the second column from the output of `collex_fye_dca()`, or construction/word `..., dist_for = "b", ...` or `..., dist_for = "B", ...` for that appearing in the third column).
+The package also includes a function called `dca_top_collex()` to retrieve the top-n distinctive collocates for one of the two contrasted words. The `dist_for` argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., \[i\] `..., dist_for = "a", ...` or `..., dist_for = "A", ...` for construction/word appearing in the second column from the output of `collex_fye_dca()`, or \[ii\] `..., dist_for = "b", ...` or `..., dist_for = "B", ...` for construction/word appearing in the third column).
 
 ``` r
 # retrieve distinctive collocates for Construction A (i.e., memperkuat)
@@ -304,6 +308,8 @@ head(dist_for_a)
 #> 5 pertahanan         10          0 0.0439     1.36 memperkuat
 #> 6 basis               8          0 0.0823     1.08 memperkuat
 ```
+
+The codes below retrieve the distinctive collocates for *menguatkan* 'to strengthen' or Construction B.
 
 ``` r
 # retrieve distinctive collocates for Construction B (i.e., menguatkan)
