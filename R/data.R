@@ -8,6 +8,11 @@
 #' The author's full filepaths to the plain-texts of the Indonesian Leipzig Corpora
 "leipzig_corpus_path"
 
+#' Demo data for Distinctive Collexeme/Collocate Analysis
+#'
+#' The output of \code{colloc_leipzig()} for illustrating \emph{Distinctive Collexeme/Collocate Analysis} on package README page.
+"dca_coll"
+
 #' Indonesian stopwords
 #'
 #' Character vector containing Indonesian stopwords. They are gathered from the following resources:
