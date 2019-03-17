@@ -38,10 +38,10 @@ citation("collogetr")
 #> 
 #> To cite `collogetr` in publication, please use:
 #> 
-#>   Rajeg, G. P. W. (2018). collogetr: Collocates retriever and
-#>   collocational association measure for the Indonesian Leipzig
-#>   Corpora. R package development version 1.0.2. url:
-#>   https://github.com/gederajeg/collogetr
+#>   Rajeg, G. P. W. (2019). collogetr: Collocates retriever and
+#>   collocational association measure. R package development version
+#>   1.1.3. url: https://github.com/gederajeg/collogetr. doi:
+#>   https://doi.org/10.26180/5b7b9c5e32779
 #> 
 #> Please also cite the following foundational works on the Collexeme
 #> Analysis and Distinctive Collexeme Analysis:
@@ -73,12 +73,12 @@ The package has three data sets for demonstration. The important one is the `dem
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "368765 Dalam semalam ia bisa me nemani tiga sampai lima tamu."
-#> [2] "137438 Lantas apa hubungannya dengan saya?"                   
+#> [1] "368765 Dalam semalam ia bisa me nemani tiga sampai lima tamu."                                                                                                                    
+#> [2] "172509 Koop adalah seorang Kristen taat yang mencurahkan hasratnya dalam menentang aborsi ke dalam dua buku, lima film pendidikan, dan tur ceramah ke berbagai kota di negaranya."
 #> 
 #> $ind_news_2008_300K
-#> [1] "69363 Para pemain mengatakan, mereka tidak pernah menerima uang dan tim melancarkan protes sebelum dua pertandingan terakhir liga mereka, demikian diwartakan Reuters."
-#> [2] "163549 Yang perlu diwaspadai oleh pemudik bersepeda motor adalah hembusan angin disertai hujan yang bisa mendadak besar."
+#> [1] "253126 \"Karenanya Perti tetap akan mendukung Yudhoyono sebagai Capres mendatang,\" kata salah satu Ketua Dewan Pimpinan Pusat (DPP) Perti itu."
+#> [2] "160174 Pengembalian uang itu terkait dengan dugaan korupsi pengadaan alat berat dan mobil pemadam kebakaran di Provinsi Jawa Barat."
 ```
 
 1.  Full-paths to the Leipzig Corpus plain texts, as in the `leipzig_corpus_path`.
@@ -346,16 +346,14 @@ devtools::session_info()
 #>  package     * version date       lib source        
 #>  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.4.0)
 #>  backports     1.1.2   2017-12-13 [1] CRAN (R 3.5.0)
-#>  bindr         0.1.1   2018-03-13 [1] CRAN (R 3.4.4)
-#>  bindrcpp    * 0.2.2   2018-03-29 [1] CRAN (R 3.5.0)
 #>  callr         3.1.1   2018-12-21 [1] CRAN (R 3.5.0)
 #>  cli           1.0.1   2018-09-25 [1] CRAN (R 3.5.0)
-#>  collogetr   * 1.0.2   2019-03-16 [1] local         
+#>  collogetr   * 1.1.3   2019-03-17 [1] local         
 #>  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.4.1)
 #>  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.0)
 #>  devtools      2.0.1   2018-10-26 [1] CRAN (R 3.5.1)
 #>  digest        0.6.15  2018-01-28 [1] CRAN (R 3.5.0)
-#>  dplyr         0.7.8   2018-11-10 [1] CRAN (R 3.5.0)
+#>  dplyr         0.8.0.1 2019-02-15 [1] CRAN (R 3.5.2)
 #>  evaluate      0.11    2018-07-17 [1] CRAN (R 3.5.0)
 #>  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.5.0)
 #>  fs            1.2.3   2018-06-08 [1] CRAN (R 3.5.0)
@@ -382,10 +380,10 @@ devtools::session_info()
 #>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.4.3)
 #>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.0)
 #>  stringi       1.2.4   2018-07-20 [1] CRAN (R 3.5.0)
-#>  stringr       1.3.1   2018-05-10 [1] CRAN (R 3.4.4)
+#>  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
 #>  testthat      2.0.1   2018-10-13 [1] CRAN (R 3.5.0)
 #>  tibble        2.0.1   2019-01-12 [1] CRAN (R 3.5.2)
-#>  tidyr         0.8.2   2018-10-28 [1] CRAN (R 3.5.0)
+#>  tidyr         0.8.3   2019-03-01 [1] CRAN (R 3.5.2)
 #>  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.0)
 #>  usethis       1.4.0   2018-08-14 [1] CRAN (R 3.5.0)
 #>  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.5.0)

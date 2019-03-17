@@ -1,12 +1,13 @@
 bibentry(
          bibtype = "Manual",
-         title = "collogetr: Collocates retriever and collocational association measure for the Indonesian Leipzig Corpora",
+         title = "collogetr: Collocates retriever and collocational association measure",
          author = person(given = "Gede Primahadi Wijaya", family = "Rajeg", role = c("aut", "cre"), email = c("primahadiwijaya@gmail.com", "primahadi_wijaya@unud.ac.id"), comment = c(ORCID = "0000-0002-2047-8621")),
-         year = "2018",
+         year = "2019",
          url = "https://github.com/gederajeg/collogetr",
-         note = "R package development version 1.0.2",
+         doi = "10.26180/5b7b9c5e32779",
+         note = "R package development version 1.1.3",
          header = "To cite `collogetr` in publication, please use:",
-         textVersion = paste("Rajeg, G. P. W. (2018). collogetr: Collocates retriever and collocational association measure for the Indonesian Leipzig Corpora. R package development version 1.0.2. url: https://github.com/gederajeg/collogetr"))
+         textVersion = paste("Rajeg, G. P. W. (2019). collogetr: Collocates retriever and collocational association measure. R package development version 1.1.3. url: https://github.com/gederajeg/collogetr. doi: https://doi.org/10.26180/5b7b9c5e32779"))
 
 bibentry(bibtype = "Article",
          title = "Collostructions: Investigating the interaction of words and constructions",
