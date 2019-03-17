@@ -435,7 +435,7 @@ colloc_leipzig <- function(leipzig_path = NULL,
 
       # generate corpus size tibble
       corpus_size <- tibble::tibble(corpus_names = corpus_names,
-                                    size = dplyr::pull(dplyr::tally(freqlist, .data$n), .data$nn))
+                                    size = dplyr::pull(dplyr::tally(freqlist, .data$n), .data$n))
 
       if (save_interim) {
 
