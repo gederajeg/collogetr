@@ -12,7 +12,7 @@ Description: A tool for generating and analysing window-span collocates of a (se
     These measures are based on the log-transformed p-value of the one-tailed Fisher-Yates Exact test.
 Depends: R (>= 3.3)
 Imports:
-  dplyr (>= 0.7.4),
+  dplyr (>= 0.8.0.1),
   tidyr (>= 0.8.0),
   purrr (>= 0.2.4),
   stringr (>= 1.2.0),
