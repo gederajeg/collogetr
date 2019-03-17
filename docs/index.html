@@ -79,29 +79,27 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p><code>collogetr</code> has one function (viz. <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code>) to retrieve window-span collocates for a set of word forms (viz. the <em>node word</em>) from the (Indonesian) <a href="http://wortschatz.uni-leipzig.de/en/download">Leipzig Corpora</a>. There are two functions to process the output of <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> into tabular formats as input for <strong>association measure</strong> between the collocates and the node, as in Stefanowitsch and Gries’ <span class="citation">(<a href="#ref-stefanowitsch_collostructions_2003">2003</a>)</span> <a href="http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html">collostructional/collocation analysis</a> <span class="citation">(see also, Gries, <a href="#ref-gries_more_2015">2015</a>; Stefanowitsch, <a href="#ref-hoffmann_collostructional_2013">2013</a>; Stefanowitsch &amp; Gries, <a href="#ref-stefanowitsch_corpora_2009">2009</a>)</span>. These functions are <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> and <code><a href="reference/assoc_prepare_dca.html">assoc_prepare_dca()</a></code>. The former generates input for <a href="http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf"><em>Simple Collexeme/Collocational Analysis</em></a> computed using <code><a href="reference/collex_fye.html">collex_fye()</a></code>, meanwhile the latter uses the output of <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> to generate input for <a href="http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf"><em>Distinctive Collexeme/Collocates Analysis</em></a> <span class="citation">(Gries &amp; Stefanowitsch, <a href="#ref-gries_extending_2004">2004</a>; Hilpert, <a href="#ref-hilpert_distinctive_2006">2006</a>)</span> computed using <code><a href="reference/collex_fye_dca.html">collex_fye_dca()</a></code>. <code>collogetr</code> is built on top of the core packages in the <a href="https://www.tidyverse.org">tidyverse</a>.</p>
+<p>collogetr currently has one function (viz. <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code>) to retrieve window-span collocates for a set of word forms (viz. the <em>node word</em>) from the (Indonesian) <a href="http://wortschatz.uni-leipzig.de/en/download">Leipzig Corpora</a>. There are two functions to process the output of <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> into tabular formats as input for <strong>association measure</strong> between the collocates and the node, as in Stefanowitsch and Gries’ <span class="citation">(<a href="#ref-stefanowitsch_collostructions_2003">2003</a>)</span> <a href="http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html">collostructional/collocation analysis</a> <span class="citation">(see also, Gries, <a href="#ref-gries_more_2015">2015</a>; Stefanowitsch, <a href="#ref-hoffmann_collostructional_2013">2013</a>; Stefanowitsch &amp; Gries, <a href="#ref-stefanowitsch_corpora_2009">2009</a>)</span>. These functions are <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> and <code><a href="reference/assoc_prepare_dca.html">assoc_prepare_dca()</a></code>. The former generates input for <a href="http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf"><em>Simple Collexeme/Collocational Analysis</em></a>, which is computed using <code><a href="reference/collex_fye.html">collex_fye()</a></code>, meanwhile the latter uses the output of <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> to generate input for <a href="http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf"><em>Distinctive Collexeme/Collocates Analysis</em></a> <span class="citation">(Gries &amp; Stefanowitsch, <a href="#ref-gries_extending_2004">2004</a>; Hilpert, <a href="#ref-hilpert_distinctive_2006">2006</a>)</span>, which is computed using <code><a href="reference/collex_fye_dca.html">collex_fye_dca()</a></code>. collogetr is built on top of the core packages in the <a href="https://www.tidyverse.org">tidyverse</a>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install from GitHub with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
+<p>Install collogetr from GitHub with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
-<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"gederajeg/collogetr"</span>)</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"gederajeg/collogetr"</span>)</code></pre></div>
 </div>
 <div id="usages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usages" class="anchor"></a>Usages</h2>
 <div id="load-collogetr" class="section level3">
 <h3 class="hasAnchor">
-<a href="#load-collogetr" class="anchor"></a>Load <code>collogetr</code>
-</h3>
+<a href="#load-collogetr" class="anchor"></a>Load collogetr</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(collogetr)</code></pre></div>
 </div>
-<div id="citation-collogetr" class="section level3">
+<div id="citation-for-collogetr" class="section level3">
 <h3 class="hasAnchor">
-<a href="#citation-collogetr" class="anchor"></a>Citation <code>collogetr</code>
-</h3>
-<p>To cite the package in publication, type as follows:</p>
+<a href="#citation-for-collogetr" class="anchor"></a>Citation for collogetr</h3>
+<p>To cite collogetr in publication, type as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">"collogetr"</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite `collogetr` in publication, please use:</span>
@@ -140,12 +138,12 @@
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(demo_corpus_leipzig[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], sample, <span class="dv">2</span>)
 <span class="co">#&gt; $ind_mixed_2012_1M</span>
-<span class="co">#&gt; [1] "235828 Yin Moon hanya berkomentar bahwa mereka adalah orang luar dan tidak berhak mencampuri urusan orang lain."</span>
-<span class="co">#&gt; [2] "316230 Ini lah akibatnya kepercayaan membuta terhadap otak manusia."                                            </span>
+<span class="co">#&gt; [1] "1611 Mulailah Pak Sariman bercerita, berkeluh, dan berharap."                            </span>
+<span class="co">#&gt; [2] "874806 ''Kunjungan sudah mencapai 17 ribu wisatawan, hanya dalam kurun waktu tiga bulan."</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $ind_news_2008_300K</span>
-<span class="co">#&gt; [1] "298937 Di berbagai sudut ibukota Irak, Baghdad, dentum roket dan mortir terdengar."                                          </span>
-<span class="co">#&gt; [2] "92517 Berbeda dari AAC, film produksi SiemArt Pictures itu berbicara tentang Tuhan di kalangan masyarakat menengah ke bawah."</span></code></pre></div>
+<span class="co">#&gt; [1] "123380 Sementara itu sejumlah wartawan yang hendak meliput situasi dan persiapan pemberangkatan Soeharto semula tidak diizinkan masuk ke dalam pangkalan, namun kemudian diizinkan."</span>
+<span class="co">#&gt; [2] "275108 \"Kita perlu berbuat lebih banyak untuk menegakkan hukum dan mengatasi impunitas,\" kata Ban, yang mengadakan kampanye sendiri, UNiTE, untuk memerangi masalah."</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Full-paths to the Leipzig Corpus plain texts, as in the <code>leipzig_corpus_path</code>.</li>
 </ol>
@@ -167,7 +165,7 @@
 <div id="retrieving-the-collocates" class="section level4">
 <h4 class="hasAnchor">
 <a href="#retrieving-the-collocates" class="anchor"></a>Retrieving the collocates</h4>
-<p>Here is how to retrieve the collocates for the Indonesian verb <em>mengatakan</em> ‘to say sth.’. The function will print out progress messages of the stages onto the console. It generates warning(s) when a search pattern or node word is not found in a corpus file or in all loaded corpus files.</p>
+<p>The codes below show how one may retrieve the collocates for the Indonesian verb <em>mengatakan</em> ‘to say sth.’. The function <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> will print out progress messages of the stages onto the console. It generates warning(s) when a search pattern or node word is not found in a corpus file or in all loaded corpus files.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span><span class="kw"><a href="reference/colloc_leipzig.html">colloc_leipzig</a></span>(<span class="dt">leipzig_corpus_list =</span> demo_corpus_leipzig,
                        <span class="dt">pattern =</span> <span class="st">"mengatakan"</span>,
                        <span class="dt">window =</span> <span class="st">"r"</span>,
@@ -221,13 +219,17 @@
 <div id="preparing-input-data-for-simple-collexemecollocational-analysis-sca-" class="section level4">
 <h4 class="hasAnchor">
 <a href="#preparing-input-data-for-simple-collexemecollocational-analysis-sca-" class="anchor"></a>Preparing input data for <em>Simple Collexeme/Collocational Analysis</em> (SCA).</h4>
-<p>First we need to call <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> for generating the data for SCA with <code><a href="reference/collex_fye.html">collex_fye()</a></code>. The demo illustrates it with on-console output of <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code>. Cf. the <strong>Examples</strong> “2.2” in the documentation for <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> for handling saved outputs (<code>?assoc_prepare()</code>).</p>
+<p>First we need to call <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> for generating the data SCA. The demo illustrates it with in-console output of <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code>. See the <strong>Examples</strong> “2.2” in the documentation for <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> for handling saved outputs (<code>?assoc_prepare()</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assoc_tb &lt;-<span class="st"> </span><span class="kw"><a href="reference/assoc_prepare.html">assoc_prepare</a></span>(<span class="dt">colloc_out =</span> out, 
                           <span class="dt">window_span =</span> <span class="st">"r1"</span>,
                           <span class="dt">per_corpus =</span> <span class="ot">FALSE</span>, <span class="co"># combine all data across corpus</span>
                           <span class="dt">stopword_list =</span> collogetr<span class="op">::</span>stopwords,
-                          <span class="dt">float_digits =</span> 3L)</code></pre></div>
-<p>Inspect the output of <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code></p>
+                          <span class="dt">float_digits =</span> 3L)
+<span class="co">#&gt; Your colloc_leipzig output is stored as list!</span>
+<span class="co">#&gt; You chose to combine the collocational and frequency list data from ALL CORPORA!</span>
+<span class="co">#&gt; Tallying frequency list of all words in ALL CORPORA!</span>
+<span class="co">#&gt; You chose to remove stopwords!</span></code></pre></div>
+<p>Inspect the output of <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(assoc_tb)
 <span class="co">#&gt; # A tibble: 6 x 3</span>
 <span class="co">#&gt;   w          node       data            </span>
@@ -238,14 +240,14 @@
 <span class="co">#&gt; 4 akibat     mengatakan &lt;tibble [1 × 9]&gt;</span>
 <span class="co">#&gt; 5 alokasi    mengatakan &lt;tibble [1 × 9]&gt;</span>
 <span class="co">#&gt; 6 angklung   mengatakan &lt;tibble [1 × 9]&gt;</span></code></pre></div>
-<p>The <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> and <code><a href="reference/collex_fye.html">collex_fye()</a></code> functions are designed following the tidy principle so that the association/collocation measure is performed in a row-wise fashion, benefiting from the combination of <a href="http://r4ds.had.co.nz/many-models.html#list-columns-1"><em>nested</em> column</a> <span class="citation">(cf., Wickham &amp; Grolemund, <a href="#ref-wickham_r_2017">2017</a>, p. 409)</span> for the input-data (using <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/nest">tidyr::nest()</a></code>) and <code>purrr</code>’s <code>map_*</code> function. <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> includes calculating the expected co-occurrence frequencies between the collocates/collexemes and the node word/construction.</p>
+<p>The <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> and <code><a href="reference/collex_fye.html">collex_fye()</a></code> functions are designed following the tidy principle so that the association/collocation measure is performed in a row-wise fashion, benefiting from the combination of <a href="http://r4ds.had.co.nz/many-models.html#list-columns-1"><em>nested</em> column</a> <span class="citation">(cf., Wickham &amp; Grolemund, <a href="#ref-wickham_r_2017">2017</a>, p. 409)</span> for the input-data (using <code><a href="https://tidyr.tidyverse.org/reference/nest.html">tidyr::nest()</a></code>) and <code>purrr</code>’s <code>map_*</code> function. <code><a href="reference/assoc_prepare.html">assoc_prepare()</a></code> includes calculating the expected co-occurrence frequencies between the collocates/collexemes and the node word/construction.</p>
 <p>The column <code>data</code> in <code>assoc_tb</code> above consists of nested tibble/table as a list. Each contains required data for performing association measure for each of the collocates in column <code>w</code> <span class="citation">(Gries, <a href="#ref-gries_50-something_2013">2013</a>, <a href="#ref-gries_more_2015">2015</a>; Stefanowitsch &amp; Gries, <a href="#ref-stefanowitsch_collostructions_2003">2003</a>, <a href="#ref-stefanowitsch_corpora_2009">2009</a>)</span>. This nested column can be inspected as follows (for the first row, namely for the word <em>pihaknya</em> ‘the party’).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get the tibble in the `data` column for the first row</span>
 assoc_tb<span class="op">$</span>data[[<span class="dv">1</span>]]
 <span class="co">#&gt; # A tibble: 1 x 9</span>
-<span class="co">#&gt;   a_exp     a n_w_in_corp corpus_size n_pattern     b     c     d assoc   </span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;       &lt;int&gt;       &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   </span>
-<span class="co">#&gt; 1 0.354     4          96       41179       152    92   148 40935 attract…</span></code></pre></div>
+<span class="co">#&gt;   a_exp     a n_w_in_corp corpus_size n_pattern     b     c     d assoc    </span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;       &lt;int&gt;       &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    </span>
+<span class="co">#&gt; 1 0.354     4          96       41179       152    92   148 40935 attracti…</span></code></pre></div>
 <p>Column <code>a</code> indicates the co-occurrence frequency between the node word and the collocates column <code>w</code>, meanwhile <code>a_exp</code> indicates the <em>expected co-occurrence frequency</em> between them. The <code>n_w_in_corp</code> represents the total token/occurrence frequency of a given collocate. The <code>n_pattern</code> stores the total token/occurrence frequency of the node word in the corpus. Column <code>b</code>, <code>c</code>, and <code>d</code> are required for the association measure that is essentially based on 2-by-2 crosstabulation table. The <code>assoc</code> column indicates whether the value in <code>a</code> is higher than that in <code>a_exp</code>, thus indicating <em>attraction</em> or <em>positive association</em> between the node word and the collocate. The reverse is <em>repulsion</em> or <em>negative association</em> when the value in <code>a</code> is less/lower than that in <code>a_exp</code>.</p>
 </div>
 <div id="simple-collexemecollocates-analysis-sca" class="section level4">
@@ -253,12 +255,12 @@ assoc_tb<span class="op">$</span>data[[<span class="dv">1</span>]]
 <a href="#simple-collexemecollocates-analysis-sca" class="anchor"></a><em>Simple Collexeme/Collocates Analysis (SCA)</em>
 </h4>
 <p>As in the <em>Collostructional Analysis</em> <span class="citation">(Stefanowitsch &amp; Gries, <a href="#ref-stefanowitsch_collostructions_2003">2003</a>)</span>, <code><a href="reference/collex_fye.html">collex_fye()</a></code> uses one-tailed <em>Fisher-Yates Exact</em> test whose <em>p</em>-<sub>FisherExact</sub>value is log-transformed to the base of 10 to indicate the collostruction strength between the collocates and the node word <span class="citation">(Gries, Hampe, &amp; Schönefeld, <a href="#ref-gries_converging_2005">2005</a>)</span>. <code><a href="reference/collex_fye.html">collex_fye()</a></code> simultaneously performs two uni-directional measures of <em>Delta P</em> <span class="citation">(Gries, <a href="#ref-gries_50-something_2013">2013</a>, <a href="#ref-gries_more_2015">2015</a>, p. 524)</span>. One of these shows the extent to which the presence of the node-word cues the presence of the collocates/collexemes; the other one determines the extent to which the collocates/collexemes cues the presence of the node-word.</p>
-<p>Here is the code to perform the SCA</p>
+<p>Here is the codes to perform the SCA using <code><a href="reference/collex_fye.html">collex_fye()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># perform FYE test for Collexeme Analysis</span>
 am_fye &lt;-<span class="st"> </span><span class="kw"><a href="reference/collex_fye.html">collex_fye</a></span>(<span class="dt">df =</span> assoc_tb, <span class="dt">collstr_digit =</span> <span class="dv">3</span>)</code></pre></div>
 <p>Now we can retrieve the top-10 most strongly attracted collocates to <em>mengatakan</em> ‘to say sth.’. The association strength is shown in the <code>collstr</code> column, which stands for <em>collostruction strength</em>. The higher, the stronger the association.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get the top-10 most strongly attracted collocates</span>
-dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span>(am_fye, <span class="dv">10</span>, collstr)
+dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span>(am_fye, <span class="dv">10</span>, collstr)
 <span class="co">#&gt; # A tibble: 16 x 9</span>
 <span class="co">#&gt;    w     node      a a_exp assoc   p_fye collstr dP_collex_cue_c…</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;            &lt;dbl&gt;</span>
@@ -278,77 +280,151 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <span class="co">#&gt; 14 ptn   meng…     1 0.004 attr… 3.69e-3    2.43            0.007</span>
 <span class="co">#&gt; 15 ukm   meng…     1 0.004 attr… 3.69e-3    2.43            0.007</span>
 <span class="co">#&gt; 16 wna   meng…     1 0.004 attr… 3.69e-3    2.43            0.007</span>
-<span class="co">#&gt; # ... with 1 more variable: dP_cxn_cue_collex &lt;dbl&gt;</span></code></pre></div>
-<p>Column <code>a</code> contains the co-occurrence frequency of the collocates (<code>w</code>) with the <code>node</code> as its R1 collocates in the demo corpus. <code>p_fye</code> shows the one-tailed <em>p</em><sub>FisherExact</sub>-value. Updated README file is prepared for retrieving data to perform <em>Distinctive Collexeme Analysis</em>.</p>
+<span class="co">#&gt; # … with 1 more variable: dP_cxn_cue_collex &lt;dbl&gt;</span></code></pre></div>
+<p>Column <code>a</code> contains the co-occurrence frequency of the collocates (<code>w</code>) with the <code>node</code> as its R1 collocates in the demo corpus. <code>p_fye</code> shows the one-tailed <em>p</em><sub>FisherExact</sub>-value.</p>
+</div>
+<div id="distinctive-collexemecollocate-analysis-dca" class="section level4">
+<h4 class="hasAnchor">
+<a href="#distinctive-collexemecollocate-analysis-dca" class="anchor"></a><em>Distinctive Collexeme/Collocate Analysis</em> (DCA)</h4>
+<p>The idea of distinctive collexemes/collocates is to contrast <em>two</em> functionally/semantically similar constructions or words in terms of the collocates that are (significantly) more frequent for one of the two contrasted constructions/words <span class="citation">(see Gries &amp; Stefanowitsch, <a href="#ref-gries_extending_2004">2004</a>; Hilpert, <a href="#ref-hilpert_distinctive_2006">2006</a>)</span>. <code><a href="reference/colloc_leipzig.html">colloc_leipzig()</a></code> can be used to retrieve collocates of <em>two</em> functionally/semantically similar words by specifying the <code>pattern</code> argument with two character vectors of words.</p>
+<p>The following example use one of the Leipzig corpus files (not included in the package but can be downloaded from the Leipzig Corpora webpage for free), namely the <code>"ind_mixed_2012_1M-sentences"</code>. The aim is to contrast collocational preferences of two deadjectival transitive verbs based on the root <em>kuat</em> ‘strong’ framed within two causative morphological schemas: one with <em>per-</em>+ADJ and the other with ADJ+<em>-kan</em>. Theoretically, the <em>per-</em> schema indicates that the direct object of the verb is caused to have <em>more</em> of the characteristic indicated by the adjectival root, meanwhile the <em>-kan</em> schema indicates that the direct object is caused to have the characteristic indicated by the root (that is not previously had). The focus here is on the R1 collocates of the verbs (i.e. one word immediately to the right of the verbs in the sentences).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_leipzig_path &lt;-<span class="st"> </span>collogetr<span class="op">::</span>leipzig_corpus_path[<span class="dv">1</span>]
+dca_coll &lt;-<span class="st"> </span>collogetr<span class="op">::</span><span class="kw"><a href="https://gederajeg.github.io/collogetr//reference/colloc_leipzig.html">colloc_leipzig</a></span>(<span class="dt">leipzig_path =</span> my_leipzig_path, 
+                                     <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">"memperkuat"</span>, <span class="st">"menguatkan"</span>),
+                                     <span class="dt">window =</span> <span class="st">"r"</span>,
+                                     <span class="dt">span =</span> <span class="dv">1</span>,
+                                     <span class="dt">save_interim =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Then, we prepare the output into the format required for performing DCA with <code><a href="reference/collex_fye_dca.html">collex_fye_dca()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assoc_tb &lt;-<span class="st"> </span><span class="kw"><a href="reference/assoc_prepare.html">assoc_prepare</a></span>(<span class="dt">colloc_out =</span> dca_coll,
+                          <span class="dt">window_span =</span> <span class="st">"r1"</span>,
+                          <span class="dt">per_corpus =</span> <span class="ot">FALSE</span>,
+                          <span class="dt">stopword_list =</span> collogetr<span class="op">::</span>stopwords,
+                          <span class="dt">float_digits =</span> 3L)
+<span class="co">#&gt; Your colloc_leipzig output is stored as list!</span>
+<span class="co">#&gt; You chose to combine the collocational and frequency list data from ALL CORPORA!</span>
+<span class="co">#&gt; Tallying frequency list of all words in ALL CORPORA!</span>
+<span class="co">#&gt; You chose to remove stopwords!</span>
+
+<span class="co"># prepare the dca input table</span>
+dca_tb &lt;-<span class="st"> </span><span class="kw"><a href="reference/assoc_prepare_dca.html">assoc_prepare_dca</a></span>(assoc_tb)</code></pre></div>
+<p>Compute DCA for the two verbs and view the results snippet.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dca_res &lt;-<span class="st"> </span><span class="kw"><a href="reference/collex_fye_dca.html">collex_fye_dca</a></span>(dca_tb)
+<span class="kw">head</span>(dca_res, <span class="dv">10</span>)
+<span class="co">#&gt; # A tibble: 10 x 6</span>
+<span class="co">#&gt;    w          memperkuat menguatkan   p_fye collstr dist_for  </span>
+<span class="co">#&gt;    &lt;chr&gt;           &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 diagnosis          15          0 0.00908   2.04  memperkuat</span>
+<span class="co">#&gt;  2 posisi             15          0 0.00908   2.04  memperkuat</span>
+<span class="co">#&gt;  3 daya               14          0 0.0125    1.90  memperkuat</span>
+<span class="co">#&gt;  4 sistem             13          0 0.0171    1.77  memperkuat</span>
+<span class="co">#&gt;  5 pertahanan         10          0 0.0439    1.36  memperkuat</span>
+<span class="co">#&gt;  6 basis               8          0 0.0823    1.08  memperkuat</span>
+<span class="co">#&gt;  7 ketahanan           7          0 0.113     0.948 memperkuat</span>
+<span class="co">#&gt;  8 pasukan             7          0 0.113     0.948 memperkuat</span>
+<span class="co">#&gt;  9 rasa                7          0 0.113     0.948 memperkuat</span>
+<span class="co">#&gt; 10 tim                 7          0 0.113     0.948 memperkuat</span></code></pre></div>
+<p>The package also includes a function called <code><a href="reference/dca_top_collex.html">dca_top_collex()</a></code> to retrieve the top-n distinctive collocates for one of the two contrasted words. The <code>dist_for</code> argument can be specified by either the character vector of the name of the contrasted words, or the character IDs of the constructions/words (e.g., [i] <code>..., dist_for = "a", ...</code> or <code>..., dist_for = "A", ...</code> for construction/word appearing in the second column from the output of <code><a href="reference/collex_fye_dca.html">collex_fye_dca()</a></code>, or [ii] <code>..., dist_for = "b", ...</code> or <code>..., dist_for = "B", ...</code> for construction/word appearing in the third column).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># retrieve distinctive collocates for Construction A (i.e., memperkuat)</span>
+dist_for_a &lt;-<span class="st"> </span><span class="kw"><a href="reference/dca_top_collex.html">dca_top_collex</a></span>(dca_res, <span class="dt">dist_for =</span> <span class="st">"memperkuat"</span>, <span class="dt">top_n =</span> <span class="dv">10</span>)
+<span class="kw">head</span>(dist_for_a)
+<span class="co">#&gt; # A tibble: 6 x 6</span>
+<span class="co">#&gt;   w          memperkuat menguatkan   p_fye collstr dist_for  </span>
+<span class="co">#&gt;   &lt;chr&gt;           &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     </span>
+<span class="co">#&gt; 1 diagnosis          15          0 0.00908    2.04 memperkuat</span>
+<span class="co">#&gt; 2 posisi             15          0 0.00908    2.04 memperkuat</span>
+<span class="co">#&gt; 3 daya               14          0 0.0125     1.90 memperkuat</span>
+<span class="co">#&gt; 4 sistem             13          0 0.0171     1.77 memperkuat</span>
+<span class="co">#&gt; 5 pertahanan         10          0 0.0439     1.36 memperkuat</span>
+<span class="co">#&gt; 6 basis               8          0 0.0823     1.08 memperkuat</span></code></pre></div>
+<p>The codes below retrieve the distinctive collocates for <em>menguatkan</em> ‘to strengthen’ or Construction B.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># retrieve distinctive collocates for Construction B (i.e., menguatkan)</span>
+dist_for_b &lt;-<span class="st"> </span><span class="kw"><a href="reference/dca_top_collex.html">dca_top_collex</a></span>(dca_res, <span class="dt">dist_for =</span> <span class="st">"menguatkan"</span>, <span class="dt">top_n =</span> <span class="dv">10</span>)
+<span class="kw">head</span>(dist_for_b)
+<span class="co">#&gt; # A tibble: 6 x 6</span>
+<span class="co">#&gt;   w           memperkuat menguatkan       p_fye collstr dist_for  </span>
+<span class="co">#&gt;   &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     </span>
+<span class="co">#&gt; 1 hati                 0         12 0.000000109    6.96 menguatkan</span>
+<span class="co">#&gt; 2 satu                 2          8 0.000636       3.20 menguatkan</span>
+<span class="co">#&gt; 3 iman                 7         10 0.00487        2.31 menguatkan</span>
+<span class="co">#&gt; 4 kebenaran            0          4 0.00501        2.3  menguatkan</span>
+<span class="co">#&gt; 5 orang                0          4 0.00501        2.3  menguatkan</span>
+<span class="co">#&gt; 6 kepercayaan          0          3 0.0189         1.72 menguatkan</span></code></pre></div>
 </div>
 </div>
 <div id="session-info" class="section level3">
 <h3 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/session_info">session_info</a></span>()
-<span class="co">#&gt; Session info -------------------------------------------------------------</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">session_info</a></span>()
+<span class="co">#&gt; ─ Session info ──────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;  setting  value                       </span>
 <span class="co">#&gt;  version  R version 3.5.1 (2018-07-02)</span>
+<span class="co">#&gt;  os       macOS  10.14.3              </span>
 <span class="co">#&gt;  system   x86_64, darwin15.6.0        </span>
 <span class="co">#&gt;  ui       X11                         </span>
 <span class="co">#&gt;  language (EN)                        </span>
 <span class="co">#&gt;  collate  en_US.UTF-8                 </span>
+<span class="co">#&gt;  ctype    en_US.UTF-8                 </span>
 <span class="co">#&gt;  tz       Australia/Melbourne         </span>
-<span class="co">#&gt;  date     2018-08-02</span>
-<span class="co">#&gt; Packages -----------------------------------------------------------------</span>
-<span class="co">#&gt;  package    * version date       source                              </span>
-<span class="co">#&gt;  assertthat   0.2.0   2017-04-11 CRAN (R 3.4.0)                      </span>
-<span class="co">#&gt;  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  base       * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  bindr        0.1.1   2018-03-13 cran (@0.1.1)                       </span>
-<span class="co">#&gt;  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  cli          1.0.0   2017-11-05 CRAN (R 3.4.2)                      </span>
-<span class="co">#&gt;  collogetr  * 1.0.2   2018-08-01 Github (gederajeg/collogetr@34de4cd)</span>
-<span class="co">#&gt;  commonmark   1.5     2018-04-28 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  compiler     3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  crayon       1.3.4   2017-09-16 CRAN (R 3.4.1)                      </span>
-<span class="co">#&gt;  datasets   * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  desc         1.2.0   2018-05-01 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  dplyr        0.7.6   2018-06-29 CRAN (R 3.5.1)                      </span>
-<span class="co">#&gt;  evaluate     0.11    2018-07-17 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  fansi        0.2.3   2018-05-06 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  fs           1.2.3   2018-06-08 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  glue         1.3.0   2018-07-17 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  graphics   * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  grDevices  * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  hms          0.4.2   2018-03-10 cran (@0.4.2)                       </span>
-<span class="co">#&gt;  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  knitr        1.20    2018-02-20 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  magrittr     1.5     2014-11-22 CRAN (R 3.4.0)                      </span>
-<span class="co">#&gt;  MASS         7.3-50  2018-04-30 CRAN (R 3.5.1)                      </span>
-<span class="co">#&gt;  memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)                      </span>
-<span class="co">#&gt;  methods    * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  pillar       1.3.0   2018-07-14 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)                      </span>
-<span class="co">#&gt;  pkgdown      1.1.0   2018-06-02 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  purrr        0.2.5   2018-05-29 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  R6           2.2.2   2017-06-17 CRAN (R 3.4.0)                      </span>
-<span class="co">#&gt;  Rcpp         0.12.18 2018-07-23 CRAN (R 3.5.1)                      </span>
-<span class="co">#&gt;  readr        1.1.1   2017-05-16 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  rlang        0.2.1   2018-05-30 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  rmarkdown    1.10    2018-06-11 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  roxygen2     6.0.1   2017-02-06 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.3)                      </span>
-<span class="co">#&gt;  rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1)                      </span>
-<span class="co">#&gt;  stats      * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  stringi      1.2.4   2018-07-20 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  stringr      1.3.1   2018-05-10 cran (@1.3.1)                       </span>
-<span class="co">#&gt;  tibble       1.4.2   2018-01-22 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  tidyr        0.8.1   2018-05-18 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  tools        3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  utf8         1.1.4   2018-05-24 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  utils      * 3.5.1   2018-07-05 local                               </span>
-<span class="co">#&gt;  withr        2.1.2   2018-03-15 cran (@2.1.2)                       </span>
-<span class="co">#&gt;  xml2         1.2.0   2018-01-24 CRAN (R 3.5.0)                      </span>
-<span class="co">#&gt;  yaml         2.1.19  2018-05-01 CRAN (R 3.5.0)</span></code></pre></div>
+<span class="co">#&gt;  date     2019-03-17                  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ─ Packages ──────────────────────────────────────────────────────────────</span>
+<span class="co">#&gt;  package     * version date       lib source        </span>
+<span class="co">#&gt;  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.4.0)</span>
+<span class="co">#&gt;  backports     1.1.2   2017-12-13 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  bindr         0.1.1   2018-03-13 [1] CRAN (R 3.4.4)</span>
+<span class="co">#&gt;  bindrcpp    * 0.2.2   2018-03-29 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  callr         3.1.1   2018-12-21 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  cli           1.0.1   2018-09-25 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  collogetr   * 1.0.2   2019-03-16 [1] local         </span>
+<span class="co">#&gt;  commonmark    1.5     2018-04-28 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.4.1)</span>
+<span class="co">#&gt;  desc          1.2.0   2018-05-01 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  devtools      2.0.1   2018-10-26 [1] CRAN (R 3.5.1)</span>
+<span class="co">#&gt;  digest        0.6.15  2018-01-28 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  dplyr         0.7.8   2018-11-10 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  evaluate      0.11    2018-07-17 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  fs            1.2.3   2018-06-08 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  glue          1.3.0   2018-07-17 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  hms           0.4.2   2018-03-10 [1] CRAN (R 3.4.4)</span>
+<span class="co">#&gt;  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  knitr         1.20    2018-02-20 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  magrittr      1.5     2014-11-22 [1] CRAN (R 3.4.0)</span>
+<span class="co">#&gt;  MASS          7.3-50  2018-04-30 [2] CRAN (R 3.5.1)</span>
+<span class="co">#&gt;  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.4.0)</span>
+<span class="co">#&gt;  pillar        1.3.1   2018-12-15 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  pkgdown       1.1.0   2018-06-02 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  processx      3.2.1   2018-12-05 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  ps            1.3.0   2018-12-21 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  purrr         0.3.0   2019-01-27 [1] CRAN (R 3.5.2)</span>
+<span class="co">#&gt;  R6            2.3.0   2018-10-04 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  Rcpp          1.0.0   2018-11-07 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  readr         1.3.1   2018-12-21 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  remotes       2.0.2   2018-10-30 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  rlang         0.3.1   2019-01-08 [1] CRAN (R 3.5.2)</span>
+<span class="co">#&gt;  rmarkdown     1.11    2018-12-08 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  roxygen2      6.1.1   2018-11-07 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.4.3)</span>
+<span class="co">#&gt;  rstudioapi    0.7     2017-09-07 [1] CRAN (R 3.4.1)</span>
+<span class="co">#&gt;  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  stringi       1.2.4   2018-07-20 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  stringr       1.3.1   2018-05-10 [1] CRAN (R 3.4.4)</span>
+<span class="co">#&gt;  testthat      2.0.1   2018-10-13 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  tibble        2.0.1   2019-01-12 [1] CRAN (R 3.5.2)</span>
+<span class="co">#&gt;  tidyr         0.8.2   2018-10-28 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  usethis       1.4.0   2018-08-14 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  withr         2.1.2   2018-03-15 [1] CRAN (R 3.4.4)</span>
+<span class="co">#&gt;  xml2          1.2.0   2018-01-24 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt;  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.5.0)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [1] /Users/Primahadi/Rlibs</span>
+<span class="co">#&gt; [2] /Library/Frameworks/R.framework/Versions/3.5/Resources/library</span></code></pre></div>
 </div>
 <div id="references" class="section level3 unnumbered">
 <h3 class="hasAnchor">
@@ -427,6 +503,7 @@ dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.
 <li><a href="https://travis-ci.org/gederajeg/collogetr"><img src="https://travis-ci.org/gederajeg/collogetr.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/gederajeg/collogetr"><img src="https://ci.appveyor.com/api/projects/status/github/gederajeg/collogetr?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/gederajeg/collogetr?branch=master"><img src="https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg" alt="Coverage Status"></a></li>
+<li><a href="http://dx.doi.org/10.26180/5b7b9c5e32779"><img src="https://img.shields.io/badge/doi-10.26180/5b7b9c5e32779-blue.svg?style=flat&amp;labelColor=gainsboro&amp;logoWidth=40&amp;logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAFAAAAAZCAYAAACmRqkJAAAKi0lEQVR4Ae3ZaVBUV97H8evuE0EfH32MmkcfoyAuGjXKgkvMaFRAFuiloemWvRuEXlgEBREXBYJiXAQUFeKocUniQiKogAJhQWwWENDEjLNYvjFLzUzNkplEZb5kTme6nCRjKlOpSZlb9SmL2%2Ffcuv3re87%2FnKP0TYfOcslqPMbt63xBKuh09MTxgi7HKT1Sj1TvKp%2BMkZB6%2FXT8c4AjUYPyVdfb7Qs6HTIJ8EHe7Ul%2B152CphDabRQ0uMr7%2FRQgh%2B8qU6%2FBiPDVGv0jq0uGE94b0ZZ3j%2B25MTetoMsh%2FWD91OBqT9%2Fsehd5EqGV17nKMzTqOHvaRMMLEp7qACfinq%2FW1BBx5ZxB13x5X3Jr1v%2Fz9pUcaHU63PiicjrhvXfNRbY1Th49Q6Y1vu6zyqSjzX3aVIgf4OkKToxhgxpd5OMzV0bYE4CRN1Chu34pnTfwnV03FiTlfzDRXBHo6dfgIq8sX6ByV6vjthGc0UdrrPPVGFQBxlSjzJQWENVUZkebceiLpyM8IZSx7O7Zl4JivUNMZX5h8Rt4%2B2L0llKfgu6JKa%2BXvpB5bZ48%2Ba3F6lil2pDkE2rODzCsU0VUnNFHNZQqdS3lx3Utl%2FMILQcfYt5TEeC1GSprgAq0XlgYGLQyxJTlr0uK0DVX7E5s2ZtOgHvLw5fLK9xVmcqguEj%2F2LXbwsvPBkZZKl4j5NcIKinaUsLbejFWZ7m8Do2cmwnb4cFqArRwx3TEYzi%2Bz7DTD0uhxnj8cAEWWUZK%2BTcdhh4pmTWUsW01Y1uCUmNY7Rtqzo5svJSS0poVXtg6yVj7sn9qunek3j8xPVXXeMFoaDkev6lDF7ene7Y5r2taNAXmEBXaP69zevaOjuUeeZ0zhzJuPsM5CdYvOhZVqBMhBqIVDt8zwGdQjR4of9AA%2BXJjUFpww7GodnHAQca4srDAWCXjW3pETal%2BbfumuOLKqSm17vIQtWr1Uu3JYy6JbXuXFbRN1R8pm5byxtG5CcdOz9EUVc7I5IeQEWQ7wWVwzwrsRn%2BbAFeiCxNsKv5Y9P03BFgjAlT90AGOQy2T47fObl00ocFZHl%2B2UGXw0RjzNUWHTPFthckHWh18al8KsGuaFigVVzlKuY%2BG9z37qvuoGlelpsJVldrgrFjbOE%2BeWe8uW18W84qCqc4s7tmCIgzI75hs%2FaJKNFu7rF%2BIIIhr%2BmIQ%2Btn8LQkDMQOeWAYnDHgsQI3NNU7W9j4h5t72o%2FEyvLEQ%2F%2Bu7ymzbOxbCAeOxAgtghz6YgOVYiufEOUlqu0M37ho%2BYn%2FnpJT8bsejVSt90uqdFdlGmV7hF7cuWXetNCShLX%2BI3nKhN%2ByvCs%2Bs6GQpWB33fzKNQR%2BqWr022yvc94q7spBCY%2Bbzkou6ZfJNPf89ZN%2FdidYHnIsKfIzjCMIc7MAwSJiMPFxGMcKQixGwx07R%2FiEe4CNsxFCbAJvwifj8LkIgYRHa8Lm47jNY8AokmMS5NryPh%2FijOB%2BOX4h7foEuyPHlisMtylJpzu1YspkQ36YbLqnx8F1X4abaqmYs9DGmLlrk4CE9XlHlKZskxfpt%2FUJLzyhV23dG%2BITF72fqo9njEaokwIu8lSbG1N4wx273CrP%2B%2BjniQVZhGrzQjlEioFIRcjDM6MIdjBVtHogvl4W9qIX8sTfwU5SgU%2FzdhdGYLcJ9BzvRID6vgx2SxN8PUI9KnIEWH4n7FuIo%2FoRfYV5vMMV4wHRFs%2BvG%2FKl05ZrDVdP11T7eulK3oNQcz%2FAXcj3DpMePjO44KetDL2lDh%2FmV1S3nNoeWnJb7RSXmMJl%2BI0GmH13rKs8lvEdQwfoWKmCxdmGbAEdgAW5jFiQhBb8WXSYTPSjGCBHaMPR5LMANkOCM%2B%2FgD3MS5Z8W1ElzwW3HNJCSI9tcw2ub%2BO8T5LPTBQBy1nusNcB7ztximI1sIsSSzXb04v3vyusJmx63nMufHXlV6LvpEShDd9x%2FHFYWXVPuSX7%2FD7zmpcjuWRupbyvaHnj8Z7BNsUFCArm70iTRcd5bFEN7oxwJs%2FpoA%2FwfBaLJ2Z2EFbmEsNKL7fYYPUI9DIqj%2Fsgkw0CasW%2BL6RbBDFI7gTZSKzz6Gk02AJ23G3QF4xybYU8INce6s5CJNlTyXhYwKv%2FRWMiEeimquzIhrPpGzuSNCsbvLec2%2Brpmh2e0yu%2FxOp96wv6p8X0xeIZW5Bo2%2F6ucdvb%2FdMWVDm8lX11pRpD16OJ6VyZsrQ8yK%2BVFJ9h4UhwEHDj5JgGE23UkSfoZujMMzSESNCPBT9KAFjqi2rcIYZRPgYmzDQ9xDLSz4%2FGsCPIE%2BNkWrTJy%2FhRrRthpVyJJExbnmG2I%2B6x%2BT%2FHxYyQkzQfJGlufpWy6bYlvPUEgu%2BHlHJA5boo7rE3blnBR7r6mv%2BvCBMYEag%2Faqsyr1%2BIk5a%2Fd2z9zGBDpZ31qulCWk9443Hfg5BuJJAgxAG0ZBEmS4DZ7RKIliMVi0d8UvRUCeuPoNAf4Z%2FmgV13pAwiwR3iffFKBQJM5noB%2F6Y5h45v7Wwf0cDtD1DlMIeiugWmZOy5Cv3RgjX7%2FF4GdMXasOjgurmqdafqpojltml9IjvOJ8NMu9lNL5gQmXdMu0BTefz8loMyoJvivs3VMZvhpjqaig%2FZ8gwJGYIsIKRh%2FY4wh%2Bg%2FGQoxYbREgZ%2BB3uww1V3xKgN%2BrwCNtF4Pvx8NveQCEYX%2BAukhCIYuHZLy%2FyDjHbJQfo7PTK1dEBWqPBX2vS%2B2hNW1XquDURypiwXStCjVWuyrSKQC%2FdoUaHtOT2HENoyal4b40x7rK7ylip9NIV3Jy0P6fD24fl3Ra6uoe3PNqOH2Pw3x%2FC8K8CHIU%2BIpQ7OI8yNOJ9TMJO%2FAU9Nn6PjRiGmm%2FpwgsRLQpKjwjuU%2Fz1CQK0R4G4T4%2FwCHWYKlmcA6xr4SA2EzobXeUa9vh21LgpdKxK8hqd5RsaXWS7S9YvlhU2O7ya3ekXrm%2B9lK3KzFH6a4y5V92Ve5hkM4d02EShMestZekE2IxZX7MWdkAgBtmsi9U2lXEwliAOK%2BGLTowThWIZkrEVSSKYgegPOUxwtFmdaBGLsRgg2qeKtosQDh2GYzbisUIEaPvcQ8T5VGzCKowBk2I3mTVALe4wd4tumKcoaZirSKte4RtVrvXwLrw%2BJXV%2F18Ts3BtLEmOaS0yRtRdMfpGJhTKNMbDJWR5V7eEbUNDtcIQAd1PJMwnuJl6E9KQHY7AAHkzQoBkj8B%2B%2FpTWQ4Maezne1P3x1esLBuqmB%2BbccNhJMGetbM%2BGZIi1V%2FoRyOXB77sKVWuPmrd4RBvYQm9ihVue%2F7xDPGljB50MoJmO%2By36gCGsQovCyCGwOarD9R7PLLXZOJjKZvse%2FDQQSvffG7F1rWrZPiLKUX2DPr1hbfHAKb0kDBSeTed5MQj94Pn1xBMvA%2B2IDYTAkcXzXANPRjHq04ACeFeH9aAIcBC3LOq%2FY5pPDeYtO4yRTmzUhbx9LozCEea8ybaHoxDNmVtPltxSVzxhCm3Asg4Tvs683Aa5wwkD8qP9XbgQqUbb6Tp09U5Os3rWiV4jZv2OuvxPdvht70RfST8fjATZd7P33OYzxZ%2FdF7FwcgqPU0yMR2vMYDulpDfBvw%2BGCdBePpq8AAAAASUVORK5CYII%3D" alt="DOI"></a></li>
 </ul>
 </div>
 </div>

@@ -109,7 +109,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>colloc_leipzig</span>(<span class='kw'>leipzig_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>leipzig_corpus_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>case_insensitive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>2L</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>case_insensitive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>split_corpus_pattern</span> <span class='kw'>=</span> <span class='st'>"([^a-zA-Z-¬]+|--)"</span>, <span class='kw'>to_lower_colloc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>save_interim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>freqlist_output_file</span> <span class='kw'>=</span> <span class='st'>"collogetr_out_1_freqlist.txt"</span>,
@@ -144,7 +144,7 @@ So specify either <code>leipzig_path</code> OR <code>leipzig_corpus_list</code> 
     </tr>
     <tr>
       <th>span</th>
-      <td><p>An integer vector indicating the span of the collocate scope. The default is <code>2L</code>.</p></td>
+      <td><p>A numeric vector indicating the span of the collocate scope. The default is <code>2</code> words around the node word.</p></td>
     </tr>
     <tr>
       <th>split_corpus_pattern</th>
@@ -195,7 +195,7 @@ my_pattern <- c("menjalani", "menjalankan")
 collout <- colloc_leipzig(leipzig_path = my_leipzig_path,
                            pattern = my_pattern,
                            window = "r", # get right side collocates
-                           span = 3L, # for 'three' words to the right of the node/pattern
+                           span = 3, # for 'three' words to the right of the node/pattern
                            save_interim = FALSE # don't save into a file
                            )
 # check the content of the output list
@@ -206,7 +206,7 @@ str(collout)
 outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
                            pattern = my_pattern,
                            window = "r",
-                           span = 3L,
+                           span = 3,
                            save_interim = TRUE # save interim results to disk
                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
