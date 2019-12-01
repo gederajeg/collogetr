@@ -45,7 +45,7 @@ collex_fye <- function(df, collstr_digit = 3) {
                       !!dplyr::quo_name(p_fye) := purrr::map_dbl(data, fye_compute),
                       !!dplyr::quo_name(dP_collex_cue_cxn) := purrr::map_dbl(data, dP_cue_cxn, collstr_digit = collstr_digit),
                       !!dplyr::quo_name(dP_cxn_cue_collex) := purrr::map_dbl(data, dP_cue_collex, collstr_digit = collstr_digit))
-  df_out <- tidyr::unnest(df)
+  df_out <- tidyr::unnest(df, .data$data)
   df_out <- dplyr::mutate(df_out,
                           !!dplyr::quo_name(collstr) := dplyr::if_else(.data$a > .data$a_exp,
                                                                        round(-log10(.data$p_fye), collstr_digit),

@@ -69,36 +69,20 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' # prepare the leipzig file path and search patterns
-#' my_leipzig_path <- c("/Users/Primahadi/Documents/ind_news_2008_300K-sentences.txt",
-#'                      "/Users/Primahadi/Documents/ind_news_2009_300K-sentences.txt")
-#' # the input pattern accepts exact word forms (e.g., c("menjalani", "menjalankan"))
-#' my_pattern <- c("menjalani", "menjalankan")
-#'
-#' # (1) run the function but output the results in console ()
-#' collout <- colloc_leipzig(leipzig_path = my_leipzig_path,
-#'                            pattern = my_pattern,
-#'                            window = "r", # get right side collocates
-#'                            span = 3, # for 'three' words to the right of the node/pattern
-#'                            save_interim = FALSE # don't save into a file
-#'                            )
-#' # check the content of the output list
-#' names(collout)
-#' str(collout)
-#'
-#' # (2) run the function but save interim results per loaded corpus
-#' outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
-#'                            pattern = my_pattern,
-#'                            window = "r",
-#'                            span = 3,
-#'                            save_interim = TRUE # save interim results to disk
-#'                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
-#'                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
-#'                            corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
-#'                            search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
-#'                            )
-#' }
+#' collout <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
+#'                      pattern = "mengatakan",
+#'                      window = "r",
+#'                      span = 3,
+#'                      save_interim = FALSE)
+#' # collout <- colloc_leipzig(leipzig_corpus_path = c('path_to_corpus1.txt',
+#' #                                                     'path_to_corpus2.txt'),
+#' #                             pattern = "mengatakan",
+#' #                             window = "r",
+#' #                             span = 3,
+#' #                             save_interim = TRUE # save interim output file
+#' #                             # you need to specify path in the argument
+#' #                             # with \code{...output_file}
+#' #                             )
 #'
 #'
 colloc_leipzig <- function(leipzig_path = NULL,

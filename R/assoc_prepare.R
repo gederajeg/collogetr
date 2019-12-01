@@ -30,34 +30,39 @@
 #'
 #' @return A tbl_df of two columns. One of them is nested columns with input-data for row-wise association measure calculation (e.g., the Fisher-Exact Test with \code{\link{collex_fye}}).
 #' @examples
-#' \dontrun{
-#'  # (1) if the colloc_leipzig() output is stored as list on console
-#'  assoc_tb <- assoc_prepare(colloc_out = colloc_leipzig_output,
-#'                            window_span = "r1",
-#'                            per_corpus = FALSE,
-#'                            stopword_list = NULL,
-#'                            float_digits = 3)
+#'  # Apology that I commented the examples due to error in parsing
+#'  # the examples section for assoc_prepare and colloc_leipzig
+#'  # when building the website using pkgdown.
+#'  # I still cannot get solution to this issue.
 #'
-#' # (2) if the output of colloc_leipzig() is saved into disk
-#'       supply the vector of output file names
-#' ## (2.1) Run colloc_leipzig with "save_interim = TRUE"
-#' outfiles <- colloc_leipzig(leipzig_path = my_leipzig_path,
-#'                            pattern = my_pattern,
-#'                            window = "r",
-#'                            span = 3,
-#'                            save_interim = TRUE # save interim results to disk
-#'                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
-#'                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
-#'                            corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
-#'                            search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
-#'                            )
-#' ## (2.2) supply colloc_out with "outfiles"
-#' assoc_tb <- assoc_prepare(colloc_out = outfiles,
-#'                           window_span = "r1",
-#'                           per_corpus = FALSE,
-#'                           stopword_list = stopwords,
-#'                           float_digits = 3)
-#' }
+#'  # If the colloc_leipzig output is stored as list on console, run as follows
+#'  #assoc_tb <- assoc_prepare(colloc_out = colloc_leipzig_output,
+#'  #                          window_span = "r1",
+#'  #                          per_corpus = FALSE,
+#'  #                          stopword_list = NULL,
+#'  #                          float_digits = 3)
+#'
+#' # If the output of colloc_leipzig is saved into disk
+#' # supply the vector of output file names
+#' ## Example of running colloc_leipzig with "save_interim = TRUE"
+#' # outfiles <- colloc_leipzig(leipzig_path = c('corp_path1.txt', 'corp_path2.txt'),
+#' #                            pattern = "mengatakan",
+#' #                            window = "r",
+#' #                            span = 3,
+#' #                            save_interim = TRUE # save interim results to disk
+#' #                            freqlist_output_file = "~/Desktop/out_1_freqlist.txt",
+#' #                            colloc_output_file = "~/Desktop/out_2_collocates.txt",
+#' #                            corpussize_output_file = "~/Desktop/out_3_corpus_size.txt",
+#' #                            search_pattern_output_file = "~/Desktop/out_4_search_pattern.txt"
+#' #                            )
+#'
+#' ## Example of supplying colloc_out with "outfiles"
+#' #assoc_tb <- assoc_prepare(colloc_out = outfiles,
+#' #                           window_span = "r1",
+#' #                           per_corpus = FALSE,
+#' #                          stopword_list = stopwords,
+#' #                           float_digits = 3)
+#'
 #'
 assoc_prepare <- function(colloc_out = NULL,
                           window_span = NULL,
@@ -192,13 +197,19 @@ assoc_prepare <- function(colloc_out = NULL,
 
 
   if (per_corpus == FALSE) {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node),
+                                   data = c(.data$a, .data$n_w_in_corp,
+                                            .data$corpus_size, .data$n_pattern,
+                                            .data$b, .data$c, .data$d))
   } else {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names),
+                                   data = c(.data$a, .data$n_w_in_corp,
+                                            .data$corpus_size, .data$n_pattern,
+                                            .data$b, .data$c, .data$d))
   }
 
   nested_assoc_tb <- dplyr::mutate(nested_assoc_tb, !!dplyr::quo_name(a_exp) := purrr::map_dbl(data, exp_freq, float_digits))
-  assoc_tb <- tidyr::unnest(nested_assoc_tb)
+  assoc_tb <- tidyr::unnest(nested_assoc_tb, .data$data)
 
   # add association direction
   assoc_tb <- dplyr::mutate(assoc_tb,
@@ -208,9 +219,11 @@ assoc_prepare <- function(colloc_out = NULL,
 
   # nest the data columns required for row-wise FYE with purrr map
   if (per_corpus == FALSE) {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node),
+                                   data = -c(!!w, !!node))
   } else {
-    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names))
+    nested_assoc_tb <- tidyr::nest(dplyr::group_by(assoc_tb, !!w, !!node, !!corpus_names),
+                                   data = -c(!!w, !!node, !!corpus_names))
   }
   return(nested_assoc_tb)
 

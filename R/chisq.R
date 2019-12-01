@@ -32,9 +32,9 @@
 #'
 collex_chisq <- function(df, collstr_digit = 3) {
   chisq <- dplyr::quo(chisq)
-  df <- dplyr::mutate(df, !!dplyr::quo_name(chisq) := purrr::map_dbl(data, chisq_compute, collstr_digit = collstr_digit))
+  df <- dplyr::mutate(dplyr::ungroup(df), !!dplyr::quo_name(chisq) := purrr::map_dbl(data, chisq_compute, collstr_digit = collstr_digit))
   df_out <- dplyr::arrange(df, dplyr::desc(chisq))
-  df_out <- tidyr::unnest(df_out)
+  df_out <- tidyr::unnest(df_out, .data$data)
   df_out <- dplyr::select(df_out, .data$w, .data$a, .data$a_exp, .data$assoc, .data$chisq)
   return(df_out)
 }

@@ -20,11 +20,12 @@ collex_fye_dca <- function(df = NULL, collstr_digit = 3) {
   w <- dplyr::quo(w)
   columns <- colnames(df)[2:3]
   colnames(df)[2:3] <- c("a", "b")
-  df <- tidyr::nest(dplyr::group_by(df, !!w))
+  df <- tidyr::nest(dplyr::group_by(df, !!w),
+                    data = -!!w)
 
   df <- dplyr::mutate(df,
                       !!dplyr::quo_name(p_fye) := purrr::map_dbl(data, fye_compute))
-  df <- tidyr::unnest(df)
+  df <- tidyr::unnest(df, .data$data)
   df$dist_for <- dplyr::if_else(df$a > df$a_exp, columns[1], columns[2])
   df$collstr <- dplyr::if_else(df$a > df$a_exp,
                                round(-log10(df$p_fye), collstr_digit),

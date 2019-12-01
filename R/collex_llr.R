@@ -38,11 +38,13 @@ collex_llr <- function(df = NULL, collstr_digit = 3) {
   n_pattern <- dplyr::quo(n_pattern)
   n_w_in_corp <- dplyr::quo(n_w_in_corp)
   corpus_size <- dplyr::quo(corpus_size)
+  w <- dplyr::quo(w)
+  node <- dplyr::quo(node)
 
-  df <- tidyr::unnest(df)
+  df <- tidyr::unnest(df, .data$data)
 
   # change the integers into double to prevent error of floating integer when calculating the expected frequency
-  df <- dplyr::mutate_if(df, is.integer, as.double)
+  df <- dplyr::mutate_if(dplyr::ungroup(df), is.integer, as.double)
 
   # get the expected frequency of the cells
   df <- dplyr::mutate(df,
@@ -51,7 +53,8 @@ collex_llr <- function(df = NULL, collstr_digit = 3) {
                       !!dplyr::quo_name(d_exp) := round(((!!b + !!d) * (!!c + !!d))/!!corpus_size, collstr_digit))
 
   # nest again the relevant data
-  df <- tidyr::nest(dplyr::group_by(df, !!!group_for_nest))
+  df <- tidyr::nest(dplyr::group_by(df, !!!group_for_nest),
+                    data = -c(!!w, !!node))
 
   log_likelihood_ratio <- function(df_nested) {
 
@@ -72,7 +75,7 @@ collex_llr <- function(df = NULL, collstr_digit = 3) {
                       !!dplyr::quo_name(llr) := purrr::map_dbl(data, log_likelihood_ratio),
                       !!dplyr::quo_name(dP_collex_cue_cxn) := purrr::map_dbl(data, dP_cue_cxn, collstr_digit = collstr_digit),
                       !!dplyr::quo_name(dP_cxn_cue_collex) := purrr::map_dbl(data, dP_cue_collex, collstr_digit = collstr_digit))
-  df <- tidyr::unnest(df)
+  df <- tidyr::unnest(df, .data$data)
   df <- dplyr::mutate(df,
                       !!dplyr::quo_name(llr) := dplyr::if_else(.data$a > .data$a_exp,
                                                                round(llr, collstr_digit),

@@ -27,7 +27,7 @@
 
 assoc_prepare_dca <- function(assoc_tb_df = NULL) {
   # data comes from assoc_tb nested table
-  dca_table <- tidyr::unnest(assoc_tb_df)
+  dca_table <- tidyr::unnest(assoc_tb_df, .data$data)
 
   # check that the node-word must be two words as in DCA
   if (length(unique(dca_table$node)) != 2) {
