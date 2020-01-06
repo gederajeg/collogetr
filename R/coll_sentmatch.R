@@ -19,17 +19,17 @@
 #'                      span = 3,
 #'                      save_interim = FALSE)
 #'
-#' coll_sentmatch(collout,
-#'                colloc = "bahwa",
-#'                sampled = 10)
+#' colloc_sentmatch(collout,
+#'                  colloc = "bahwa",
+#'                  sampled = 10)
 #'
 #' # This will produce message indicating that
 #' # the queried sample number is higher than
 #' # the sentence match for "akan"
-#' coll_sentmatch(collout,
-#'                colloc = "akan",
-#'                sampled = 10)
-coll_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NULL, sampled = NULL) {
+#' colloc_sentmatch(collout,
+#'                  colloc = "akan",
+#'                  sampled = 10)
+colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NULL, sampled = NULL) {
 
   assertthat::assert_that(!is.null(colloc),
                           msg = "`colloc` argument cannot be NULL. Specify with one or more collocates!")
