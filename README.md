@@ -17,30 +17,39 @@ Status](https://img.shields.io/codecov/c/github/gederajeg/collogetr/master.svg)]
 
 ## Overview
 
-collogetr currently has one function (viz. `colloc_leipzig()`) to
-retrieve window-span collocates for a set of word forms (viz. the *node
-word*) from the (Indonesian) [Leipzig
-Corpora](http://wortschatz.uni-leipzig.de/en/download). There are two
-functions to process the output of `colloc_leipzig()` into tabular
-formats as input for **association measure** between the collocates and
-the node, as in Stefanowitsch and Gries’
+collogetr performs (i) collocates retrieval (currently from the
+sentence-based (Indonesian) [Leipzig
+Corpora](http://wortschatz.uni-leipzig.de/en/download)) and (ii)
+computation of collocation association-measures. The function
+`colloc_leipzig()` is used to retrieve window-span collocates for a set
+of word forms (viz. the *nodeword(s)* or *keyword(s)*).
+
+Two other functions (namely, `assoc_prepare()` and
+`assoc_prepare_dca()`) serve to process the output of `colloc_leipzig()`
+into tabular/data frame formats, which then become the input data for
+computing the **association measure** between the collocates and the
+node (as in Stefanowitsch and Gries’
 ([2003](#ref-stefanowitsch_collostructions_2003))
 [collostructional/collocation
-analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html)
+analysis](http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html))
 (Stefanowitsch, [2013](#ref-hoffmann_collostructional_2013);
 Stefanowitsch & Gries, [2009](#ref-stefanowitsch_corpora_2009); see
-also, Gries, [2015](#ref-gries_more_2015)). These functions are
-`assoc_prepare()` and `assoc_prepare_dca()`. The former generates input
-for [*Simple Collexeme/Collocational
-Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf),
-which is computed using `collex_fye()`, meanwhile the latter uses the
-output of `assoc_prepare()` to generate input for [*Distinctive
+also, Gries, [2015](#ref-gries_more_2015)). The function
+`assoc_prepare()` generates input data for computing [*Simple
+Collexeme/Collocational
+Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2003_AS-STG_Collostructions_IJCL.pdf)
+(SCA), meanwhile `assoc_prepare_dca()` uses the output of
+`assoc_prepare()` to generate input data for computing [*Distinctive
 Collexeme/Collocates
 Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_ExtendingCollostructions_IJCL.pdf)
-(Gries & Stefanowitsch, [2004](#ref-gries_extending_2004); Hilpert,
-[2006](#ref-hilpert_distinctive_2006)), which is computed using
-`collex_fye_dca()`. collogetr is built on top of the core packages in
-the [tidyverse](https://www.tidyverse.org).
+(DCA) (Gries & Stefanowitsch, [2004](#ref-gries_extending_2004);
+Hilpert, [2006](#ref-hilpert_distinctive_2006)). Based on the output of
+`assoc_prepare()`, SCA can then be computed using `collex_fye()`, which
+is based on Fisher-Yates Exact test (or `collex_llr()`, which is based
+on Log-Likelihood Ratio); DCA is computed using `collex_fye_dca()`.
+
+collogetr is built on top of the core packages in the
+[tidyverse](https://www.tidyverse.org).
 
 ## Installation
 
@@ -112,12 +121,12 @@ character vector of full path to my Leipzig Corpus files in my computer.
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "201008 Sudah empat hari saya menghabiskan waktu di pulau nan sepi dan jauh dari bisingnya kendaraan bermotor serta asap polusi."
-#> [2] "235828 Yin Moon hanya berkomentar bahwa mereka adalah orang luar dan tidak berhak mencampuri urusan orang lain."                
+#> [1] "201972 Menghisap rakyat sampai kering."                                                                               
+#> [2] "422324 Tantangan yang disertai dengan penghormatan adalah suatu aspek yang penting dari pendekatan yang berhati-hati."
 #> 
 #> $ind_news_2008_300K
-#> [1] "99102 Muhaimin menegaskan bahwa permintaan mundur dirinya tersebut tidak pada tempatnya dan juga melanggar aturan AD/ART PKB karena yang bisa melakukan pencopotan pimpinan PKB itu hanyalah muktamar."
-#> [2] "67564 \" Dewan HAM yang berpusat di Jenewa dan beranggotakan 47 negara itu dibentuk tahun 2006 untuk menggantikan Komisi HAM."
+#> [1] "87424 Prangko pertama menampilkan gambar Soekarno sedang memberikan souvenir berupa keris kepada Fidel Castro, sedangkan pada prangko kedua ditampilkan gambar Soekarno sedang berbincang dengan Che Guevara."
+#> [2] "226495 \"Bahkan, Imam Samudra sempat bertanya dimana saya mengisi khotbah Idulfitri 1429 H. Pak Ustadz, akan memberi khotbah Idul Fitri di mana?"
 ```
 
 2.  Full-paths to the Leipzig Corpus plain texts, as in the
@@ -439,11 +448,11 @@ The package also includes a function called `dca_top_collex()` to
 retrieve the top-n distinctive collocates for one of the two contrasted
 words. The `dist_for` argument can be specified by either the character
 vector of the name of the contrasted words, or the character IDs of the
-constructions/words (e.g., \[i\] `..., dist_for = "a", ...` or `...,
-dist_for = "A", ...` for construction/word appearing in the second
-column from the output of `collex_fye_dca()`, or \[ii\] `..., dist_for =
-"b", ...` or `..., dist_for = "B", ...` for construction/word appearing
-in the third column).
+constructions/words (e.g., `..., dist_for = "a", ...` or `..., dist_for
+= "A", ...` for construction/word appearing in the second column from
+the output of `collex_fye_dca()`; `..., dist_for = "b", ...` or `...,
+dist_for = "B", ...` for construction/word appearing in the third
+column).
 
 ``` r
 # retrieve distinctive collocates for Construction A (i.e., memperkuat)
@@ -494,7 +503,7 @@ devtools::session_info()
 #>  collate  en_US.UTF-8                 
 #>  ctype    en_US.UTF-8                 
 #>  tz       Asia/Makassar               
-#>  date     2020-03-26                  
+#>  date     2020-03-27                  
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package     * version date       lib source        
