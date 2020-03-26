@@ -51,5 +51,5 @@ colloc_sentmatch(collout,
                  sampled = 10)
 }
 \seealso{
-\code{\link{colloc_sentmatch_tagged}} for untagged and character-vector version of the output, \code{\link{colloc_leipzig}} for collocate retrieval.
+\code{\link{colloc_sentmatch_tagged}} for tagged and data frame version of the output.
 }
