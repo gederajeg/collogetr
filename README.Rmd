@@ -4,7 +4,7 @@ output:
       html_preview: FALSE
 link-citations: TRUE
 bibliography: 'citation_README.bib'
-csl: 'apa-old-doi-prefix.csl'
+csl: 'apa-single-spaced.csl'
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->

@@ -69,9 +69,9 @@ citation("collogetr")
 #> 
 #> To cite `collogetr` in publication, please use:
 #> 
-#>   Rajeg, G. P. W. (2019). collogetr: Collocates retriever and
+#>   Rajeg, G. P. W. (2020). collogetr: Collocates retriever and
 #>   collocational association measure. R package development version
-#>   1.1.3. url: https://github.com/gederajeg/collogetr. doi:
+#>   1.1.4. url: https://github.com/gederajeg/collogetr. doi:
 #>   https://doi.org/10.26180/5b7b9c5e32779
 #> 
 #> Please also cite the following foundational works on the Collexeme
@@ -81,10 +81,9 @@ citation("collogetr")
 #>   Investigating the interaction of words and constructions.
 #>   International Journal of Corpus Linguistics, 8(2), 209–243.
 #> 
-#>   Gries, S. T., & Stefanowitsch, A. (2004). Extending
-#>   collostructional analysis: A corpus-based perspective on
-#>   ‘alternations’. International Journal of Corpus Linguistics,
-#>   9(1), 97–129.
+#>   Gries, S. T., & Stefanowitsch, A. (2004). Extending collostructional
+#>   analysis: A corpus-based perspective on ‘alternations’. International
+#>   Journal of Corpus Linguistics, 9(1), 97–129.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
 #> bibtex=TRUE)', 'toBibtex(.)', or set
@@ -113,12 +112,12 @@ character vector of full path to my Leipzig Corpus files in my computer.
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "201972 Menghisap rakyat sampai kering."                                                                                                                                                                                                    
-#> [2] "894117 Pada saat yang sama, semoga tak pernah diketahui orang lain, bahwa Anda berada di antara orang-orang yang mengesampingkan pekerjaan Allah atau yang membesar-besarkan pekerjaan dari seorang pribadi di atas kekurangan orang lain."
+#> [1] "201008 Sudah empat hari saya menghabiskan waktu di pulau nan sepi dan jauh dari bisingnya kendaraan bermotor serta asap polusi."
+#> [2] "235828 Yin Moon hanya berkomentar bahwa mereka adalah orang luar dan tidak berhak mencampuri urusan orang lain."                
 #> 
 #> $ind_news_2008_300K
-#> [1] "20627 Album baru Kylie Minogue, X yang dirilis tahun lalu, mencapai peringkat empat dalam UK Top 40."                                                       
-#> [2] "127880 Dunia riset butuh orang-orang `gila` seperti dia,\" kata Dekan Fakultas Kedokteran Universitas Pelita Harapan (FK-UPH) dr Eka J Wahjoepramono, SpBS."
+#> [1] "99102 Muhaimin menegaskan bahwa permintaan mundur dirinya tersebut tidak pada tempatnya dan juga melanggar aturan AD/ART PKB karena yang bisa melakukan pencopotan pimpinan PKB itu hanyalah muktamar."
+#> [2] "67564 \" Dewan HAM yang berpusat di Jenewa dan beranggotakan 47 negara itu dibentuk tahun 2006 untuk menggantikan Komisi HAM."
 ```
 
 2.  Full-paths to the Leipzig Corpus plain texts, as in the
@@ -262,14 +261,14 @@ Inspect the output of `assoc_prepare()`:
 head(assoc_tb)
 #> # A tibble: 6 x 3
 #> # Groups:   node, w [6]
-#>   node       w                    data
-#>   <chr>      <chr>      <list<df[,9]>>
-#> 1 mengatakan pemerintah        [1 × 9]
-#> 2 mengatakan israel            [1 × 9]
-#> 3 mengatakan kasus             [1 × 9]
-#> 4 mengatakan akibat            [1 × 9]
-#> 5 mengatakan alokasi           [1 × 9]
-#> 6 mengatakan angklung          [1 × 9]
+#>   node       w          data            
+#>   <chr>      <chr>      <list>          
+#> 1 mengatakan pemerintah <tibble [1 × 9]>
+#> 2 mengatakan israel     <tibble [1 × 9]>
+#> 3 mengatakan kasus      <tibble [1 × 9]>
+#> 4 mengatakan akibat     <tibble [1 × 9]>
+#> 5 mengatakan alokasi    <tibble [1 × 9]>
+#> 6 mengatakan angklung   <tibble [1 × 9]>
 ```
 
 The `assoc_prepare()` and `collex_fye()` functions are designed
@@ -295,9 +294,9 @@ inspected as follows (for the first row, namely for the word *pihaknya*
 # get the tibble in the `data` column for the first row
 assoc_tb$data[[1]]
 #> # A tibble: 1 x 9
-#>       a n_w_in_corp corpus_size n_pattern     b     c     d a_exp assoc    
-#>   <int>       <int>       <int>     <int> <int> <int> <int> <dbl> <chr>    
-#> 1     4          96       41179       152    92   148 40935 0.354 attracti…
+#>       a n_w_in_corp corpus_size n_pattern     b     c     d a_exp assoc     
+#>   <int>       <int>       <int>     <int> <int> <int> <int> <dbl> <chr>     
+#> 1     4          96       41179       152    92   148 40935 0.354 attraction
 ```
 
 Column `a` indicates the co-occurrence frequency between the node word
@@ -485,29 +484,29 @@ head(dist_for_b)
 
 ``` r
 devtools::session_info()
-#> ─ Session info ──────────────────────────────────────────────────────────
+#> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value                       
 #>  version  R version 3.6.0 (2019-04-26)
-#>  os       macOS  10.15.1              
+#>  os       macOS  10.15.3              
 #>  system   x86_64, darwin15.6.0        
 #>  ui       X11                         
 #>  language (EN)                        
 #>  collate  en_US.UTF-8                 
 #>  ctype    en_US.UTF-8                 
 #>  tz       Asia/Makassar               
-#>  date     2019-12-01                  
+#>  date     2020-03-26                  
 #> 
-#> ─ Packages ──────────────────────────────────────────────────────────────
+#> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package     * version date       lib source        
 #>  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.0)
-#>  backports     1.1.4   2019-04-10 [1] CRAN (R 3.6.0)
+#>  backports     1.1.5   2019-10-02 [1] CRAN (R 3.6.0)
 #>  callr         3.2.0   2019-03-15 [1] CRAN (R 3.6.0)
 #>  cli           1.1.0   2019-03-19 [1] CRAN (R 3.6.0)
-#>  collogetr   * 1.1.3   2019-12-01 [1] local         
+#>  collogetr   * 1.1.4   2020-03-26 [1] local         
 #>  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.0)
 #>  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.0)
-#>  devtools      2.0.2   2019-04-08 [1] CRAN (R 3.6.0)
-#>  digest        0.6.19  2019-05-20 [1] CRAN (R 3.6.0)
+#>  devtools      2.2.1   2019-09-24 [1] CRAN (R 3.6.0)
+#>  digest        0.6.23  2019-11-23 [1] CRAN (R 3.6.0)
 #>  dplyr         0.8.3   2019-07-04 [1] CRAN (R 3.6.0)
 #>  ellipsis      0.3.0   2019-09-20 [1] CRAN (R 3.6.0)
 #>  evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.0)
@@ -516,39 +515,38 @@ devtools::session_info()
 #>  glue          1.3.1   2019-03-12 [1] CRAN (R 3.6.0)
 #>  hms           0.5.2   2019-10-30 [1] CRAN (R 3.6.0)
 #>  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.0)
-#>  knitr         1.23    2019-05-18 [1] CRAN (R 3.6.0)
-#>  lifecycle     0.1.0   2019-08-01 [1] CRAN (R 3.6.0)
+#>  knitr         1.28    2020-02-06 [1] CRAN (R 3.6.0)
+#>  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 3.6.0)
 #>  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.0)
 #>  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.0)
 #>  pillar        1.4.2   2019-06-29 [1] CRAN (R 3.6.0)
 #>  pkgbuild      1.0.3   2019-03-20 [1] CRAN (R 3.6.0)
-#>  pkgconfig     2.0.2   2018-08-16 [1] CRAN (R 3.6.0)
+#>  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 3.6.0)
 #>  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.6.0)
 #>  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.0)
 #>  processx      3.3.1   2019-05-08 [1] CRAN (R 3.6.0)
 #>  ps            1.3.0   2018-12-21 [1] CRAN (R 3.6.0)
 #>  purrr         0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
-#>  R6            2.4.0   2019-02-14 [1] CRAN (R 3.6.0)
-#>  Rcpp          1.0.1   2019-03-17 [1] CRAN (R 3.6.0)
+#>  R6            2.4.1   2019-11-12 [1] CRAN (R 3.6.0)
+#>  Rcpp          1.0.3   2019-11-08 [1] CRAN (R 3.6.0)
 #>  readr         1.3.1   2018-12-21 [1] CRAN (R 3.6.0)
-#>  remotes       2.0.4   2019-04-10 [1] CRAN (R 3.6.0)
-#>  rlang         0.4.2   2019-11-23 [1] CRAN (R 3.6.0)
-#>  rmarkdown     1.13    2019-05-22 [1] CRAN (R 3.6.0)
+#>  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.6.0)
+#>  rlang         0.4.3   2020-01-24 [1] CRAN (R 3.6.0)
+#>  rmarkdown     2.1     2020-01-20 [1] CRAN (R 3.6.0)
 #>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.0)
 #>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.0)
-#>  stringi       1.4.3   2019-03-12 [1] CRAN (R 3.6.0)
+#>  stringi       1.4.5   2020-01-11 [1] CRAN (R 3.6.0)
 #>  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.6.0)
-#>  testthat      2.1.1   2019-04-23 [1] CRAN (R 3.6.0)
+#>  testthat      2.3.1   2019-12-01 [1] CRAN (R 3.6.0)
 #>  tibble        2.1.3   2019-06-06 [1] CRAN (R 3.6.0)
-#>  tidyr         1.0.0   2019-09-11 [1] CRAN (R 3.6.0)
+#>  tidyr         1.0.2   2020-01-24 [1] CRAN (R 3.6.0)
 #>  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.6.0)
-#>  usethis       1.5.0   2019-04-07 [1] CRAN (R 3.6.0)
+#>  usethis       1.5.1   2019-07-04 [1] CRAN (R 3.6.0)
 #>  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.6.0)
-#>  vctrs         0.2.0   2019-07-05 [1] CRAN (R 3.6.0)
+#>  vctrs         0.2.2   2020-01-24 [1] CRAN (R 3.6.0)
 #>  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.0)
-#>  xfun          0.8     2019-06-25 [1] CRAN (R 3.6.0)
+#>  xfun          0.12    2020-01-13 [1] CRAN (R 3.6.0)
 #>  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)
-#>  zeallot       0.1.0   2018-01-28 [1] CRAN (R 3.6.0)
 #> 
 #> [1] /Users/Primahadi/Rlibs
 #> [2] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
@@ -562,8 +560,7 @@ devtools::session_info()
 
 Gries, S. T. (2013). 50-something years of work on collocations: What is
 or should be next …. *International Journal of Corpus Linguistics*,
-*18*(1), 137–166.
-doi:[10.1075/ijcl.18.1.09gri](https://doi.org/10.1075/ijcl.18.1.09gri)
+*18*(1), 137–166. <https://doi.org/10.1075/ijcl.18.1.09gri>
 
 </div>
 
@@ -571,8 +568,7 @@ doi:[10.1075/ijcl.18.1.09gri](https://doi.org/10.1075/ijcl.18.1.09gri)
 
 Gries, S. T. (2015). More (old and new) misunderstandings of
 collostructional analysis: On Schmid and Küchenhoff (2013). *Cognitive
-Linguistics*, *26*(3), 505–536.
-doi:[10.1515/cog-2014-0092](https://doi.org/10.1515/cog-2014-0092)
+Linguistics*, *26*(3), 505–536. <https://doi.org/10.1515/cog-2014-0092>
 
 </div>
 
@@ -603,8 +599,7 @@ Hilpert, M. (2006). Distinctive collexeme analysis and diachrony.
 
 Stefanowitsch, A. (2013). Collostructional analysis. In T. Hoffmann & G.
 Trousdale (Eds.), *The Oxford handbook of Construction Grammar* (pp.
-290–306). Oxford: Oxford University Press.
-doi:[10.1093/oxfordhb/9780195396683.013.0016](https://doi.org/10.1093/oxfordhb/9780195396683.013.0016)
+290–306). <https://doi.org/10.1093/oxfordhb/9780195396683.013.0016>
 
 </div>
 
@@ -626,8 +621,8 @@ handbook* (Vol. 2, pp. 933–951). Berlin: Mouton de Gruyter.
 
 <div id="ref-wickham_r_2017">
 
-Wickham, H., & Grolemund, G. (2017). *R for Data Science*. Canada:
-O’Reilly. Retrieved from <http://r4ds.had.co.nz/>
+Wickham, H., & Grolemund, G. (2017). *R for Data Science*. Retrieved
+from <http://r4ds.had.co.nz/>
 
 </div>
 
