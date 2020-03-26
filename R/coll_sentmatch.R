@@ -38,16 +38,19 @@ colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NU
 
   assertthat::assert_that(!is.null(colloc),
                           msg = "`colloc` argument cannot be NULL. Specify with one or more collocates!")
+  w <- dplyr::quo(w)
+  span <- dplyr::quo(span)
+  node <- dplyr::quo(node)
 
   if(is.null(nodeword)) {
 
     if(!is.null(wspan)) {
 
-      sent <- subset(collout[[1]], .data$w %in% colloc & .data$span %in% wspan)$sent_match
+      sent <- subset(collout[[1]], !!w %in% colloc & !!span %in% wspan)$sent_match
 
     } else {
 
-      sent <- subset(collout[[1]], .data$w %in% colloc)$sent_match
+      sent <- subset(collout[[1]], !!w %in% colloc)$sent_match
 
     }
 
@@ -55,11 +58,11 @@ colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NU
 
     if(!is.null(wspan)) {
 
-      sent <- subset(collout[[1]], .data$w %in% colloc & .data$node %in% nodeword & .data$span %in% wspan)$sent_match
+      sent <- subset(collout[[1]], !!w %in% colloc & !!node %in% nodeword & !!span %in% wspan)$sent_match
 
     } else {
 
-      sent <- subset(collout[[1]], .data$w %in% colloc & .data$node %in% nodeword)$sent_match
+      sent <- subset(collout[[1]], !!w %in% colloc & !!node %in% nodeword)$sent_match
 
     }
 
@@ -73,12 +76,12 @@ colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NU
 
     } else {
 
-      message(cat(paste("Returning all matches!\nLength of matches (",
+      warning(paste("Returning all ", length(sent),"matches!\n  Length of matches (",
                         length(sent),
                         ") is lower than the number of the queried sample (",
                         sampled,
                         ").\n",
-                        sep = "")))
+                        sep = ""))
       return(sent)
 
     }
