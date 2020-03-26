@@ -1,17 +1,18 @@
 Package: collogetr
 Type: Package
 Title: Collocates Retriever and Collocation Association Measure for the Indonesian Leipzig Corpora
-Version: 1.1.3
-Date: 2019-03-17
+Version: 1.1.4
+Date: 2020-03-17
 Authors@R: person(given = "Gede Primahadi Wijaya", family = "Rajeg", email = "primahadiwijaya@gmail.com",
                role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2047-8621"))
-Description: A tool for generating and analysing window-span collocates of a (set of) node-word(s) from raw text corpora.
-    The current functionality deals with the sentence-based corpus-input from the Indonesian Leipzig Corpora.
+Description: An R package for retrieving window-span collocates of a (set of) nodeword(s) from raw/untagged text corpora.
+    The current functionality deals with the sentence-based, corpus-input from the Indonesian Leipzig Corpora.
     There are also functions to determine mutual association strength between a node-word/search pattern and its window-span collocates.
     The currently available association measures are the Simple Collocates Analysis and Distinctive Collocates Analysis.
-    The association measure computations can be based on the log-transformed p-value of the one-tailed Fisher-Yates Exact test, chi-square test, and log-likelihood ratio.
+    The association measure computations can be based on the log-transformed p-value of the one-tailed Fisher-Yates Exact test, Chi-Square test, and Log-Likelihood Ratio.
 Depends: R (>= 3.3)
 Imports:
+  lifecycle,
   dplyr (>= 0.8.0.1),
   tidyr (>= 0.8.0),
   purrr (>= 0.2.4),
@@ -24,7 +25,7 @@ Imports:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests: testthat,
     covr
 URL: https://gederajeg.github.io/collogetr/, https://github.com/gederajeg/collogetr
