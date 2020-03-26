@@ -4,14 +4,21 @@
 \alias{colloc_leipzig}
 \title{Generate window-span collocates for the Leipzig Corpora}
 \usage{
-colloc_leipzig(leipzig_path = NULL, leipzig_corpus_list = NULL,
-  pattern = NULL, case_insensitive = TRUE, window = "b", span = 2,
-  split_corpus_pattern = "([^a-zA-Z-¬]+|--)", to_lower_colloc = TRUE,
+colloc_leipzig(
+  leipzig_path = NULL,
+  leipzig_corpus_list = NULL,
+  pattern = NULL,
+  case_insensitive = TRUE,
+  window = "b",
+  span = 2,
+  split_corpus_pattern = "([^a-zA-Z-¬]+|--)",
+  to_lower_colloc = TRUE,
   save_interim = FALSE,
   freqlist_output_file = "collogetr_out_1_freqlist.txt",
   colloc_output_file = "collogetr_out_2_collocates.txt",
   corpussize_output_file = "collogetr_out_3_corpus_size.txt",
-  search_pattern_output_file = "collogetr_out_4_search_pattern.txt")
+  search_pattern_output_file = "collogetr_out_4_search_pattern.txt"
+)
 }
 \arguments{
 \item{leipzig_path}{Character strings of (i) file names of the Leipzig corpus if they are in the working directory, or (ii) the complete file path to each of the Leipzig corpus files.}
@@ -63,7 +70,7 @@ collout <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
 #                             span = 3,
 #                             save_interim = TRUE # save interim output file
 #                             # you need to specify path in the argument
-#                             # with \\code{...output_file}
+#                             # with \code{...output_file}
 #                             )
 
 

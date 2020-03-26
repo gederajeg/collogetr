@@ -9,22 +9,26 @@
 <title>Chi-square test for association measure — collex_chisq • collogetr</title>
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,7 +40,8 @@
 
 <meta property="og:description" content="Compute collostructional strength based on the chi-square contribution.
     It internally calls the utility function chisq_compute and performs a row-wise computation using map_dbl." />
-<meta name="twitter:card" content="summary" />
+
+
 
 
 
@@ -53,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">collogetr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
       </span>
     </div>
 
@@ -86,7 +91,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/gederajeg/collogetr">
+  <a href="https://github.com/gederajeg/collogetr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -112,7 +117,7 @@
     <div class="ref-description">
     
     <p>Compute collostructional strength based on the chi-square contribution.
-    It internally calls the utility function <code><a href='chisq_compute.html'>chisq_compute</a></code> and performs a row-wise computation using <code><a href='https://purrr.tidyverse.org/reference/map.html'>map_dbl</a></code>.</p>
+    It internally calls the utility function <code><a href='chisq_compute.html'>chisq_compute</a></code> and performs a row-wise computation using <code><a href='https://rdrr.io/pkg/purrr/man/map.html'>map_dbl</a></code>.</p>
     
     </div>
 
@@ -148,16 +153,10 @@
                       <span class='kw'>save_interim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Detecting a 'named list' input!</span></div><div class='output co'>#&gt; <span class='message'>You chose NOT to SAVE INTERIM RESULTS, which will be stored as a list in console!</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_mixed_2012_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_mixed_2012_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_news_2008_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_news_2008_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_news_2009_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_news_2009_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_news_2010_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_news_2010_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_news_2011_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_news_2011_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_news_2012_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_news_2012_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_newscrawl_2011_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_newscrawl_2011_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_newscrawl_2012_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_newscrawl_2012_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_newscrawl_2015_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_newscrawl_2015_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_newscrawl_2016_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_newscrawl_2016_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_web_2011_300K" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_web_2011_300K.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_web_2012_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_web_2012_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind_wikipedia_2016_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind_wikipedia_2016_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind-id_web_2013_1M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind-id_web_2013_1M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>1. Tokenising the "ind-id_web_2015_3M" corpus. This process may take a while!</span></div><div class='output co'>#&gt; <span class='message'>    1.1 Removing one-character tokens...</span></div><div class='output co'>#&gt; <span class='message'>    1.2 Lowercasing the tokenised corpus...</span></div><div class='output co'>#&gt; <span class='message'>    At least a match is detected for 'mengatakan' in ind-id_web_2015_3M.</span></div><div class='output co'>#&gt; <span class='message'>2.1 Gathering the collocates for 'mengatakan' ...</span></div><div class='output co'>#&gt; <span class='message'>3. Storing all of the outputs...</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>DONE!</span></div><div class='input'><span class='no'>assoc_tb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='assoc_prepare.html'>assoc_prepare</a></span>(<span class='kw'>colloc_out</span> <span class='kw'>=</span> <span class='no'>out</span>, <span class='kw'>stopword_list</span> <span class='kw'>=</span> <span class='no'>stopwords</span>)</div><div class='output co'>#&gt; <span class='message'>Your colloc_leipzig output is stored as list!</span></div><div class='output co'>#&gt; <span class='message'>You chose to combine the collocational and frequency list data from ALL CORPORA!</span></div><div class='output co'>#&gt; <span class='message'>Tallying frequency list of all words in ALL CORPORA!</span></div><div class='output co'>#&gt; <span class='message'>You chose to remove stopwords!</span></div><div class='input'><span class='no'>am_chisq</span> <span class='kw'>&lt;-</span> <span class='fu'>collex_chisq</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>assoc_tb</span>, <span class='kw'>collstr_digit</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -168,7 +167,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
