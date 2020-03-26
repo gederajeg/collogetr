@@ -4,8 +4,13 @@
 \alias{colloc_sentmatch}
 \title{Sentence match retriever}
 \usage{
-colloc_sentmatch(collout, colloc = NULL, wspan = NULL,
-  nodeword = NULL, sampled = NULL)
+colloc_sentmatch(
+  collout,
+  colloc = NULL,
+  wspan = NULL,
+  nodeword = NULL,
+  sampled = NULL
+)
 }
 \arguments{
 \item{collout}{List output of \code{\link{colloc_leipzig}}.}
@@ -22,7 +27,10 @@ colloc_sentmatch(collout, colloc = NULL, wspan = NULL,
 Character vector of sentence-match(es).
 }
 \description{
-The function extract full sentence-match for a (set of significant) collocate(s) for a given nodeword. Given that
+The function extract full sentence-match for a (set of significant) collocate(s) for a given nodeword.
+}
+\details{
+\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 }
 \examples{
 collout <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
@@ -41,4 +49,7 @@ colloc_sentmatch(collout,
 colloc_sentmatch(collout,
                  colloc = "akan",
                  sampled = 10)
+}
+\seealso{
+\code{\link{colloc_sentmatch_tagged}} for untagged and character-vector version of the output, \code{\link{colloc_leipzig}} for collocate retrieval.
 }

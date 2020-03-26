@@ -1,6 +1,8 @@
 #' Sentence match retriever
 #'
-#' @description The function extract full sentence-match for a (set of significant) collocate(s) for a given nodeword. Given that
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#'
+#' @description The function extract full sentence-match for a (set of significant) collocate(s) for a given nodeword.
 #' @param collout List output of \code{\link{colloc_leipzig}}.
 #' @param colloc Character vector of the collocate(s) whose sentence match(es) to be retrieved.
 #' @param wspan Character vector of the window span in which the collocates occur. Default to \code{NULL}, which will retrieve the collocate's occurrence in all span.
@@ -8,6 +10,9 @@
 #' @param sampled Integer vector indicating the number of random sample of the sentence match to be retrieve. Default to \code{NULL}, which will retrieve all sentence-matches.
 #'
 #' @return Character vector of sentence-match(es).
+#'
+#' @seealso \code{\link{colloc_sentmatch_tagged}} for untagged and character-vector version of the output, \code{\link{colloc_leipzig}} for collocate retrieval.
+#'
 #' @export
 #'
 #' @importFrom assertthat assert_that
@@ -38,11 +43,11 @@ colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NU
 
     if(!is.null(wspan)) {
 
-      sent <- subset(collout[[1]], w %in% colloc & span %in% wspan)$sent_match
+      sent <- subset(collout[[1]], .data$w %in% colloc & .data$span %in% wspan)$sent_match
 
     } else {
 
-      sent <- subset(collout[[1]], w %in% colloc)$sent_match
+      sent <- subset(collout[[1]], .data$w %in% colloc)$sent_match
 
     }
 
@@ -50,11 +55,11 @@ colloc_sentmatch <- function(collout, colloc = NULL, wspan = NULL, nodeword = NU
 
     if(!is.null(wspan)) {
 
-      sent <- subset(collout[[1]], w %in% colloc & node %in% nodeword & span %in% wspan)$sent_match
+      sent <- subset(collout[[1]], .data$w %in% colloc & .data$node %in% nodeword & .data$span %in% wspan)$sent_match
 
     } else {
 
-      sent <- subset(collout[[1]], w %in% colloc & node %in% nodeword)$sent_match
+      sent <- subset(collout[[1]], .data$w %in% colloc & .data$node %in% nodeword)$sent_match
 
     }
 
