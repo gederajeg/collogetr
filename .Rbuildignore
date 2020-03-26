@@ -12,5 +12,5 @@
 ^_pkgdown\.yml$
 ^citation_README\.bib$
 ^docs$
-^apa-old-doi.*\.csl$
+^apa-.*\.csl$
 ^appveyor\.yml$
