@@ -11,7 +11,7 @@
 #'
 #' @return Character vector of sentence-match(es).
 #'
-#' @seealso \code{\link{colloc_sentmatch_tagged}} for untagged and character-vector version of the output, \code{\link{colloc_leipzig}} for collocate retrieval.
+#' @seealso \code{\link{colloc_sentmatch_tagged}} for tagged and data frame version of the output.
 #'
 #' @export
 #'
