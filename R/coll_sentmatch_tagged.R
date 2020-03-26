@@ -1,6 +1,9 @@
 
 #' Sentence match retriever with tagged collocations
 #'
+#'
+#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#'
 #' @description This is an expanded function for \code{\link{colloc_sentmatch}} to retrieve sentence matches in which a given collocate is found.
 #' The extended features in \code{\link{colloc_sentmatch_tagged}} (but not available in \code{\link{colloc_sentmatch}}) are:
 #' \enumerate{
