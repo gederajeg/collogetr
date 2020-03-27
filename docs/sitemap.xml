@@ -4,6 +4,12 @@
     <loc>https://gederajeg.github.io/collogetr//index.html</loc>
   </url>
   <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/MI_compute.html</loc>
+  </url>
+  <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/Tscore_compute.html</loc>
+  </url>
+  <url>
     <loc>https://gederajeg.github.io/collogetr//reference/assoc_prepare.html</loc>
   </url>
   <url>
@@ -11,6 +17,12 @@
   </url>
   <url>
     <loc>https://gederajeg.github.io/collogetr//reference/chisq_compute.html</loc>
+  </url>
+  <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/collex_MI.html</loc>
+  </url>
+  <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/collex_TScore.html</loc>
   </url>
   <url>
     <loc>https://gederajeg.github.io/collogetr//reference/collex_chisq.html</loc>
