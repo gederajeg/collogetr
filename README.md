@@ -45,8 +45,11 @@ Analysis*](http://www.linguistics.ucsb.edu/faculty/stgries/research/2004_STG-AS_
 (DCA) (Gries & Stefanowitsch, [2004](#ref-gries_extending_2004);
 Hilpert, [2006](#ref-hilpert_distinctive_2006)). Based on the output of
 `assoc_prepare()`, SCA can then be computed using `collex_fye()`, which
-is based on Fisher-Yates Exact test (or `collex_llr()`, which is based
-on Log-Likelihood Ratio); DCA is computed using `collex_fye_dca()`.
+is based on Fisher-Yates Exact test (other association measures
+available for computing SCA include (i) `collex_llr()` for
+Log-Likelihood Ratio, (ii) `collex_MI()` for Mutual Information score,
+and (iii) `collex_TScore()` for T-Score). DCA is computed using
+`collex_fye_dca()`.
 
 collogetr is built on top of the core packages in the
 [tidyverse](https://www.tidyverse.org).
@@ -121,12 +124,12 @@ character vector of full path to my Leipzig Corpus files in my computer.
 ``` r
 lapply(demo_corpus_leipzig[1:2], sample, 2)
 #> $ind_mixed_2012_1M
-#> [1] "201972 Menghisap rakyat sampai kering."                                                                               
-#> [2] "422324 Tantangan yang disertai dengan penghormatan adalah suatu aspek yang penting dari pendekatan yang berhati-hati."
+#> [1] "392601 Sebab jaksa penuntut akan menggunakan teror kata-kata dan psikologis untuk melemahkan diriku dan menjebakku."                                                                        
+#> [2] "816910 Biarpun anak itu lenyap sejak dilahirkan, biarpun dia tidak menyaksikan dengan mata kepala sendiri bahwa anak ini adalah anak yang dilahirkannya di dalam guha itu, namun dia yakin."
 #> 
 #> $ind_news_2008_300K
-#> [1] "87424 Prangko pertama menampilkan gambar Soekarno sedang memberikan souvenir berupa keris kepada Fidel Castro, sedangkan pada prangko kedua ditampilkan gambar Soekarno sedang berbincang dengan Che Guevara."
-#> [2] "226495 \"Bahkan, Imam Samudra sempat bertanya dimana saya mengisi khotbah Idulfitri 1429 H. Pak Ustadz, akan memberi khotbah Idul Fitri di mana?"
+#> [1] "227792 \"Ketika diperagakan batik produksi kita, ternyata tanggapan yang saya terima, mereka sangat terkesan, berminat dan ingin tahu lebih banyak lagi."                                        
+#> [2] "202518 \"Itu adalah satu-satunya pesawat yang bisa memenuhi loket pengiriman kecil akibat proses perencanaan buruk bekas pemerintah dan tanggapan yang didorong secara politik,\" ia menyatakan."
 ```
 
 2.  Full-paths to the Leipzig Corpus plain texts, as in the
@@ -495,8 +498,8 @@ head(dist_for_b)
 devtools::session_info()
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value                       
-#>  version  R version 3.6.0 (2019-04-26)
-#>  os       macOS  10.15.3              
+#>  version  R version 3.6.3 (2020-02-29)
+#>  os       macOS Catalina 10.15.3      
 #>  system   x86_64, darwin15.6.0        
 #>  ui       X11                         
 #>  language (EN)                        
@@ -506,56 +509,56 @@ devtools::session_info()
 #>  date     2020-03-27                  
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
-#>  package     * version date       lib source        
-#>  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.0)
-#>  backports     1.1.5   2019-10-02 [1] CRAN (R 3.6.0)
-#>  callr         3.2.0   2019-03-15 [1] CRAN (R 3.6.0)
-#>  cli           1.1.0   2019-03-19 [1] CRAN (R 3.6.0)
-#>  collogetr   * 1.1.4   2020-03-26 [1] local         
-#>  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.0)
-#>  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.0)
-#>  devtools      2.2.1   2019-09-24 [1] CRAN (R 3.6.0)
-#>  digest        0.6.23  2019-11-23 [1] CRAN (R 3.6.0)
-#>  dplyr         0.8.3   2019-07-04 [1] CRAN (R 3.6.0)
-#>  ellipsis      0.3.0   2019-09-20 [1] CRAN (R 3.6.0)
-#>  evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.0)
-#>  fansi         0.4.0   2018-10-05 [1] CRAN (R 3.6.0)
-#>  fs            1.3.1   2019-05-06 [1] CRAN (R 3.6.0)
-#>  glue          1.3.1   2019-03-12 [1] CRAN (R 3.6.0)
-#>  hms           0.5.2   2019-10-30 [1] CRAN (R 3.6.0)
-#>  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.0)
-#>  knitr         1.28    2020-02-06 [1] CRAN (R 3.6.0)
-#>  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 3.6.0)
-#>  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.0)
-#>  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.0)
-#>  pillar        1.4.2   2019-06-29 [1] CRAN (R 3.6.0)
-#>  pkgbuild      1.0.3   2019-03-20 [1] CRAN (R 3.6.0)
-#>  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 3.6.0)
-#>  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.6.0)
-#>  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.0)
-#>  processx      3.3.1   2019-05-08 [1] CRAN (R 3.6.0)
-#>  ps            1.3.0   2018-12-21 [1] CRAN (R 3.6.0)
-#>  purrr         0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
-#>  R6            2.4.1   2019-11-12 [1] CRAN (R 3.6.0)
-#>  Rcpp          1.0.3   2019-11-08 [1] CRAN (R 3.6.0)
-#>  readr         1.3.1   2018-12-21 [1] CRAN (R 3.6.0)
-#>  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.6.0)
-#>  rlang         0.4.3   2020-01-24 [1] CRAN (R 3.6.0)
-#>  rmarkdown     2.1     2020-01-20 [1] CRAN (R 3.6.0)
-#>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.0)
-#>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.0)
-#>  stringi       1.4.5   2020-01-11 [1] CRAN (R 3.6.0)
-#>  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.6.0)
-#>  testthat      2.3.1   2019-12-01 [1] CRAN (R 3.6.0)
-#>  tibble        2.1.3   2019-06-06 [1] CRAN (R 3.6.0)
-#>  tidyr         1.0.2   2020-01-24 [1] CRAN (R 3.6.0)
-#>  tidyselect    0.2.5   2018-10-11 [1] CRAN (R 3.6.0)
-#>  usethis       1.5.1   2019-07-04 [1] CRAN (R 3.6.0)
-#>  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.6.0)
-#>  vctrs         0.2.2   2020-01-24 [1] CRAN (R 3.6.0)
-#>  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.0)
-#>  xfun          0.12    2020-01-13 [1] CRAN (R 3.6.0)
-#>  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)
+#>  package     * version date       lib source                              
+#>  assertthat    0.2.1   2019-03-21 [1] CRAN (R 3.6.0)                      
+#>  backports     1.1.5   2019-10-02 [1] CRAN (R 3.6.0)                      
+#>  callr         3.2.0   2019-03-15 [1] CRAN (R 3.6.0)                      
+#>  cli           2.0.2   2020-02-28 [1] CRAN (R 3.6.0)                      
+#>  collogetr   * 1.1.4   2020-03-26 [1] Github (gederajeg/collogetr@85509dc)
+#>  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.0)                      
+#>  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.0)                      
+#>  devtools      2.2.1   2019-09-24 [1] CRAN (R 3.6.0)                      
+#>  digest        0.6.25  2020-02-23 [1] CRAN (R 3.6.0)                      
+#>  dplyr         0.8.5   2020-03-07 [1] CRAN (R 3.6.0)                      
+#>  ellipsis      0.3.0   2019-09-20 [1] CRAN (R 3.6.0)                      
+#>  evaluate      0.14    2019-05-28 [1] CRAN (R 3.6.0)                      
+#>  fansi         0.4.1   2020-01-08 [1] CRAN (R 3.6.0)                      
+#>  fs            1.3.1   2019-05-06 [1] CRAN (R 3.6.0)                      
+#>  glue          1.3.2   2020-03-12 [1] CRAN (R 3.6.0)                      
+#>  hms           0.5.3   2020-01-08 [1] CRAN (R 3.6.0)                      
+#>  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.0)                      
+#>  knitr         1.28    2020-02-06 [1] CRAN (R 3.6.0)                      
+#>  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 3.6.0)                      
+#>  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.0)                      
+#>  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.0)                      
+#>  pillar        1.4.3   2019-12-20 [1] CRAN (R 3.6.0)                      
+#>  pkgbuild      1.0.3   2019-03-20 [1] CRAN (R 3.6.0)                      
+#>  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 3.6.0)                      
+#>  pkgload       1.0.2   2018-10-29 [1] CRAN (R 3.6.0)                      
+#>  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.0)                      
+#>  processx      3.3.1   2019-05-08 [1] CRAN (R 3.6.0)                      
+#>  ps            1.3.0   2018-12-21 [1] CRAN (R 3.6.0)                      
+#>  purrr         0.3.3   2019-10-18 [1] CRAN (R 3.6.0)                      
+#>  R6            2.4.1   2019-11-12 [1] CRAN (R 3.6.0)                      
+#>  Rcpp          1.0.4   2020-03-17 [1] CRAN (R 3.6.0)                      
+#>  readr         1.3.1   2018-12-21 [1] CRAN (R 3.6.0)                      
+#>  remotes       2.1.0   2019-06-24 [1] CRAN (R 3.6.0)                      
+#>  rlang         0.4.5   2020-03-01 [1] CRAN (R 3.6.0)                      
+#>  rmarkdown     2.1     2020-01-20 [1] CRAN (R 3.6.0)                      
+#>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.0)                      
+#>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.0)                      
+#>  stringi       1.4.6   2020-02-17 [1] CRAN (R 3.6.0)                      
+#>  stringr       1.4.0   2019-02-10 [1] CRAN (R 3.6.0)                      
+#>  testthat      2.3.1   2019-12-01 [1] CRAN (R 3.6.0)                      
+#>  tibble        2.1.3   2019-06-06 [1] CRAN (R 3.6.0)                      
+#>  tidyr         1.0.2   2020-01-24 [1] CRAN (R 3.6.0)                      
+#>  tidyselect    1.0.0   2020-01-27 [1] CRAN (R 3.6.0)                      
+#>  usethis       1.5.1   2019-07-04 [1] CRAN (R 3.6.0)                      
+#>  utf8          1.1.4   2018-05-24 [1] CRAN (R 3.6.0)                      
+#>  vctrs         0.2.4   2020-03-10 [1] CRAN (R 3.6.0)                      
+#>  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.0)                      
+#>  xfun          0.12    2020-01-13 [1] CRAN (R 3.6.0)                      
+#>  yaml          2.2.0   2018-07-25 [1] CRAN (R 3.6.0)                      
 #> 
 #> [1] /Users/Primahadi/Rlibs
 #> [2] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
