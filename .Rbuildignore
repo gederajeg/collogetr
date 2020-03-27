@@ -14,3 +14,4 @@
 ^docs$
 ^apa-.*\.csl$
 ^appveyor\.yml$
+^LICENSE\.md$
