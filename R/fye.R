@@ -49,12 +49,11 @@ collex_fye <- function(df, collstr_digit = 3) {
   df_out <- tidyr::unnest(df, .data$data)
   df_out <- dplyr::mutate(df_out,
                           !!dplyr::quo_name(p_fye) := fye_compute(!!a, !!a_exp, !!b, !!c, !!d),
-                          !!dplyr::quo_name(dP_collex_cue_cxn) := round(((!!a/(!!a + !!c)) - (!!b/(!!b + !!d))), digits = collstr_digit),
-                          !!dplyr::quo_name(dP_cxn_cue_collex) := round(((!!a/(!!a + !!b)) - (!!c/(!!c + !!d))), digits = collstr_digit))
-  df_out <- dplyr::mutate(df_out,
                           !!dplyr::quo_name(collstr) := dplyr::if_else(!!a > !!a_exp,
                                                                        round(-log10(!!p_fye), collstr_digit),
-                                                                       round(log10(!!p_fye), collstr_digit)))
+                                                                       round(log10(!!p_fye), collstr_digit)),
+                          !!dplyr::quo_name(dP_collex_cue_cxn) := round(((!!a/(!!a + !!c)) - (!!b/(!!b + !!d))), digits = collstr_digit),
+                          !!dplyr::quo_name(dP_cxn_cue_collex) := round(((!!a/(!!a + !!b)) - (!!c/(!!c + !!d))), digits = collstr_digit))
   df_out <- dplyr::arrange(df_out, dplyr::desc(collstr))
   df_out <- df_out[, -grep("^((b|c|d)(_exp)?|n_w_in_corp|corpus_size|n_pattern)$", colnames(df_out), perl = TRUE)]
   # df_out <- dplyr::select(df_out, -.data$b, -.data$d, -.data$c, -.data$n_pattern, -.data$n_w_in_corp, -.data$corpus_size)
