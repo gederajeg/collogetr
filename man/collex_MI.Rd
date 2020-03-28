@@ -4,10 +4,12 @@
 \alias{collex_MI}
 \title{Mutual Information score}
 \usage{
-collex_MI(df)
+collex_MI(df, collstr_digit = 3)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare}}.}
+
+\item{collstr_digit}{The numeric vector for floating digits of the collostruction strength. The default is \code{3}.}
 }
 \value{
 A tibble consisting of the collocates (column \code{w}),

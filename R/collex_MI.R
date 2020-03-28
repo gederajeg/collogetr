@@ -2,6 +2,7 @@
 #'
 #' @description The function to compute collocation association measure with Mutual Information.
 #' @param df The output of \code{\link{assoc_prepare}}.
+#' @param collstr_digit The numeric vector for floating digits of the collostruction strength. The default is \code{3}.
 #'
 #' @return A tibble consisting of the collocates (column \code{w}),
 #'     co-occurrence frequencies with the node (column \code{a}),
@@ -25,39 +26,24 @@
 #' collex_MI(assoc_tb)
 #'
 #'
-collex_MI <- function(df) {
+collex_MI <- function(df, collstr_digit = 3) {
 
   MI <- dplyr::quo(MI)
+  a_exp <- dplyr::quo(a_exp)
   a <- dplyr::quo(a)
   b <- dplyr::quo(b)
   c <- dplyr::quo(c)
   d <- dplyr::quo(d)
-  n_w_in_corp <- dplyr::quo(n_w_in_corp)
-  n_pattern <- dplyr::quo(n_pattern)
-  corpus_size <- dplyr::quo(corpus_size)
   dP_collex_cue_cxn <- dplyr::quo(dP_collex_cue_cxn)
   dP_cxn_cue_collex <- dplyr::quo(dP_cxn_cue_collex)
 
   df_out <- tidyr::unnest(df, .data$data)
   df_out <- dplyr::mutate(df_out,
-                          !!dplyr::quo_name(MI) := purrr::pmap_dbl(list(!!a,
-                                                                        !!n_w_in_corp,
-                                                                        !!n_pattern,
-                                                                        !!corpus_size),
-                                                                   MI_compute),
-                          !!dplyr::quo_name(dP_collex_cue_cxn) := purrr::pmap_dbl(list(!!a,
-                                                                                       !!b,
-                                                                                       !!c,
-                                                                                       !!d),
-                                                                                  function(a, b, c, d) (a/(a + c)) - (b/(b + d))),
-                          !!dplyr::quo_name(dP_cxn_cue_collex) := purrr::pmap_dbl(list(!!a,
-                                                                                       !!b,
-                                                                                       !!c,
-                                                                                       !!d),
-                                                                                  function(a, b, c, d) (a/(a + b)) - (c/(c + d)))
-  )
+                          !!dplyr::quo_name(MI) := round(MI_compute(!!a, !!a_exp), digits = collstr_digit),
+                          !!dplyr::quo_name(dP_collex_cue_cxn) := round(((!!a/(!!a + !!c)) - (!!b/(!!b + !!d))), digits = collstr_digit),
+                          !!dplyr::quo_name(dP_cxn_cue_collex) := round(((!!a/(!!a + !!b)) - (!!c/(!!c + !!d))), digits = collstr_digit))
 
-  df_out <- df_out[, c(2, 1, 3, 10, 11, 12:14)]
+  df_out <- df_out[, -grep("^((b|c|d)(_exp)?|n_w_in_corp|corpus_size|n_pattern)$", colnames(df_out), perl = TRUE)]
   df_out <- dplyr::arrange(df_out, dplyr::desc(!!a))
   return(df_out)
 
@@ -68,10 +54,8 @@ collex_MI <- function(df) {
 #'
 #' @description An internal function called by \code{\link{collex_MI}} to compute Mutual Information (MI) score
 #'
-#' @param a frequency co-occurrence of a collocate and the nodeword.
-#' @param b overall frequency of the collocate in the corpus
-#' @param c overall frequency of the nodeword in the corpus
-#' @param d total size of the corpus
+#' @param a observed frequency co-occurrence of a collocate and the nodeword.
+#' @param a_exp expected frequency co-occurrence of the collocate and the nodeword.
 #'
 #' @return A double-numeric value of MI score
 #' @export
@@ -80,12 +64,13 @@ collex_MI <- function(df) {
 #' # the numbers below are made-up examples
 #' # for the collocate pattern "tindak pidana" 'legal act'
 #' a <- 702
-#' b <- 1183
-#' c <- 1251
-#' d <- 5763049
-#' (MI_score <- MI_compute(a, b, c, d))
-MI_compute <- function(a, b, c, d) {
+#' total_freq_w1 <- 1183
+#' total_freq_w2 <- 1251
+#' corpus_size <- 5763049
+#' a_exp <- (total_freq_w1 * total_freq_w2)/corpus_size
+#' (MI_score <- MI_compute(a, a_exp))
+MI_compute <- function(a, a_exp) {
 
-  return(log2((a/d) / ((b/d) * (c/d))))
+  return(log2((a/a_exp)))
 
 }
