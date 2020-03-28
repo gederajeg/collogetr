@@ -44,7 +44,7 @@ collex_logOR <- function(df, collstr_digit = 3) {
                           !!dplyr::quo_name(dP_collex_cue_cxn) := round(((!!a/(!!a + !!c)) - (!!b/(!!b + !!d))), digits = collstr_digit),
                           !!dplyr::quo_name(dP_cxn_cue_collex) := round(((!!a/(!!a + !!b)) - (!!c/(!!c + !!d))), digits = collstr_digit))
 
-  df_out <- df_out[, c(2, 1, 3, 10, 11, 12:14)]
+  df_out <- df_out[, -grep("^((b|c|d)(_exp)?|n_w_in_corp|corpus_size|n_pattern)$", colnames(df_out), perl = TRUE)]
   df_out <- dplyr::arrange(df_out, dplyr::desc(!!a))
   return(df_out)
 
