@@ -82,6 +82,6 @@ collex_llr <- function(df = NULL, collstr_digit = 3) {
                                                                round(-llr, collstr_digit)))
 
   df <- df[, -grep("^((b|c|d)(_exp)?|n_w_in_corp|corpus_size|n_pattern)$", colnames(df), perl = TRUE)]
-  df <- dplyr::select(df, .data$w, .data$node, .data$a, .data$a_exp, .data$assoc, .data$llr, .data$dP_collex_cue_cxn, .data$dP_cxn_cue_collex, dplyr::everything())
+  # df <- dplyr::select(df, .data$w, .data$node, .data$a, .data$a_exp, .data$assoc, .data$llr, .data$dP_collex_cue_cxn, .data$dP_cxn_cue_collex, dplyr::everything())
   return(df)
 }
