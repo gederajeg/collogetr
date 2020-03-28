@@ -4,7 +4,7 @@
 \alias{chisq_compute}
 \title{Chi-square contribution}
 \usage{
-chisq_compute(df, collstr_digit = NULL)
+chisq_compute(df, collstr_digit)
 }
 \arguments{
 \item{df}{The output of \code{\link{assoc_prepare}}.}

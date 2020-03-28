@@ -53,13 +53,9 @@ collex_chisq <- function(df, collstr_digit = 3) {
 #' @param collstr_digit The floating digits of the collostruction strength. It is passed on from \code{\link{collex_chisq}} and the default is \code{3}.
 #'
 #' @return A double vector of collostruction strength based on chi-square contribution
-chisq_compute <- function(df, collstr_digit = NULL) {
+chisq_compute <- function(df, collstr_digit) {
 
   # compute chi-square contribution of cell `a` that contains co-occurrence frequency between the node and the collocates
   chisq_a <- ((df$a - df$a_exp) ^ 2)/df$a_exp
-  if (purrr::is_null(collstr_digit)) {
-    return(chisq_a)
-  } else {
-    return(round(chisq_a, collstr_digit))
-  }
+  return(round(chisq_a, digits = collstr_digit))
 }

@@ -18,5 +18,5 @@ test_that("collex_chisq produces tibble", {
 # })
 
 test_that("chi-square contribution is of the type 'double'", {
-  expect_type(am_chisq$chisq, "double")
+  expect_type(collex_chisq(assoc_tb)$chisq, "double")
 })
