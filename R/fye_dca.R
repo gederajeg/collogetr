@@ -16,20 +16,22 @@
 #'
 #' }
 collex_fye_dca <- function(df = NULL, collstr_digit = 3) {
+
+  a <- dplyr::quo(a)
+  a_exp <- dplyr::quo(a_exp)
+  b <- dplyr::quo(b)
+  c <- dplyr::quo(c)
+  d <- dplyr::quo(d)
   p_fye <- dplyr::quo(p_fye)
-  w <- dplyr::quo(w)
+  collstr <- dplyr::quo(collstr)
+  dist_for <- dplyr::quo(dist_for)
   columns <- colnames(df)[2:3]
   colnames(df)[2:3] <- c("a", "b")
-  df <- tidyr::nest(dplyr::group_by(df, !!w),
-                    data = -!!w)
 
   df <- dplyr::mutate(df,
-                      !!dplyr::quo_name(p_fye) := purrr::map_dbl(data, fye_compute))
-  df <- tidyr::unnest(df, .data$data)
-  df$dist_for <- dplyr::if_else(df$a > df$a_exp, columns[1], columns[2])
-  df$collstr <- dplyr::if_else(df$a > df$a_exp,
-                               round(-log10(df$p_fye), collstr_digit),
-                               round(-log10(df$p_fye), collstr_digit))
+                      !!dplyr::quo_name(p_fye) := fye_compute(!!a, !!a_exp, !!b, !!c, !!d),
+                      !!dplyr::quo_name(dist_for) := dplyr::if_else(!!a > !!a_exp, columns[1], columns[2]),
+                      !!dplyr::quo_name(collstr) := -log10(!!p_fye))
   df <- dplyr::select(df, .data$w, .data$a, .data$b, .data$p_fye, .data$collstr, .data$dist_for)
   colnames(df)[2:3] <- columns
   df <- dplyr::arrange(df, .data$dist_for, desc(.data$collstr))

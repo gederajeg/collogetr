@@ -4,10 +4,18 @@
 \alias{fye_compute}
 \title{Fisher's Exact Test}
 \usage{
-fye_compute(df)
+fye_compute(a, a_exp, b, c, d)
 }
 \arguments{
-\item{df}{The output of \code{\link{assoc_prepare}}.}
+\item{a}{observed co-occurrence frequency of a given collocate and the nodeword.}
+
+\item{a_exp}{expected co-occurrence frequency of the collocate and the nodeword.}
+
+\item{b}{co-occurrence frequency of the collocate with other words in the corpus.}
+
+\item{c}{co-occurrence frequency of the nodeword with other words in the corpus.}
+
+\item{d}{co-occurrence frequency of other words in the corpus.}
 }
 \value{
 Numeric vectors of p-values
