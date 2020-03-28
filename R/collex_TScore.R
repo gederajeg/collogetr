@@ -2,6 +2,7 @@
 #'
 #' @description The function to compute collocation association measure with T-Score.
 #' @param df The output of \code{\link{assoc_prepare}}.
+#' @param collstr_digit The numeric vector for floating digits of the collostruction strength. The default is \code{3}.
 #'
 #' @return A tibble consisting of the collocates (column \code{w}),
 #'     co-occurrence frequencies with the node (column \code{a}),
@@ -22,39 +23,24 @@
 #'
 #' collex_TScore(assoc_tb)
 #'
-collex_TScore <- function(df) {
+collex_TScore <- function(df, collstr_digit = 3) {
 
   tscore <- dplyr::quo(tscore)
+  a_exp <- dplyr::quo(a_exp)
   a <- dplyr::quo(a)
   b <- dplyr::quo(b)
   c <- dplyr::quo(c)
   d <- dplyr::quo(d)
-  n_w_in_corp <- dplyr::quo(n_w_in_corp)
-  n_pattern <- dplyr::quo(n_pattern)
-  corpus_size <- dplyr::quo(corpus_size)
   dP_collex_cue_cxn <- dplyr::quo(dP_collex_cue_cxn)
   dP_cxn_cue_collex <- dplyr::quo(dP_cxn_cue_collex)
 
   df_out <- tidyr::unnest(df, .data$data)
   df_out <- dplyr::mutate(df_out,
-                          !!dplyr::quo_name(tscore) := purrr::pmap_dbl(list(!!a,
-                                                                        !!n_w_in_corp,
-                                                                        !!n_pattern,
-                                                                        !!corpus_size),
-                                                                   Tscore_compute),
-                          !!dplyr::quo_name(dP_collex_cue_cxn) := purrr::pmap_dbl(list(!!a,
-                                                                                       !!b,
-                                                                                       !!c,
-                                                                                       !!d),
-                                                                                  function(a, b, c, d) (a/(a + c)) - (b/(b + d))),
-                          !!dplyr::quo_name(dP_cxn_cue_collex) := purrr::pmap_dbl(list(!!a,
-                                                                                       !!b,
-                                                                                       !!c,
-                                                                                       !!d),
-                                                                                  function(a, b, c, d) (a/(a + b)) - (c/(c + d)))
-  )
+                          !!dplyr::quo_name(tscore) :=  round(Tscore_compute(!!a, !!a_exp), digits = collstr_digit),
+                          !!dplyr::quo_name(dP_collex_cue_cxn) := round(((!!a/(!!a + !!c)) - (!!b/(!!b + !!d))), digits = collstr_digit),
+                          !!dplyr::quo_name(dP_cxn_cue_collex) := round(((!!a/(!!a + !!b)) - (!!c/(!!c + !!d))), digits = collstr_digit))
 
-  df_out <- df_out[, c(2, 1, 3, 10, 11, 12:14)]
+  df_out <- df_out[, -grep("^((b|c|d)|n_w_in_corp|corpus_size|n_pattern)$", colnames(df_out), perl = TRUE)]
   df_out <- dplyr::arrange(df_out, dplyr::desc(!!a))
   return(df_out)
 
@@ -66,9 +52,7 @@ collex_TScore <- function(df) {
 #' @description An internal function called by \code{\link{collex_TScore}} to compute T-Score values
 #'
 #' @param a frequency co-occurrence of a collocate and the nodeword.
-#' @param b overall frequency of the collocate in the corpus
-#' @param c overall frequency of the nodeword in the corpus
-#' @param d total size of the corpus
+#' @param a_exp expected frequency co-occurrence of the collocate and the nodeword.
 #'
 #' @return A double-numeric value of T-Score
 #' @export
@@ -77,12 +61,13 @@ collex_TScore <- function(df) {
 #' # the numbers below are made-up examples
 #' # for the collocate pattern "tindak pidana" 'legal act'
 #' a <- 702
-#' b <- 1183
-#' c <- 1251
-#' d <- 5763049
-#' (tscore <- Tscore_compute(a, b, c, d))
-Tscore_compute <- function(a, b, c, d) {
+#' total_freq_w1 <- 1183
+#' total_freq_w2 <- 1251
+#' corpus_size <- 5763049
+#' a_exp <- (total_freq_w1 * total_freq_w2)/corpus_size
+#' (tscore <- Tscore_compute(a, a_exp))
+Tscore_compute <- function(a, a_exp) {
 
-  return((a - ((b * c)/d))/sqrt(a))
+  return((a - a_exp)/sqrt(a))
 
 }

@@ -4,16 +4,12 @@
 \alias{Tscore_compute}
 \title{Compute T-Score}
 \usage{
-Tscore_compute(a, b, c, d)
+Tscore_compute(a, a_exp)
 }
 \arguments{
 \item{a}{frequency co-occurrence of a collocate and the nodeword.}
 
-\item{b}{overall frequency of the collocate in the corpus}
-
-\item{c}{overall frequency of the nodeword in the corpus}
-
-\item{d}{total size of the corpus}
+\item{a_exp}{expected frequency co-occurrence of the collocate and the nodeword.}
 }
 \value{
 A double-numeric value of T-Score
@@ -25,8 +21,9 @@ An internal function called by \code{\link{collex_TScore}} to compute T-Score va
 # the numbers below are made-up examples
 # for the collocate pattern "tindak pidana" 'legal act'
 a <- 702
-b <- 1183
-c <- 1251
-d <- 5763049
-(tscore <- Tscore_compute(a, b, c, d))
+total_freq_w1 <- 1183
+total_freq_w2 <- 1251
+corpus_size <- 5763049
+a_exp <- (total_freq_w1 * total_freq_w2)/corpus_size
+(tscore <- Tscore_compute(a, a_exp))
 }
