@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fisher's Exact Test — fye_compute • collogetr</title>
+<title>Compute Log10 Odds Ratio — logOR_compute • collogetr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,11 +36,9 @@
 
 
 
-<meta property="og:title" content="Fisher's Exact Test — fye_compute" />
+<meta property="og:title" content="Compute Log10 Odds Ratio — logOR_compute" />
 
-<meta property="og:description" content="Perform one-tailed Fisher's Exact test for the collostruction/collocation strength.
-    The p-value is log-transformed to the base of ten as in the Collostructional Analysis.
-    This is an internal function called via collex_fye." />
+<meta property="og:description" content="internal function called by collex_logOR to compute Log10 Odds Ratio (Gries 2014)." />
 
 
 
@@ -110,51 +108,76 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fisher's Exact Test</h1>
-    <small class="dont-index">Source: <a href='https://github.com/gederajeg/collogetr/blob/master/R/fye.R'><code>R/fye.R</code></a></small>
-    <div class="hidden name"><code>fye_compute.Rd</code></div>
+    <h1>Compute Log10 Odds Ratio</h1>
+    <small class="dont-index">Source: <a href='https://github.com/gederajeg/collogetr/blob/master/R/collex_logOR.R'><code>R/collex_logOR.R</code></a></small>
+    <div class="hidden name"><code>logOR_compute.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Perform one-tailed Fisher's Exact test for the collostruction/collocation strength.
-    The <em>p</em>-value is log-transformed to the base of ten as in the <em>Collostructional Analysis</em>.
-    This is an internal function called via <code><a href='collex_fye.html'>collex_fye</a></code>.</p>
+    <p>internal function called by <code><a href='collex_logOR.html'>collex_logOR</a></code> to compute Log10 Odds Ratio (Gries 2014).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>fye_compute</span>(<span class='no'>a</span>, <span class='no'>a_exp</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>)</pre>
+    <pre class="usage"><span class='fu'>logOR_compute</span>(<span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>a</th>
-      <td><p>observed co-occurrence frequency of a given collocate and the nodeword.</p></td>
-    </tr>
-    <tr>
-      <th>a_exp</th>
-      <td><p>expected co-occurrence frequency of the collocate and the nodeword.</p></td>
+      <td><p>co-occurrence frequency between a given collocate and the nodeword.</p></td>
     </tr>
     <tr>
       <th>b</th>
-      <td><p>co-occurrence frequency of the collocate with other words in the corpus.</p></td>
+      <td><p>co-occurrence frequency between the collocate and other words.</p></td>
     </tr>
     <tr>
       <th>c</th>
-      <td><p>co-occurrence frequency of the nodeword with other words in the corpus.</p></td>
+      <td><p>co-occurrence frequency between the nodeword and the other words.</p></td>
     </tr>
     <tr>
       <th>d</th>
-      <td><p>co-occurrence frequency of other words in the corpus.</p></td>
+      <td><p>co-occurrence frequency between all other words.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Numeric vectors of p-values</p>
+    <p>A double-numeric value of Log10 Odds Ratio score</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    
+<ul>
+<li><p>Rajeg, Gede Primahadi Wijaya &amp; I Made Rajeg. 2019. Analisis Koleksem Khas dan potensinya untuk kajian kemiripan makna konstruksional dalam Bahasa Indonesia. In I Nengah Sudipa (ed.), <em>ETIKA BAHASA Buku persembahan menapaki usia pensiun: I Ketut Tika</em>, vol. 1, 65–83. Denpasar, Bali, Indonesia: Swasta Nulus. <a href='https://doi.org10.26180/5bf4e49ea1582'>https://doi.org10.26180/5bf4e49ea1582</a>. <a href='https://osf.io/preprints/inarxiv/uwzts/'>https://osf.io/preprints/inarxiv/uwzts/</a> (30 January, 2019).</p></li>
+<li><p>Gries, S. T. (2014). Coll.analysis 3.5. A script for R to compute perform collostructional analyses. <a href='http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html'>http://www.linguistics.ucsb.edu/faculty/stgries/teaching/groningen/index.html</a>.</p></li>
+</ul>
+
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Data from Table 2 in Rajeg and Rajeg (2019:71)</span>
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fl'>9</span>
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fl'>408</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fl'>305</span>
+
+<span class='fu'>logOR_compute</span>(<span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>)</div><div class='output co'>#&gt; [1] 0.6754515</div><div class='input'>
+<span class='co'># the above data produces positive log OR</span>
+<span class='co'># Observed freq. for cell "a" is larger than the Expected freq.</span>
+
+<span class='co'># Data from Table 3 in Rajeg and Rajeg (2019:74)</span>
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>6</span>
+<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fl'>416</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fl'>300</span>
+
+<span class='fu'>logOR_compute</span>(<span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>)</div><div class='output co'>#&gt; [1] -0.7785926</div><div class='input'>
+# the above data produces negative log OR
+# Expected freq. for cell "a" is larger than the Observed freq.
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

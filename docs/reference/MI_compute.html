@@ -119,26 +119,18 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>MI_compute</span>(<span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>)</pre>
+    <pre class="usage"><span class='fu'>MI_compute</span>(<span class='no'>a</span>, <span class='no'>a_exp</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>a</th>
-      <td><p>frequency co-occurrence of a collocate and the nodeword.</p></td>
+      <td><p>observed frequency co-occurrence of a collocate and the nodeword.</p></td>
     </tr>
     <tr>
-      <th>b</th>
-      <td><p>overall frequency of the collocate in the corpus</p></td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td><p>overall frequency of the nodeword in the corpus</p></td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td><p>total size of the corpus</p></td>
+      <th>a_exp</th>
+      <td><p>expected frequency co-occurrence of the collocate and the nodeword.</p></td>
     </tr>
     </table>
     
@@ -151,10 +143,11 @@
     <pre class="examples"><div class='input'><span class='co'># the numbers below are made-up examples</span>
 <span class='co'># for the collocate pattern "tindak pidana" 'legal act'</span>
 <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fl'>702</span>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>1183</span>
-<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='fl'>1251</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fl'>5763049</span>
-(<span class='no'>MI_score</span> <span class='kw'>&lt;-</span> <span class='fu'>MI_compute</span>(<span class='no'>a</span>, <span class='no'>b</span>, <span class='no'>c</span>, <span class='no'>d</span>))</div><div class='output co'>#&gt; [1] 11.41663</div></pre>
+<span class='no'>total_freq_w1</span> <span class='kw'>&lt;-</span> <span class='fl'>1183</span>
+<span class='no'>total_freq_w2</span> <span class='kw'>&lt;-</span> <span class='fl'>1251</span>
+<span class='no'>corpus_size</span> <span class='kw'>&lt;-</span> <span class='fl'>5763049</span>
+<span class='no'>a_exp</span> <span class='kw'>&lt;-</span> (<span class='no'>total_freq_w1</span> * <span class='no'>total_freq_w2</span>)/<span class='no'>corpus_size</span>
+(<span class='no'>MI_score</span> <span class='kw'>&lt;-</span> <span class='fu'>MI_compute</span>(<span class='no'>a</span>, <span class='no'>a_exp</span>))</div><div class='output co'>#&gt; [1] 11.41663</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

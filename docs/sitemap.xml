@@ -37,6 +37,9 @@
     <loc>https://gederajeg.github.io/collogetr//reference/collex_llr.html</loc>
   </url>
   <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/collex_logOR.html</loc>
+  </url>
+  <url>
     <loc>https://gederajeg.github.io/collogetr//reference/colloc_leipzig.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://gederajeg.github.io/collogetr//reference/leipzig_corpus_path.html</loc>
+  </url>
+  <url>
+    <loc>https://gederajeg.github.io/collogetr//reference/logOR_compute.html</loc>
   </url>
   <url>
     <loc>https://gederajeg.github.io/collogetr//reference/stopwords.html</loc>
