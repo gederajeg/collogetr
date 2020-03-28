@@ -16,7 +16,7 @@ A tibble consisting of the collocates (column \code{w}),
     co-occurrence frequencies with the node (column \code{a}),
     the expected co-occurrence frequencies with the node (column \code{a_exp}),
     the direction of the association (e.g., \emph{attraction} or \emph{repulsion}) (column \code{assoc}),
-    and the chi-square-based collostruction strength (column \code{chisq}).
+    the chi-square-based collostruction strength (column \code{chisq}), and two uni-directional association measures of \emph{Delta P}.
 }
 \description{
 Compute collostructional strength based on the chi-square contribution.

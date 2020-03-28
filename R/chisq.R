@@ -9,7 +9,7 @@
 #'     co-occurrence frequencies with the node (column \code{a}),
 #'     the expected co-occurrence frequencies with the node (column \code{a_exp}),
 #'     the direction of the association (e.g., \emph{attraction} or \emph{repulsion}) (column \code{assoc}),
-#'     and the chi-square-based collostruction strength (column \code{chisq}).
+#'     the chi-square-based collostruction strength (column \code{chisq}), and two uni-directional association measures of \emph{Delta P}.
 #' @export
 #' @examples
 #' out <- colloc_leipzig(leipzig_corpus_list = demo_corpus_leipzig,
@@ -32,10 +32,16 @@
 #'
 collex_chisq <- function(df, collstr_digit = 3) {
   chisq <- dplyr::quo(chisq)
-  df <- dplyr::mutate(dplyr::ungroup(df), !!dplyr::quo_name(chisq) := purrr::map_dbl(data, chisq_compute, collstr_digit = collstr_digit))
+  dP_collex_cue_cxn <- dplyr::quo(dP_collex_cue_cxn)
+  dP_cxn_cue_collex <- dplyr::quo(dP_cxn_cue_collex)
+  df <- dplyr::mutate(df,
+                      !!dplyr::quo_name(chisq) := purrr::map_dbl(data, chisq_compute, collstr_digit = collstr_digit),
+                      !!dplyr::quo_name(dP_collex_cue_cxn) := purrr::map_dbl(data, dP_cue_cxn, collstr_digit = collstr_digit),
+                      !!dplyr::quo_name(dP_cxn_cue_collex) := purrr::map_dbl(data, dP_cue_collex, collstr_digit = collstr_digit))
   df_out <- dplyr::arrange(df, dplyr::desc(chisq))
   df_out <- tidyr::unnest(df_out, .data$data)
-  df_out <- dplyr::select(df_out, .data$w, .data$a, .data$a_exp, .data$assoc, .data$chisq)
+  df_out <- df_out[, -grep("^((b|c|d)(_exp)?|n_w_in_corp|corpus_size|n_pattern)$", colnames(df_out), perl = TRUE)]
+  # df_out <- dplyr::select(df_out, .data$w, .data$a, .data$a_exp, .data$assoc, .data$chisq, .data$dP_collex_cue_cxn, .data$dP_cxn_cue_collex)
   return(df_out)
 }
 
