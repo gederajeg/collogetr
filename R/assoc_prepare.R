@@ -80,10 +80,10 @@ assoc_prepare <- function(colloc_out = NULL,
     search_pattern <- colloc_out$pattern
   } else {
     message("Your colloc_leipzig output comes from saved files on computer!\n")
-    freqlist_df <- readr::read_tsv(file = colloc_out[1])
-    colloc_df <- readr::read_tsv(file = colloc_out[2])
-    corpussize_df <- readr::read_tsv(file = colloc_out[3])
-    search_pattern <- readr::read_lines(file = colloc_out[4])
+    freqlist_df <- readr::read_tsv(file = readr::read_lines(colloc_out[1]))
+    colloc_df <- readr::read_tsv(file = readr::read_lines(colloc_out[2]))
+    corpussize_df <- readr::read_tsv(file = readr::read_lines(colloc_out[3]))
+    search_pattern <- readr::read_lines(file = readr::read_lines(colloc_out[4]))
   }
 
   # prepare quoted variable
